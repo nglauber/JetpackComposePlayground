@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">Jetpack Compose Playground</string>
+
+    <string name="msg_fav_delete_title">Delete</string>
+    <string name="msg_fav_delete_message">Do you want to remove \'%s\' from the favorites?</string>
+    <string name="msg_fav_delete_confirm">Yep!</string>
+    <string name="msg_fav_delete_cancel">Nope!</string>
+
+    <string name="book_info_year_pages">Year: %1$d - Pages: %2$d</string>
+    <string name="msg_book_list_empty">The book\'s list is empty!</string>
+
+    <string name="tab_books">Books</string>
+    <string name="tab_favorites">Favorites</string>
+    <string name="msg_loading">Loading books…</string>
+
+    <string name="msg_added_favorites">\'%s\' added to favorites!</string>
+
+    <string name="show_toast">Toast</string>
+</resources>

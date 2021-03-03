@@ -52,7 +52,7 @@ fun BoxScreen() {
             modifier = Modifier
                 .padding(end = 16.dp)
                 .align(Alignment.TopEnd)
-                .preferredSize(100.dp),
+                .size(100.dp),
             contentScale = ContentScale.Fit,
             colorFilter = ColorFilter.tint(Color.Cyan)
         )

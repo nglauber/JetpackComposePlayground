@@ -55,7 +55,7 @@ fun BooksScreenContent(
 
     Scaffold(
         topBar = { TopAppBar(title = { Text("Books") }) },
-        bodyContent = {
+        content = {
             if (listBookResult == null || listBookResult?.loading == true) {
                 Loading(resources)
             } else {
@@ -233,7 +233,7 @@ fun BookItemContent(
         CoilImage(
             data = book.coverUrl,
             contentDescription = "",
-            modifier = Modifier.preferredSize(96.dp, 144.dp)
+            modifier = Modifier.size(96.dp, 144.dp)
         )
         Column(
             modifier = Modifier

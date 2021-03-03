@@ -1,12 +1,11 @@
 package br.com.nglauber.jetpackcomposeplayground.screens
 
-import androidx.compose.animation.animatedFloat
 import androidx.compose.animation.core.*
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.preferredSize
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
@@ -31,7 +30,7 @@ fun CanvasScreen() {
 @Composable
 fun CanvasSample() {
     Canvas(modifier = Modifier
-        .preferredSize(300.dp)
+        .size(300.dp)
         .background(Color.Gray)) {
         drawCircle(
             color = Color.Red,
@@ -61,7 +60,7 @@ fun MovingSquare() {
             )
         )
     }
-    Canvas(modifier = Modifier.preferredSize(100.dp), onDraw = {
+    Canvas(modifier = Modifier.size(100.dp), onDraw = {
         withTransform({
             translate(left = animPosX.value)
         }) {

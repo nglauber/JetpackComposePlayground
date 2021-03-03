@@ -8,13 +8,13 @@ import androidx.compose.runtime.*
 fun EmphasisScreen() {
     Column {
         Text("No alpha applied - 100% opacity")
-        Providers(LocalContentAlpha provides ContentAlpha.high) {
+        CompositionLocalProvider(LocalContentAlpha provides ContentAlpha.high) {
             Text("High content alpha applied - 87% opacity")
         }
-        Providers(LocalContentAlpha provides ContentAlpha.medium) {
+        CompositionLocalProvider(LocalContentAlpha provides ContentAlpha.medium) {
             Text("Medium content alpha applied - 60% opacity")
         }
-        Providers(LocalContentAlpha provides ContentAlpha.disabled) {
+        CompositionLocalProvider(LocalContentAlpha provides ContentAlpha.disabled) {
             Text("Disabled content alpha applied - 38% opacity")
         }
     }

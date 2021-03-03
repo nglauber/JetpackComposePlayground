@@ -4,7 +4,6 @@ import android.content.Context
 import android.media.AudioManager
 import android.util.Log
 import android.view.SoundEffectConstants
-import android.view.View
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -16,8 +15,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.TransformOrigin
 import androidx.compose.ui.graphics.graphicsLayer
-import androidx.compose.ui.platform.AmbientContext
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.SpanStyle
@@ -61,18 +60,23 @@ fun Form2Screen() {
                     })
                     .padding(16.dp)
             )
-            Text(
-                "Element 1",
-                style = TextStyle(textAlign = TextAlign.Center),
+            Box(
                 modifier = Modifier
-                    .background(color = Color.Red)
-                    .padding(16.dp)
-                    .size(20.dp, 100.dp)
                     .graphicsLayer(
-                        rotationZ = -90f
+                        rotationZ = -90f,
+                        translationX = 0f
                     )
-                    .size(100.dp, 20.dp)
-            )
+                    .padding(vertical = 32.dp)
+            ) {
+                Text(
+                    "Element 1",
+                    style = TextStyle(textAlign = TextAlign.Center),
+                    modifier = Modifier
+                        .background(color = Color.Red)
+                        .align(Alignment.Center)
+                        .padding(8.dp)
+                )
+            }
             TextSample()
             Switch(checked = enabled, onCheckedChange = { enabled = it })
             TextField(
@@ -100,8 +104,9 @@ fun Form2Screen() {
                 OutlinedButton(
                     content = { Text("OutlinedButton") },
                     onClick = {
-                        val audioManager = context.getSystemService(Context.AUDIO_SERVICE) as AudioManager
-                        audioManager.playSoundEffect(SoundEffectConstants.CLICK,1.0f)
+                        val audioManager =
+                            context.getSystemService(Context.AUDIO_SERVICE) as AudioManager
+                        audioManager.playSoundEffect(SoundEffectConstants.CLICK, 1.0f)
                     }
                 )
                 TextButton(

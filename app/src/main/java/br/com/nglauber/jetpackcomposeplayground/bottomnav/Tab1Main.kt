@@ -33,13 +33,13 @@ fun Tab1MainScreen(navController: NavHostController) {
         Text(text = "Tab 1")
         TextField(
             value = emailText,
-            onValueChange = {
-                emailText = it
-                showError = !isValidEmail(it)
+            onValueChange = { text ->
+                emailText = text
+                showError = !isValidEmail(text)
             },
-            isErrorValue = showError,
+            isError = showError,
             label = { Text(text = "Email") },
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier.fillMaxWidth(),
         )
         if (showError) {
             Text("Email is invalid")

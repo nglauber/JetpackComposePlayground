@@ -7,11 +7,12 @@ import android.graphics.Paint
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
-import androidx.compose.foundation.gestures.zoomable
+import androidx.compose.foundation.gestures.TransformableState
+import androidx.compose.foundation.gestures.transformable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.preferredSize
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.*
@@ -21,10 +22,11 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.*
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.input.pointer.pointerInput
+import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.imageResource
 import androidx.compose.ui.unit.dp
 import androidx.core.content.ContextCompat
 import androidx.core.graphics.drawable.toBitmap
@@ -37,18 +39,18 @@ fun ImageScreen() {
         GrayscaleImage()
         GrayscaleDrawable()
         ZoomableImage()
-        //ZoomAndTranslateImage()
+//        ZoomAndTranslateImage()
     }
 }
 
 @Composable
 fun RoundedImage() {
     Image(
-        bitmap = imageFromResource(LocalContext.current.resources, R.drawable.dog),
+        bitmap = ImageBitmap.imageResource(R.drawable.dog),
         contentDescription = "avatar",
         contentScale = ContentScale.Crop,
         modifier = Modifier
-            .preferredSize(128.dp)
+            .size(128.dp)
             .clip(CircleShape)
             .border(2.dp, Color.Gray, CircleShape)
     )
@@ -56,20 +58,19 @@ fun RoundedImage() {
 
 @Composable
 fun GrayscaleImage() {
-    val context = LocalContext.current.resources
-    val image = remember {
-        val source = imageFromResource(context, R.drawable.dog)
-        toGrayscale(
-            source.asAndroidBitmap()
-        ).asImageBitmap()
-    }
     Image(
-        bitmap = image,
+        bitmap = ImageBitmap
+            .imageResource(R.drawable.dog),
         contentDescription = null,
         contentScale = ContentScale.Crop,
         modifier = Modifier
-            .preferredSize(128.dp)
-            .clip(RoundedCornerShape(8.dp))
+            .size(128.dp)
+            .clip(RoundedCornerShape(8.dp)),
+        colorFilter = ColorFilter.colorMatrix(
+            androidx.compose.ui.graphics.ColorMatrix().apply {
+                setToSaturation(0f)
+            }
+        )
     )
 }
 
@@ -102,20 +103,25 @@ fun toGrayscale(bmpOriginal: Bitmap): Bitmap {
 @Composable
 fun ZoomableImage() {
     val scale = remember { mutableStateOf(1f) }
+    val rotation = remember { mutableStateOf(1f) }
     Box(
         modifier = Modifier
             .clip(RectangleShape) // Clip the box content
             .fillMaxSize() // Give the size you want...
             .background(Color.Gray)
-            .zoomable(onZoomDelta = { scale.value *= it })
+            .transformable(state = TransformableState { zoomChange, panChange, rotationChange ->
+                scale.value *= zoomChange
+                rotation.value += rotationChange
+            })
     ) {
         Image(
             modifier = Modifier
                 .align(Alignment.Center) // keep the image centralized into the Box
                 .graphicsLayer(
                     // adding some zoom limits (min 50%, max 200%)
-                    scaleX = maxOf(.5f, minOf(2f, scale.value)),
-                    scaleY = maxOf(.5f, minOf(2f, scale.value))
+                    scaleX = maxOf(.5f, minOf(3f, scale.value)),
+                    scaleY = maxOf(.5f, minOf(3f, scale.value)),
+                    rotationZ = rotation.value
                 ),
             contentDescription = null,
             painter = painterResource(R.drawable.dog)
@@ -130,25 +136,23 @@ fun ZoomAndTranslateImage() {
 
     Box(
         modifier = Modifier
-            .zoomable(onZoomDelta = { scale *= it })
-            .pointerInput("a") {
-                awaitPointerEventScope {
-                    currentEvent.changes.getOrNull(0)?.let {
-                        translate = translate.plus(it.position)
-                    }
-                }
-            }
+            .transformable(state = TransformableState { zoomChange, panChange, rotationChange ->
+                scale *= zoomChange
+                translate += panChange
+            })
     ) {
         Image(
             painter = painterResource(R.drawable.recife),
             contentDescription = "",
-            modifier = Modifier.fillMaxSize()                .graphicsLayer(
-                // adding some zoom limits (min 50%, max 200%)
-                scaleX = maxOf(.5f, minOf(2f, scale)),
-                scaleY = maxOf(.5f, minOf(2f, scale)),
-                translationX = translate.x,
-                translationY = translate.y
-            ),
+            modifier = Modifier
+                .fillMaxSize()
+                .graphicsLayer(
+                    // adding some zoom limits (min 50%, max 200%)
+                    scaleX = maxOf(.5f, minOf(2f, scale)),
+                    scaleY = maxOf(.5f, minOf(2f, scale)),
+                    translationX = translate.x,
+                    translationY = translate.y
+                ),
         )
     }
 }

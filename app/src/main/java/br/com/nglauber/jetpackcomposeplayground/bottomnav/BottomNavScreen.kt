@@ -39,7 +39,7 @@ fun BottomNavScreen() {
             }
         }
     ) {
-        Providers(localBackToFirstTab provides {
+        CompositionLocalProvider(localBackToFirstTab provides {
             currentTab = TabItem.ListInfo.route
         }) {
             TabContent(currentTab)

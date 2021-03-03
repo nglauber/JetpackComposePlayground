@@ -57,7 +57,7 @@ internal fun BackButtonHandler(
         }
         context = context.baseContext
     }
-    Providers(
+    CompositionLocalProvider(
         LocalBackPressedDispatcher provides context as ComponentActivity
     ) {
         handler {

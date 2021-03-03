@@ -62,7 +62,7 @@ fun ScoreScreen() {
 fun ScoreScreen(homeScore: Score, visitorScore: Score) {
     Scaffold(
         topBar = { TopAppBar(title = { Text("Score") }) },
-        bodyContent = {
+        content = {
             Column(
                 modifier = Modifier.fillMaxSize(),
                 verticalArrangement = Arrangement.Center,

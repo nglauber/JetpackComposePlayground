@@ -2,13 +2,13 @@ package br.com.nglauber.jetpackcomposeplayground.screens
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.util.Log
 import android.view.LayoutInflater
 import android.widget.Button
 import android.widget.CalendarView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.compose.foundation.*
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.selection.selectable
 import androidx.compose.foundation.shape.CircleShape
@@ -86,7 +86,9 @@ fun FormScreen() {
                 currentOption = currentOption,
                 onChange = { currentOption = it })
         }
-        Text(date.toString())
+        if (date != null) {
+            Text(date.toString())
+        }
         MyCalendar(date) { date = it }
     }
 }
@@ -114,7 +116,7 @@ fun RadioOptions(
 @Composable
 fun MyCalendar(current: Date?, onDateUpdate: (Date) -> Unit) {
     AndroidView(
-        viewBlock = { context: Context ->
+        factory = { context: Context ->
             val view =
                 LayoutInflater.from(context).inflate(R.layout.layout_calendar, null, false)
 
@@ -156,7 +158,7 @@ fun SegmentedControl() {
                 )
                 .selectable(
                     selected = isSelected,
-                    interactionState = remember { InteractionState() },
+                    interactionSource = remember { MutableInteractionSource() },
                     indication = rememberRipple(bounded = true, radius = 24.dp),
                     onClick = { toggleIndex = index },
                 )

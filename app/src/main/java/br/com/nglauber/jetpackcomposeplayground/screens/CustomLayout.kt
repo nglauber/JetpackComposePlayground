@@ -25,7 +25,7 @@ fun StaggeredGrid(
 ) {
     Layout(
         content = { children() },
-        measureBlock = { measurables, constraints ->
+        measurePolicy = { measurables, constraints ->
             // measure and position children given constraints logic here
 
             // Keep track of the width of each row
@@ -96,10 +96,10 @@ fun Chip(modifier: Modifier = Modifier, text: String) {
         ) {
             Box(
                 modifier = Modifier
-                    .preferredSize(16.dp, 16.dp)
+                    .size(16.dp, 16.dp)
                     .background(color = MaterialTheme.colors.secondary)
             )
-            Spacer(Modifier.preferredWidth(4.dp))
+            Spacer(Modifier.width(4.dp))
             Text(text = text)
         }
     }

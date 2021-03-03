@@ -157,8 +157,8 @@ fun ScaleAndColorAnimation() {
         modifier = Modifier
             .background(animateColorAsState(color).value)
             .padding(16.dp)
-            .preferredHeight(animateDpAsState(height).value)
-            .preferredWidth(animateDpAsState(width).value),
+            .height(animateDpAsState(height).value)
+            .width(animateDpAsState(width).value),
     ) {
         Text("Scale & Color")
     }
@@ -181,7 +181,7 @@ fun GenderSelectAnimation() {
             contentDescription = null,
             contentScale = ContentScale.Crop,
             modifier = Modifier
-                .preferredSize(animateDpAsState(if (female.value) 100.dp else 250.dp).value)
+                .size(animateDpAsState(if (female.value) 100.dp else 250.dp).value)
                 .border(
                     width = animateDpAsState(if (female.value) 0.dp else 4.dp).value,
                     color = animateColorAsState(if (female.value) Color.Transparent else Color.Red).value
@@ -195,7 +195,7 @@ fun GenderSelectAnimation() {
             contentDescription = null,
             contentScale = ContentScale.Crop,
             modifier = Modifier
-                .preferredSize(animateDpAsState(if (!female.value) 100.dp else 250.dp).value)
+                .size(animateDpAsState(if (!female.value) 100.dp else 250.dp).value)
                 .border(
                     width = animateDpAsState(if (!female.value) 0.dp else 4.dp).value,
                     color = animateColorAsState(if (!female.value) Color.Transparent else Color.Red).value

@@ -1,6 +1,9 @@
 package br.com.nglauber.jetpackcomposeplayground.screens
 
-import androidx.compose.animation.core.*
+import androidx.compose.animation.core.Animatable
+import androidx.compose.animation.core.RepeatMode
+import androidx.compose.animation.core.infiniteRepeatable
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
@@ -12,15 +15,22 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.drawscope.inset
 import androidx.compose.ui.graphics.drawscope.withTransform
+import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.graphics.vector.rememberVectorPainter
+import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.unit.dp
+import br.com.nglauber.jetpackcomposeplayground.R
 
 @Composable
 fun CanvasScreen() {
-    Column(modifier = Modifier
-        .verticalScroll(rememberScrollState())
-        .fillMaxSize()
+    Column(
+        modifier = Modifier
+            .verticalScroll(rememberScrollState())
+            .fillMaxSize()
     ) {
         CanvasSample()
         MovingSquare()
@@ -29,9 +39,14 @@ fun CanvasScreen() {
 
 @Composable
 fun CanvasSample() {
-    Canvas(modifier = Modifier
-        .size(300.dp)
-        .background(Color.Gray)) {
+    val vectorPainter = rememberVectorPainter(
+        ImageVector.vectorResource(R.drawable.ic_android_orange)
+    )
+    Canvas(
+        modifier = Modifier
+            .size(300.dp)
+            .background(Color.Gray)
+    ) {
         drawCircle(
             color = Color.Red,
             radius = 300f
@@ -44,6 +59,14 @@ fun CanvasSample() {
             color = Color.Blue,
             radius = 100f
         )
+        with(vectorPainter) {
+            inset(
+                horizontal = 16.dp.toPx(),
+                vertical = 16.dp.toPx()
+            ) {
+                draw(Size(96.dp.toPx(), 96.dp.toPx()))
+            }
+        }
     }
 }
 

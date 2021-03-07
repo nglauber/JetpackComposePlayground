@@ -32,6 +32,7 @@ fun MainScreen(navController: NavHostController) {
             "Box/Stack/Frame Layout" to ROUTE_BOX,
             "Coroutines" to ROUTE_COROUTINES,
             "Scaffold" to ROUTE_SCAFFOLD,
+            "BackDrop Scaffold" to ROUTE_BACKDROP_SCAFFOLD,
             "Social Networks" to ROUTE_SOCIAL_NETWORKS,
             "Score" to ROUTE_SCORE,
             "Books Http" to ROUTE_BOOKS,

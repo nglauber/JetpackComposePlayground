@@ -38,6 +38,7 @@ class MainActivity : AppCompatActivity() {
                     composable(ROUTE_BOX) { BoxScreen() }
                     composable(ROUTE_COROUTINES) { CoroutinesScreen() }
                     composable(ROUTE_SCAFFOLD) { ScaffoldScreen() }
+                    composable(ROUTE_BACKDROP_SCAFFOLD) { BackdropScaffoldScreen() }
                     composable(ROUTE_SOCIAL_NETWORKS) { SocialNetworkScreen() }
                     composable(ROUTE_SCORE) { ScoreScreen() }
                     composable(ROUTE_BOOKS) { BooksScreen() }

@@ -51,8 +51,4 @@ class MainActivity : AppCompatActivity() {
             }
         }
     }
-
-    companion object {
-        const val PERMISSION_REQUEST_CODE = 120184
-    }
 }

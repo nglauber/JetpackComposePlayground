@@ -21,7 +21,7 @@ import kotlin.math.max
 @Composable
 fun StaggeredGrid(
     rows: Int = 3,
-    children: @Composable() () -> Unit
+    children: @Composable () -> Unit
 ) {
     Layout(
         content = { children() },

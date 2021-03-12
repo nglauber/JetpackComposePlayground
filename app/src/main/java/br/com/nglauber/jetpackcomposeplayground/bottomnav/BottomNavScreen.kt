@@ -18,7 +18,7 @@ val localBackToFirstTab = compositionLocalOf<BackToFirstTab> {
 
 @Composable
 fun BottomNavScreen() {
-    var currentTab by rememberSaveable { mutableStateOf(({ TabItem.ListInfo.route })()) }
+    var currentTab by rememberSaveable { mutableStateOf(TabItem.ListInfo.route) }
     val items = listOf(
         TabItem.ListInfo,
         TabItem.ProfileInfo,
@@ -50,9 +50,9 @@ fun BottomNavScreen() {
 @Composable
 fun TabContent(tabItem: String) {
     val tab1NavState =
-        rememberSaveable { mutableStateOf(({ Bundle() })()) }
+        rememberSaveable { mutableStateOf(Bundle()) }
     val tab2NavState =
-        rememberSaveable { mutableStateOf(({ Bundle() })()) }
+        rememberSaveable { mutableStateOf(Bundle()) }
 
     when (tabItem) {
         TabItem.ListInfo.route -> {

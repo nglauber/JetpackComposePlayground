@@ -20,7 +20,7 @@ object BookHttp {
             val response = client.newCall(request).execute()
             val json = response.body?.string()
             val gson = Gson()
-            val publisher = gson.fromJson<Publisher>(json, Publisher::class.java)
+            val publisher = gson.fromJson(json, Publisher::class.java)
             return publisher.categories
                 .flatMap { category ->
                     category.books.forEach { book ->

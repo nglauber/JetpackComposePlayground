@@ -10,9 +10,11 @@ import androidx.compose.foundation.selection.selectable
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.setValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.Alignment
@@ -43,41 +45,57 @@ fun SocialNetworkScreen() {
     val context = LocalContext.current
     val viewModel: AppViewModel =
         viewModel("AppViewModel", AppViewModelFactory(LocalRepository(context)))
-    SocialNetwork(
-        usersLiveData = viewModel.allUsers,
-        onSaveUser = { user ->
-            viewModel.saveUser(user)
-        },
-        onDeleteUser = { user ->
-            viewModel.deleteUser(user)
-        }
+    val defaultSocialNetwork = socialNetworks.first()
+    var currentUser by mutableStateOf(
+        UserBinding(0, "", true, defaultSocialNetwork)
     )
+    Scaffold(
+        floatingActionButton = {
+            ExtendedFloatingActionButton(
+                text = { Text(text = "Novo") },
+                icon = { Icon(Icons.Default.Add, "Novo usuário")},
+                onClick = {
+                    currentUser = UserBinding(0, "", true, defaultSocialNetwork)
+                }
+            )
+        }
+    ) {
+        SocialNetwork(
+            usersLiveData = viewModel.allUsers,
+            currentUser = currentUser,
+            onSaveUser = { user ->
+                viewModel.saveUser(user)
+                currentUser = UserBinding(0, "", true, defaultSocialNetwork)
+            },
+            onDeleteUser = { user ->
+                viewModel.deleteUser(user)
+            },
+            onUpdateUser = { user ->
+                currentUser =
+                    UserBinding(user.id, user.name, user.isActive, user.socialNetwork)
+            }
+        )
+    }
 }
 
 @Composable
 fun SocialNetwork(
     usersLiveData: LiveData<List<UserBinding>>,
+    currentUser: UserBinding,
     onSaveUser: (UserBinding) -> Unit,
-    onDeleteUser: (UserBinding) -> Unit
+    onDeleteUser: (UserBinding) -> Unit,
+    onUpdateUser: (UserBinding) -> Unit,
 ) {
-    val defaultSocialNetwork = socialNetworks.first()
-    val currentUser = mutableStateOf(
-        UserBinding(0, "", true, defaultSocialNetwork)
-    )
     val users by usersLiveData.observeAsState()
 
     Column(modifier = Modifier.fillMaxSize()) {
-        InputPanel(currentUser.value, onInsertUser = { user ->
-            currentUser.value = UserBinding(0, "", true, defaultSocialNetwork)
+        InputPanel(currentUser, onInsertUser = { user ->
             onSaveUser(user)
         })
         UserList(
             users = users ?: emptyList(),
             onDeleteUser = onDeleteUser,
-            onUpdate = { user ->
-                currentUser.value =
-                    UserBinding(user.id, user.name, user.isActive, user.socialNetwork)
-            }
+            onUpdateUser = onUpdateUser
         )
     }
 }
@@ -136,13 +154,13 @@ fun InputPanel(currentUser: UserBinding, onInsertUser: (UserBinding) -> Unit) {
 fun UserList(
     users: List<UserBinding>,
     onDeleteUser: (UserBinding) -> Unit,
-    onUpdate: (UserBinding) -> Unit
+    onUpdateUser: (UserBinding) -> Unit
 ) {
     LazyColumn(
         modifier = Modifier.fillMaxSize()
     ) {
         items(users, key = { user -> user.id }) {
-            UserItem(user = it, onDeleteUser = onDeleteUser, onUpdate = onUpdate)
+            UserItem(user = it, onDeleteUser = onDeleteUser, onUpdate = onUpdateUser)
         }
     }
 }

@@ -1,6 +1,7 @@
 package br.com.nglauber.jetpackcomposeplayground.bottomnav
 
 import android.os.Parcelable
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -33,7 +34,7 @@ fun Tab2MainScreen(navController: NavHostController) {
             Text("Next")
         }
     }
-    BackButtonHandler(onBackPressed = {
+    BackHandler(onBack = {
         onBackPressed()
     })
 }

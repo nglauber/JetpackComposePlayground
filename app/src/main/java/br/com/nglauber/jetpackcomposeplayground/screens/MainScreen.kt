@@ -23,6 +23,7 @@ fun MainScreen(navController: NavHostController) {
         listOf(
             "Keyboard with ConstraintLayout" to ROUTE_KEYBOARD,
             "Image" to ROUTE_IMAGE,
+            "Take Picture" to ROUTE_TAKE_PICTURE,
             "DropDown" to ROUTE_DROPDOWN,
             "Bottom Nav" to ROUTE_BOTTOM_NAV,
             "Form" to ROUTE_FORM2,

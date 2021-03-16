@@ -30,6 +30,7 @@ class MainActivity : AppCompatActivity() {
                     composable(ROUTE_BOTTOM_NAV) { BottomNavScreen() }
                     composable(ROUTE_KEYBOARD) { KeyboardScreen() }
                     composable(ROUTE_IMAGE) { ImageScreen() }
+                    composable(ROUTE_TAKE_PICTURE) { TakePictureScreen() }
                     composable(ROUTE_DROPDOWN) { DropDownScreen() }
                     composable(ROUTE_FORM) { FormScreen() }
                     composable(ROUTE_FORM2) { Form2Screen() }

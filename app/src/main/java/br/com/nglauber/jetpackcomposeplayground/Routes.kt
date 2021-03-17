@@ -1,5 +1,6 @@
 package br.com.nglauber.jetpackcomposeplayground
 
+const val ROUTE_ACTIVITY_RESULT = "activityResult"
 const val ROUTE_ANIMATION = "animation"
 const val ROUTE_BACKDROP_SCAFFOLD = "backDropScaffold"
 const val ROUTE_BOOKS = "books"

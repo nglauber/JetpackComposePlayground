@@ -47,6 +47,7 @@ class MainActivity : AppCompatActivity() {
                     composable(ROUTE_CANVAS) { CanvasScreen() }
                     composable(ROUTE_BOTTOM_SHEET) { BottomSheetScreen() }
                     composable(ROUTE_BROADCAST) { BroadcastScreen() }
+                    composable(ROUTE_ACTIVITY_RESULT) { GetActivityResultScreen() }
                     composable(ROUTE_GRID) { GridScreen() }
                 }
             }

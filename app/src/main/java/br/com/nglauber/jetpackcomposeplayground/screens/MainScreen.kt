@@ -41,6 +41,7 @@ fun MainScreen(navController: NavHostController) {
             "Canvas" to ROUTE_CANVAS,
             "BottomSheet" to ROUTE_BOTTOM_SHEET,
             "Broadcast" to ROUTE_BROADCAST,
+            "Activity Result" to ROUTE_ACTIVITY_RESULT,
             "Grid" to ROUTE_GRID,
         )
     }

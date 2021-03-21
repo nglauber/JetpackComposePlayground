@@ -1,46 +1,88 @@
 package br.com.nglauber.jetpackcomposeplayground.screens
 
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.ExperimentalAnimationApi
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.rememberLazyListState
+import androidx.compose.material.FloatingActionButton
+import androidx.compose.material.Icon
 import androidx.compose.material.Text
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.KeyboardArrowUp
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import kotlinx.coroutines.launch
 
-@OptIn(ExperimentalFoundationApi::class)
+@ExperimentalAnimationApi
+@ExperimentalFoundationApi
 @Composable
 fun ListWithStickHeaderScreen() {
-    LazyColumn(Modifier.fillMaxSize()) {
-        val grouped = names.groupBy { it.first() }
-        grouped.entries.forEach { entry ->
-            stickyHeader {
-                Text(
-                    text = entry.key.toString(),
-                    color = Color(117, 137, 199),
-                    fontSize = 12.sp,
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .background(
-                            Color(0xff8eb5f5)
-                        )
-                        .padding(8.dp)
-                )
+    Box(Modifier.fillMaxSize()) {
+        val listState = rememberLazyListState()
+        val scope = rememberCoroutineScope()
+        LazyColumn(
+            modifier = Modifier.fillMaxSize(),
+            state = listState,
+            contentPadding = PaddingValues(bottom = 80.dp)
+        ) {
+            val grouped = names.groupBy { it.first() }
+            grouped.entries.forEach { entry ->
+                stickyHeader {
+                    Text(
+                        text = entry.key.toString(),
+                        color = Color(117, 137, 199),
+                        fontSize = 12.sp,
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .background(
+                                Color(0xff8eb5f5)
+                            )
+                            .padding(8.dp)
+                    )
+                }
+                items(entry.value) { name ->
+                    Text(
+                        text = name,
+                        color = Color.DarkGray,
+                        fontSize = 14.sp,
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(16.dp)
+                    )
+                }
             }
-            items(entry.value) { name ->
-                Text(
-                    text = name,
-                    color = Color.DarkGray,
-                    fontSize = 14.sp,
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(16.dp)
+        }
+        val showButton = listState.firstVisibleItemIndex > 0
+        AnimatedVisibility(
+            visible = showButton,
+            enter = fadeIn(),
+            exit = fadeOut(),
+            modifier = Modifier.align(Alignment.BottomCenter)
+        ) {
+            FloatingActionButton(
+                modifier = Modifier.padding(16.dp),
+                onClick = {
+                    scope.launch {
+                        listState.scrollToItem(0)
+                    }
+                },
+                backgroundColor = Color.White,
+            ) {
+                Icon(
+                    imageVector = Icons.Default.KeyboardArrowUp,
+                    contentDescription = null,
+                    tint = Color(117, 137, 199)
                 )
             }
         }

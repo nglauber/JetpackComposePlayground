@@ -43,6 +43,7 @@ fun MainScreen(navController: NavHostController) {
             "Broadcast" to ROUTE_BROADCAST,
             "Activity Result" to ROUTE_ACTIVITY_RESULT,
             "Grid" to ROUTE_GRID,
+            "List with Stick Header" to ROUTE_LIST_STICK_HEADER,
         )
     }
 

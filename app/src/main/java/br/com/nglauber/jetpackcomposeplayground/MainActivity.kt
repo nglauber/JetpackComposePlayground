@@ -49,6 +49,7 @@ class MainActivity : AppCompatActivity() {
                     composable(ROUTE_BROADCAST) { BroadcastScreen() }
                     composable(ROUTE_ACTIVITY_RESULT) { GetActivityResultScreen() }
                     composable(ROUTE_GRID) { GridScreen() }
+                    composable(ROUTE_LIST_STICK_HEADER) { ListWithStickHeaderScreen() }
                 }
             }
         }

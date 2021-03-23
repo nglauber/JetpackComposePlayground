@@ -8,6 +8,7 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.gestures.TransformableState
+import androidx.compose.foundation.gestures.detectTransformGestures
 import androidx.compose.foundation.gestures.transformable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -23,6 +24,7 @@ import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.*
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
+import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
@@ -103,16 +105,18 @@ fun toGrayscale(bmpOriginal: Bitmap): Bitmap {
 @Composable
 fun ZoomableImage() {
     val scale = remember { mutableStateOf(1f) }
-    val rotation = remember { mutableStateOf(1f) }
+    val rotationState = remember { mutableStateOf(1f) }
     Box(
         modifier = Modifier
             .clip(RectangleShape) // Clip the box content
             .fillMaxSize() // Give the size you want...
             .background(Color.Gray)
-            .transformable(state = TransformableState { zoomChange, panChange, rotationChange ->
-                scale.value *= zoomChange
-                rotation.value += rotationChange
-            })
+            .pointerInput(Unit) {
+                detectTransformGestures { centroid, pan, zoom, rotation ->
+                    scale.value *= zoom
+                    rotationState.value += rotation
+                }
+            }
     ) {
         Image(
             modifier = Modifier
@@ -121,7 +125,7 @@ fun ZoomableImage() {
                     // adding some zoom limits (min 50%, max 200%)
                     scaleX = maxOf(.5f, minOf(3f, scale.value)),
                     scaleY = maxOf(.5f, minOf(3f, scale.value)),
-                    rotationZ = rotation.value
+                    rotationZ = rotationState.value
                 ),
             contentDescription = null,
             painter = painterResource(R.drawable.dog)

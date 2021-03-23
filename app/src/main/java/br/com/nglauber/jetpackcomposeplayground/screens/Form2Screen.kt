@@ -78,13 +78,24 @@ fun Form2Screen() {
             }
             TextSample()
             Switch(checked = enabled, onCheckedChange = { enabled = it })
-            TextField(
-                label = { Text("Digite seu nome") },
-                value = nameState,
-                onValueChange = { s: String ->
-                    nameState = s
-                }
-            )
+            val maxLength = 20
+            Column {
+                OutlinedTextField(
+                    label = { Text("Digite seu nome") },
+                    value = nameState,
+                    onValueChange = { s: String ->
+                        if (s.length <= maxLength) {
+                            nameState = s
+                        }
+                    }
+                )
+                Text(
+                    "${nameState.length} / $maxLength",
+                    fontSize = 12.sp,
+                    modifier = Modifier.align(Alignment.End)
+                )
+            }
+
             Row(
                 modifier = Modifier
                     .fillMaxWidth()

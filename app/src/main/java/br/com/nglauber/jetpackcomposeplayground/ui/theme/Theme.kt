@@ -5,6 +5,7 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.darkColors
 import androidx.compose.material.lightColors
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.graphics.Color
 
 private val DarkColorPalette = darkColors(
     primary = purple200,
@@ -37,7 +38,11 @@ fun JetpackComposePlaygroundTheme(darkTheme: Boolean = isSystemInDarkTheme(), co
 
     MaterialTheme(
         colors = colors,
-        typography = typography,
+        typography = typography.copy(
+            body1 = typography.body1.copy(
+                color = if (darkTheme) Color.White else Color.Black
+            )
+        ),
         shapes = shapes,
         content = content
     )

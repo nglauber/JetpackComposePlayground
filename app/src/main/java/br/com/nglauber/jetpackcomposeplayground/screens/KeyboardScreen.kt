@@ -122,7 +122,8 @@ fun KeyboardKey(
             end = 12.dp,
             top = 16.dp,
             bottom = 16.dp
-        )
+        ),
+        color = Color.Black
     )
     if (isKeyPressed) {
         Text(
@@ -134,7 +135,8 @@ fun KeyboardKey(
                     end = 16.dp,
                     top = 16.dp,
                     bottom = 48.dp
-                )
+                ),
+            color = Color.Black
         )
     }
 }

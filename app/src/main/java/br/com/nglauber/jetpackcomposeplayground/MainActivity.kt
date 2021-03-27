@@ -34,6 +34,7 @@ class MainActivity : AppCompatActivity() {
                     composable(ROUTE_DROPDOWN) { DropDownScreen() }
                     composable(ROUTE_FORM) { FormScreen() }
                     composable(ROUTE_FORM2) { Form2Screen() }
+                    composable(ROUTE_FOCUS_REQUEST) { FocusRequestScreen() }
                     composable(ROUTE_EMPHASIS) { EmphasisScreen() }
                     composable(ROUTE_CONSTRAINT) { ConstraintLayoutScreen() }
                     composable(ROUTE_BOX) { BoxScreen() }

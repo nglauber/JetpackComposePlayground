@@ -51,6 +51,7 @@ class MainActivity : AppCompatActivity() {
                     composable(ROUTE_ACTIVITY_RESULT) { GetActivityResultScreen() }
                     composable(ROUTE_GRID) { GridScreen() }
                     composable(ROUTE_LIST_STICK_HEADER) { ListWithStickHeaderScreen() }
+                    composable(ROUTE_NESTED_SCROLL) { NestedScrollScreen() }
                 }
             }
         }

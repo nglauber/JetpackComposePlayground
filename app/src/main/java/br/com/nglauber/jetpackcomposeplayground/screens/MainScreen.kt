@@ -46,6 +46,7 @@ fun MainScreen(navController: NavHostController) {
             "Activity Result" to ROUTE_ACTIVITY_RESULT,
             "Grid" to ROUTE_GRID,
             "List with Stick Header" to ROUTE_LIST_STICK_HEADER,
+            "Nested Scroll" to ROUTE_NESTED_SCROLL,
         )
     }
 

@@ -59,12 +59,21 @@ fun CountrySelection(items: List<String>, defaultValue: String = "") {
     Box(
         modifier = Modifier.padding(16.dp)
     ) {
+        val componentColor = Color.Magenta
         Column {
             OutlinedTextField(
                 value = text.value,
                 onValueChange = { text.value = it },
-                label = { Text(text = "Country") },
-                modifier = Modifier.fillMaxWidth()
+                label = {
+                    Text(
+                        text = "Country",
+                        color = if (text.value == "") Color.Black else componentColor
+                    )
+                },
+                modifier = Modifier.fillMaxWidth(),
+                colors = TextFieldDefaults.outlinedTextFieldColors(
+                    unfocusedBorderColor = componentColor
+                )
             )
             DropDownList(
                 requestToOpen = isOpen.value,

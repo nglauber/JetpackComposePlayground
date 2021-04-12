@@ -11,10 +11,7 @@ import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.navigation.NavHostController
 
 @Composable
-fun Tab2DetailsScreen(navController: NavHostController) {
-    val device = navController.previousBackStackEntry
-        ?.arguments?.getParcelable<Device>("bt_device")
-
+fun Tab2DetailsScreen(device: Device) {
     Column {
         Text(text = "Tab 2 - Details - $device")
         ConstraintLayoutWeightDemo()

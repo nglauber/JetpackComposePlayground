@@ -10,8 +10,6 @@ import androidx.compose.material.TextField
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.navigation.NavHostController
-import androidx.navigation.compose.navigate
 import java.util.regex.Pattern
 
 private fun isValidEmail(emailStr: String?) =
@@ -22,7 +20,7 @@ private fun isValidEmail(emailStr: String?) =
         ).matcher(emailStr).find()
 
 @Composable
-fun Tab1MainScreen(navController: NavHostController) {
+fun Tab1MainScreen(onDetailsSelected: () -> Unit) {
     var emailText by remember { mutableStateOf("") }
     var showError by remember { mutableStateOf(false) }
     Column(
@@ -44,9 +42,7 @@ fun Tab1MainScreen(navController: NavHostController) {
         if (showError) {
             Text("Email is invalid")
         }
-        Button(onClick = {
-            navController.navigate("tab1_details")
-        }) {
+        Button(onClick = onDetailsSelected) {
             Text("Next")
         }
     }

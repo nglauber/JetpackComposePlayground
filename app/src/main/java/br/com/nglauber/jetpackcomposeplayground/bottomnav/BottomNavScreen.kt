@@ -8,7 +8,9 @@ import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import androidx.navigation.compose.navigate
 import androidx.navigation.compose.rememberNavController
+import kotlin.random.Random
 
 typealias BackToFirstTab = () -> Unit
 
@@ -93,15 +95,32 @@ fun TabWrapper(
 @Composable
 fun TabList(navController: NavHostController) {
     NavHost(navController = navController, startDestination = "tab1_main") {
-        composable("tab1_main") { Tab1MainScreen(navController) }
+        composable("tab1_main") {
+            Tab1MainScreen {
+                navController.navigate("tab1_details")
+            }
+        }
         composable("tab1_details") { Tab1DetailsScreen() }
     }
 }
 
 @Composable
 fun TabProfile(navController: NavHostController) {
+    val device = Device(
+        Random.nextInt(0, 100).toString(), "test"
+    )
+
     NavHost(navController = navController, startDestination = "tab2_main") {
-        composable("tab2_main") { Tab2MainScreen(navController) }
-        composable("tab2_details") { Tab2DetailsScreen(navController) }
+        composable("tab2_main") {
+            Tab2MainScreen(device) {
+                navController.currentBackStackEntry?.arguments?.putParcelable("bt_device", device)
+                navController.navigate("tab2_details")
+            }
+        }
+        composable("tab2_details") {
+            val prevScreenDevice =
+                navController.previousBackStackEntry?.arguments?.getParcelable<Device>("bt_device")
+            Tab2DetailsScreen(prevScreenDevice!!)
+        }
     }
 }

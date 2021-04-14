@@ -14,6 +14,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.layout.ContentScale
@@ -247,6 +248,36 @@ fun HeartBeatDemo() {
     )
 }
 
+@Composable
+fun LineAnimation() {
+    var lives by remember {
+        mutableStateOf(0)
+    }
+    val animVal = remember { Animatable(0f) }
+    if (lives > 5) {
+        LaunchedEffect(animVal) {
+            animVal.animateTo(
+                targetValue = 1f,
+                animationSpec = tween(durationMillis = 1000, easing = LinearEasing)
+            )
+        }
+    }
+    Column {
+        Button(onClick = { lives++ }) {
+            Text("Count $lives")
+        }
+        Canvas(modifier = Modifier.size(200.dp, 200.dp)) {
+            drawLine(
+                color = Color.Black,
+                start = Offset(0f, 0f),
+                end = Offset(animVal.value * size.width, animVal.value * size.height),
+                strokeWidth = 2f
+            )
+        }
+    }
+
+}
+
 @ExperimentalAnimationApi
 @Composable
 fun AnimationScreen() {
@@ -258,5 +289,6 @@ fun AnimationScreen() {
         ScaleAndColorAnimation()
         GenderSelectAnimation()
         HeartBeatDemo()
+        LineAnimation()
     }
 }

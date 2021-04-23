@@ -47,6 +47,8 @@ fun MainScreen(navController: NavHostController) {
             "Grid" to ROUTE_GRID,
             "List with Stick Header" to ROUTE_LIST_STICK_HEADER,
             "Nested Scroll" to ROUTE_NESTED_SCROLL,
+            "ViewPager" to ROUTE_VIEW_PAGER,
+            "ViewPager + Tabs" to ROUTE_VIEW_PAGER_TABS,
         )
     }
 

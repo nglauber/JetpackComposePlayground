@@ -69,7 +69,9 @@ dependencies {
     implementation "com.google.code.gson:gson:$gson_version"
 
     implementation "com.squareup.okhttp3:okhttp:$okhttp_version"
-    implementation "dev.chrisbanes.accompanist:accompanist-coil:$accompanist_coil_version"
+    implementation "com.google.accompanist:accompanist-coil:$accompanist_coil_version"
+    implementation "com.google.accompanist:accompanist-pager:$accompanist_pager_version"
+    implementation "com.google.accompanist:accompanist-pager-indicators:$accompanist_pager_version"
     implementation "dev.chrisbanes.accompanist:accompanist-picasso:$accompanist_picasso_version"
 
     testImplementation "junit:junit:$junit_version"

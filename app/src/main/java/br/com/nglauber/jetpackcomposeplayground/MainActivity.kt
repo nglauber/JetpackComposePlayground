@@ -14,9 +14,11 @@ import br.com.nglauber.jetpackcomposeplayground.crud.SocialNetworkScreen
 import br.com.nglauber.jetpackcomposeplayground.rest.BooksScreen
 import br.com.nglauber.jetpackcomposeplayground.screens.*
 import br.com.nglauber.jetpackcomposeplayground.ui.theme.JetpackComposePlaygroundTheme
+import com.google.accompanist.pager.ExperimentalPagerApi
 
 class MainActivity : AppCompatActivity() {
 
+    @ExperimentalPagerApi
     @ExperimentalFoundationApi
     @ExperimentalMaterialApi
     @ExperimentalAnimationApi
@@ -52,6 +54,8 @@ class MainActivity : AppCompatActivity() {
                     composable(ROUTE_GRID) { GridScreen() }
                     composable(ROUTE_LIST_STICK_HEADER) { ListWithStickHeaderScreen() }
                     composable(ROUTE_NESTED_SCROLL) { NestedScrollScreen() }
+                    composable(ROUTE_VIEW_PAGER) { ViewPagerScreen() }
+                    composable(ROUTE_VIEW_PAGER_TABS) { ViewPagerTabsScreen() }
                 }
             }
         }

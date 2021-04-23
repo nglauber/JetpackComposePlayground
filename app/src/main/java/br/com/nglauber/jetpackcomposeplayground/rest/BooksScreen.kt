@@ -3,6 +3,7 @@ package br.com.nglauber.jetpackcomposeplayground.rest
 import android.content.Context
 import android.content.res.Resources
 import android.widget.Toast
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -21,7 +22,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.viewmodel.compose.viewModel
 import br.com.nglauber.jetpackcomposeplayground.R
 import br.com.nglauber.jetpackcomposeplayground.rest.model.Book
-import dev.chrisbanes.accompanist.coil.CoilImage
+import com.google.accompanist.coil.rememberCoilPainter
 
 @Stable
 class BookScreenState {
@@ -230,10 +231,13 @@ fun BookItemContent(
             .padding(8.dp)
             .fillMaxWidth()
     ) {
-        CoilImage(
-            data = book.coverUrl,
+        Image(
+            painter = rememberCoilPainter(
+                request = book.coverUrl,
+                shouldRefetchOnSizeChange = { _, _ -> false },
+            ),
             contentDescription = "",
-            modifier = Modifier.size(96.dp, 144.dp)
+            modifier = Modifier.size(96.dp, 144.dp),
         )
         Column(
             modifier = Modifier

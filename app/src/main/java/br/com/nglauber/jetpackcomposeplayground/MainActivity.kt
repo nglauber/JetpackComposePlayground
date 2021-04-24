@@ -56,6 +56,7 @@ class MainActivity : AppCompatActivity() {
                     composable(ROUTE_NESTED_SCROLL) { NestedScrollScreen() }
                     composable(ROUTE_VIEW_PAGER) { ViewPagerScreen() }
                     composable(ROUTE_VIEW_PAGER_TABS) { ViewPagerTabsScreen() }
+                    composable(ROUTE_COLLAPSING_EFFECT) { CollapsingEffectScreen() }
                 }
             }
         }

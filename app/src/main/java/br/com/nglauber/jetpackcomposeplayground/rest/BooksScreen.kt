@@ -23,6 +23,8 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import br.com.nglauber.jetpackcomposeplayground.R
 import br.com.nglauber.jetpackcomposeplayground.rest.model.Book
 import com.google.accompanist.coil.rememberCoilPainter
+import com.google.accompanist.pager.*
+import kotlinx.coroutines.launch
 
 @Stable
 class BookScreenState {
@@ -33,6 +35,7 @@ class BookScreenState {
     var bookToDelete by mutableStateOf<Book?>(null)
 }
 
+@ExperimentalPagerApi
 @Composable
 fun BooksScreen() {
     val viewModel: BooksViewModel = viewModel()
@@ -42,6 +45,7 @@ fun BooksScreen() {
     BooksScreenContent(viewModel.booksResult)
 }
 
+@ExperimentalPagerApi
 @Composable
 fun BooksScreenContent(
     booksResultLiveData: LiveData<ListBookResult>
@@ -53,6 +57,7 @@ fun BooksScreenContent(
     val screenState by remember { mutableStateOf(BookScreenState()) }
     val scrollState0 = rememberLazyListState()
     val scrollState1 = rememberLazyListState()
+    val pagerState = rememberPagerState(pageCount = 2)
 
     Scaffold(
         topBar = { TopAppBar(title = { Text("Books") }) },
@@ -64,7 +69,8 @@ fun BooksScreenContent(
                     context = context,
                     screenState = screenState,
                     books = listBookResult?.books ?: emptyList(),
-                    scrollStates = arrayOf(scrollState0, scrollState1)
+                    scrollStates = arrayOf(scrollState0, scrollState1),
+                    pagerState = pagerState
                 )
             }
         }
@@ -91,46 +97,54 @@ fun Loading(resources: Resources) {
     }
 }
 
+@ExperimentalPagerApi
 @Composable
 fun BooksScreenTabs(
     context: Context,
     screenState: BookScreenState,
     books: List<Book>,
-    vararg scrollStates: LazyListState
+    vararg scrollStates: LazyListState,
+    pagerState: PagerState
 ) {
+    val coroutineScope = rememberCoroutineScope()
     Column {
         BooksTabs(
             resources = context.resources,
             selectedTab = screenState.selectedTab,
             onSelected = { index ->
-                screenState.selectedTab = index
-            }
+                coroutineScope.launch {
+                    pagerState.animateScrollToPage(index)
+                }
+            },
+            pagerState = pagerState
         )
-        when (screenState.selectedTab) {
-            0 -> BooksList(
-                context.resources,
-                books,
-                action = { book: Book ->
-                    screenState.booksFavorites.add(book)
-                    Toast.makeText(
-                        context,
-                        context.resources.getString(
-                            R.string.msg_added_favorites,
-                            book.title
-                        ),
-                        Toast.LENGTH_SHORT
-                    ).show()
-                },
-                scrollState = scrollStates[0]
-            )
-            1 -> BooksList(
-                context.resources,
-                screenState.booksFavorites,
-                action = { book: Book ->
-                    screenState.bookToDelete = book
-                },
-                scrollState = scrollStates[1]
-            )
+        HorizontalPager(state = pagerState) { page ->
+            when (page) {
+                0 -> BooksList(
+                    context.resources,
+                    books,
+                    action = { book: Book ->
+                        screenState.booksFavorites.add(book)
+                        Toast.makeText(
+                            context,
+                            context.resources.getString(
+                                R.string.msg_added_favorites,
+                                book.title
+                            ),
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    },
+                    scrollState = scrollStates[0]
+                )
+                1 -> BooksList(
+                    context.resources,
+                    screenState.booksFavorites,
+                    action = { book: Book ->
+                        screenState.bookToDelete = book
+                    },
+                    scrollState = scrollStates[1]
+                )
+            }
         }
     }
 }
@@ -155,14 +169,21 @@ private fun DeleteFavoriteBookDialog(
     }
 }
 
+@ExperimentalPagerApi
 @Composable
 fun BooksTabs(
     resources: Resources,
     selectedTab: Int,
-    onSelected: (Int) -> Unit
+    onSelected: (Int) -> Unit,
+    pagerState: PagerState
 ) {
     TabRow(
         selectedTabIndex = selectedTab,
+        indicator = { tabPositions ->
+            TabRowDefaults.Indicator(
+                Modifier.pagerTabIndicatorOffset(pagerState, tabPositions)
+            )
+        },
         tabs = {
             listOf(
                 resources.getString(R.string.tab_books),

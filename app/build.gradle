@@ -74,6 +74,8 @@ dependencies {
     implementation "com.google.accompanist:accompanist-pager-indicators:$accompanist_pager_version"
     implementation "dev.chrisbanes.accompanist:accompanist-picasso:$accompanist_picasso_version"
 
+    implementation "com.github.jeziellago:compose-markdown:$markdown_version"
+
     testImplementation "junit:junit:$junit_version"
     androidTestImplementation "androidx.test.ext:junit:$ext_junit_version"
     androidTestImplementation "androidx.test.espresso:espresso-core:$expresso_core_version"

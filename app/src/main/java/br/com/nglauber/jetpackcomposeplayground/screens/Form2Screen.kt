@@ -25,6 +25,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import dev.jeziellago.compose.markdowntext.MarkdownText
 
 @Composable
 fun Form2Screen() {
@@ -124,6 +125,7 @@ fun Form2Screen() {
                     onClick = {}
                 )
             }
+            Text("Click [here](http://www.google.com) or http://www.google.com.")
         }
         Text(
             "Stack Text",

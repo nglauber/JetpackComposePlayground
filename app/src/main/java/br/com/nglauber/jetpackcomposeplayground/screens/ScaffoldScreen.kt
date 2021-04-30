@@ -2,11 +2,17 @@ package br.com.nglauber.jetpackcomposeplayground.screens
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.CutCornerShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.*
 import androidx.compose.runtime.*
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -15,6 +21,7 @@ import kotlinx.coroutines.launch
 
 @Composable
 fun ScaffoldScreen() {
+    val users = (18..100).map { User("User $it", it) }
     val scope = rememberCoroutineScope()
     var selectedTab: Int by mutableStateOf(0)
     var menuExpanded by mutableStateOf(false)
@@ -56,7 +63,7 @@ fun ScaffoldScreen() {
                                 scaffoldState.drawerState.open()
                             }
                         }
-                    ){ Icon(Icons.Default.Menu, "Menu") }
+                    ) { Icon(Icons.Default.Menu, "Menu") }
                 }
             )
         },
@@ -91,7 +98,7 @@ fun ScaffoldScreen() {
                 shape = CutCornerShape(
                     topStart = 20.dp, bottomEnd = 20.dp
                 )
-            ){ Icon(Icons.Filled.Add, "Add") }
+            ) { Icon(Icons.Filled.Add, "Add") }
         },
         drawerContent = {
             Text(text = "My Drawer")
@@ -100,13 +107,12 @@ fun ScaffoldScreen() {
             Box(
                 modifier = Modifier
                     .fillMaxSize()
+                    .padding(
+                        bottom = it.calculateBottomPadding()
+                    )
             ) {
                 if (selectedTab == 0) {
-                    Text(
-                        text = "Tab 1!",
-                        modifier = Modifier
-                            .align(Alignment.Center)
-                    )
+                    UserListScreen(users)
                 } else {
                     Text(
                         text = "Tab 2!",
@@ -117,4 +123,33 @@ fun ScaffoldScreen() {
             }
         }
     )
+}
+
+data class User(
+    val name: String,
+    val age: Int
+)
+
+@Composable
+fun UserListScreen(users: List<User>) {
+    LazyColumn(
+        modifier = Modifier.fillMaxSize()
+    ) {
+        item {
+            Text(
+                "Header",
+                Modifier
+                    .fillMaxWidth()
+                    .padding(8.dp)
+            )
+        }
+        itemsIndexed(users) { index, user ->
+            Text(
+                "${user.name} - ${user.age}",
+                Modifier
+                    .fillMaxWidth()
+                    .padding(8.dp)
+            )
+        }
+    }
 }

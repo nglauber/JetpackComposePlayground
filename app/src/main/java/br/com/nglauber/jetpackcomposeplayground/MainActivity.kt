@@ -24,7 +24,7 @@ class MainActivity : AppCompatActivity() {
     @ExperimentalAnimationApi
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        this.setContent {
+        setContent {
             val navController = rememberNavController()
             JetpackComposePlaygroundTheme {
                 NavHost(navController = navController, startDestination = ROUTE_MAIN) {
@@ -47,6 +47,7 @@ class MainActivity : AppCompatActivity() {
                     composable(ROUTE_SCORE) { ScoreScreen() }
                     composable(ROUTE_BOOKS) { BooksScreen() }
                     composable(ROUTE_ANIMATION) { AnimationScreen() }
+                    composable(ROUTE_SLIDE_ANIMATION) { SlideInAnimationScreen() }
                     composable(ROUTE_CANVAS) { CanvasScreen() }
                     composable(ROUTE_BOTTOM_SHEET) { BottomSheetScreen() }
                     composable(ROUTE_BROADCAST) { BroadcastScreen() }
@@ -54,9 +55,11 @@ class MainActivity : AppCompatActivity() {
                     composable(ROUTE_GRID) { GridScreen() }
                     composable(ROUTE_LIST_STICK_HEADER) { ListWithStickHeaderScreen() }
                     composable(ROUTE_NESTED_SCROLL) { NestedScrollScreen() }
+                    composable(ROUTE_HORIZONTAL_SCROLL) { HorizontalScrollScreen() }
                     composable(ROUTE_VIEW_PAGER) { ViewPagerScreen() }
                     composable(ROUTE_VIEW_PAGER_TABS) { ViewPagerTabsScreen() }
                     composable(ROUTE_COLLAPSING_EFFECT) { CollapsingEffectScreen() }
+                    composable(ROUTE_REVEAL_SWIPE) { RevealSwipeScreen() }
                 }
             }
         }

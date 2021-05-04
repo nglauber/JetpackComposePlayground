@@ -68,13 +68,14 @@ dependencies {
     implementation "com.google.android.material:material:$material_version"
     implementation "com.google.code.gson:gson:$gson_version"
 
-    implementation "com.squareup.okhttp3:okhttp:$okhttp_version"
     implementation "com.google.accompanist:accompanist-coil:$accompanist_coil_version"
     implementation "com.google.accompanist:accompanist-pager:$accompanist_pager_version"
     implementation "com.google.accompanist:accompanist-pager-indicators:$accompanist_pager_version"
-    implementation "dev.chrisbanes.accompanist:accompanist-picasso:$accompanist_picasso_version"
 
+    implementation "com.squareup.okhttp3:okhttp:$okhttp_version"
     implementation "com.github.jeziellago:compose-markdown:$markdown_version"
+    implementation "de.charlex.compose:revealswipe:$reveal_swipe_version"
+    implementation "dev.chrisbanes.accompanist:accompanist-picasso:$accompanist_picasso_version"
 
     testImplementation "junit:junit:$junit_version"
     androidTestImplementation "androidx.test.ext:junit:$ext_junit_version"

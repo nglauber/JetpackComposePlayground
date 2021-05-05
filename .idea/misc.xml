@@ -5,13 +5,14 @@
       <map>
         <entry key="../../../../layout/compose-model-1615125946643.xml" value="0.25" />
         <entry key="../../../../layout/compose-model-1619720393895.xml" value="0.375" />
+        <entry key="../../../../layout/compose-model-1620171378733.xml" value="0.40925925925925927" />
         <entry key="app/src/main/res/layout/activity_response.xml" value="0.3463541666666667" />
         <entry key="app/src/main/res/xml/provider_paths_app.xml" value="0.19479166666666667" />
       </map>
     </option>
   </component>
   <component name="ExternalStorageConfigurationManager" enabled="true" />
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" project-jdk-name="1.8" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="11 (2)" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">

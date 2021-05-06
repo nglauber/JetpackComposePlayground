@@ -27,6 +27,9 @@
             </intent-filter>
         </activity>
         <activity
+            android:name=".MyJavaActivity"
+            android:exported="false"/>
+        <activity
             android:name=".ResponseActivity"
             android:exported="false"/>
         <provider

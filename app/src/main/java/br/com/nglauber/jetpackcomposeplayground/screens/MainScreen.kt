@@ -1,6 +1,7 @@
 package br.com.nglauber.jetpackcomposeplayground.screens
 
 import android.app.Activity
+import android.content.Intent
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -55,6 +56,7 @@ fun MainScreen(navController: NavHostController) {
             "Collapsing Effect" to ROUTE_COLLAPSING_EFFECT,
             "ViewPager" to ROUTE_VIEW_PAGER,
             "ViewPager + Tabs" to ROUTE_VIEW_PAGER_TABS,
+            "Composable View" to ROUTE_COMPOSABLE_VIEW,
             "Exit" to ROUTE_EXIT
         )
     }
@@ -68,10 +70,15 @@ fun MainScreen(navController: NavHostController) {
                 style = MaterialTheme.typography.body1,
                 modifier = Modifier
                     .clickable(onClick = {
-                        if (route == ROUTE_EXIT) {
-                            activity?.finish()
-                        } else {
-                            navController.navigate(route)
+                        when (route) {
+                            ROUTE_EXIT ->
+                                activity?.finish()
+                            ROUTE_COMPOSABLE_VIEW ->
+                                activity?.startActivity(
+                                    Intent(activity, MyJavaActivity::class.java)
+                                )
+                            else ->
+                                navController.navigate(route)
                         }
                     })
                     .fillMaxWidth()

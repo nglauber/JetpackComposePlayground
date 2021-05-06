@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.material.ExperimentalMaterialApi
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
@@ -18,6 +19,7 @@ import com.google.accompanist.pager.ExperimentalPagerApi
 
 class MainActivity : AppCompatActivity() {
 
+    @ExperimentalComposeUiApi
     @ExperimentalPagerApi
     @ExperimentalFoundationApi
     @ExperimentalMaterialApi

@@ -12,16 +12,20 @@ import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.FavoriteBorder
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.animatedVectorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
 import br.com.nglauber.jetpackcomposeplayground.R
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 // Source: https://slides.com/wajahatkarim/composeanimations#/title
 @Composable
@@ -278,6 +282,40 @@ fun LineAnimation() {
 
 }
 
+@ExperimentalComposeUiApi
+@Composable
+fun AnimatedVectorDrawableAnim() {
+    val image = animatedVectorResource(R.drawable.avd_anim)
+    var atEnd by remember { mutableStateOf(false) }
+    var isRunning by remember { mutableStateOf(true) }
+    val scope = rememberCoroutineScope()
+    suspend fun runAnimation() {
+        while (isRunning) {
+            delay(1000)
+            atEnd = !atEnd
+        }
+    }
+    LaunchedEffect(image) {
+        runAnimation()
+    }
+    Image(
+        painter = image.painterFor(atEnd),
+        null,
+        Modifier
+            .size(150.dp)
+            .clickable {
+                isRunning = !isRunning
+                if (isRunning)
+                    scope.launch {
+                        runAnimation()
+                    }
+            },
+        contentScale = ContentScale.Fit,
+        colorFilter = ColorFilter.tint(Color.Red)
+    )
+}
+
+@ExperimentalComposeUiApi
 @ExperimentalAnimationApi
 @Composable
 fun AnimationScreen() {
@@ -288,7 +326,8 @@ fun AnimationScreen() {
         VisibilityAnimationFAB2()
         ScaleAndColorAnimation()
         GenderSelectAnimation()
-        HeartBeatDemo()
         LineAnimation()
+        HeartBeatDemo()
+        AnimatedVectorDrawableAnim()
     }
 }

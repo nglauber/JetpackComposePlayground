@@ -23,8 +23,8 @@ import kotlinx.coroutines.launch
 fun ScaffoldScreen() {
     val users = (18..100).map { User("User $it", it) }
     val scope = rememberCoroutineScope()
-    var selectedTab: Int by mutableStateOf(0)
-    var menuExpanded by mutableStateOf(false)
+    var selectedTab: Int by remember { mutableStateOf(0) }
+    var menuExpanded by remember { mutableStateOf(false) }
     val scaffoldState = rememberScaffoldState()
     Scaffold(
         scaffoldState = scaffoldState,

@@ -1,5 +1,6 @@
 package br.com.nglauber.jetpackcomposeplayground.screens
 
+import android.app.Activity
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -12,6 +13,7 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.navigate
@@ -53,9 +55,11 @@ fun MainScreen(navController: NavHostController) {
             "Collapsing Effect" to ROUTE_COLLAPSING_EFFECT,
             "ViewPager" to ROUTE_VIEW_PAGER,
             "ViewPager + Tabs" to ROUTE_VIEW_PAGER_TABS,
+            "Exit" to ROUTE_EXIT
         )
     }
 
+    val activity = (LocalContext.current as? Activity)
     LazyColumn(state = listState, modifier = Modifier.fillMaxSize()) {
         items(names) { item ->
             val (title, route) = item
@@ -64,7 +68,11 @@ fun MainScreen(navController: NavHostController) {
                 style = MaterialTheme.typography.body1,
                 modifier = Modifier
                     .clickable(onClick = {
-                        navController.navigate(route)
+                        if (route == ROUTE_EXIT) {
+                            activity?.finish()
+                        } else {
+                            navController.navigate(route)
+                        }
                     })
                     .fillMaxWidth()
                     .padding(16.dp)

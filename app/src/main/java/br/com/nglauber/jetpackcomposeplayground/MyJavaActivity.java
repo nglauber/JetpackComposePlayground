@@ -1,25 +1,23 @@
 package br.com.nglauber.jetpackcomposeplayground;
 
 import android.os.Bundle;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
 
 import br.com.nglauber.jetpackcomposeplayground.screens.MyComposeView;
+import br.com.nglauber.jetpackcomposeplayground.screens.MyViewModel;
 
 public class MyJavaActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        TextView tv = new TextView(this);
-        tv.setText("This is a Java Activity using Compose");
+        setContentView(R.layout.activity_my_java);
 
-        LinearLayout ll = new LinearLayout(this);
-        ll.setOrientation(LinearLayout.VERTICAL);
-        ll.addView(tv);
-        ll.addView(new MyComposeView(this));
-        setContentView(ll);
+        MyViewModel model = new ViewModelProvider(this).get(MyViewModel.class);
+
+        MyComposeView composeView = findViewById(R.id.my_composable);
+        composeView.setViewModel(model);
     }
 }

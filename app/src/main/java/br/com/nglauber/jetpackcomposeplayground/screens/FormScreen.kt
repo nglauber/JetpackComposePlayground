@@ -7,13 +7,16 @@ import android.widget.Button
 import android.widget.CalendarView
 import android.widget.TextView
 import android.widget.Toast
-import androidx.compose.foundation.*
+import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.selection.selectable
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.*
 import androidx.compose.material.ripple.rememberRipple
 import androidx.compose.runtime.*
@@ -152,19 +155,20 @@ fun SegmentedControl() {
     Row(modifier = Modifier.fillMaxWidth()) {
         (1 until 5).forEach { index ->
             val isSelected = toggleIndex == index
-            Box(modifier = Modifier
-                .border(1.dp, color = Color.Black, CircleShape)
-                .background(
-                    color = if (isSelected) Color.Black else Color.White,
-                    shape = CircleShape,
-                )
-                .selectable(
-                    selected = isSelected,
-                    interactionSource = remember { MutableInteractionSource() },
-                    indication = rememberRipple(bounded = true, radius = 24.dp),
-                    onClick = { toggleIndex = index },
-                )
-                .size(48.dp)
+            Box(
+                modifier = Modifier
+                    .border(1.dp, color = Color.Black, CircleShape)
+                    .background(
+                        color = if (isSelected) Color.Black else Color.White,
+                        shape = CircleShape,
+                    )
+                    .selectable(
+                        selected = isSelected,
+                        interactionSource = remember { MutableInteractionSource() },
+                        indication = rememberRipple(bounded = true, radius = 24.dp),
+                        onClick = { toggleIndex = index },
+                    )
+                    .size(48.dp)
             ) {
                 Text(
                     text = index.toString(),

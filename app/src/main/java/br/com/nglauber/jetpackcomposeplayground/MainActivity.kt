@@ -60,6 +60,7 @@ class MainActivity : AppCompatActivity() {
                     composable(ROUTE_HORIZONTAL_SCROLL) { HorizontalScrollScreen() }
                     composable(ROUTE_VIEW_PAGER) { ViewPagerScreen() }
                     composable(ROUTE_VIEW_PAGER_TABS) { ViewPagerTabsScreen() }
+                    composable(ROUTE_VIEW_PAGER_BOTTOM_NAV) { BottomNavSwipeScreen() }
                     composable(ROUTE_COLLAPSING_EFFECT) { CollapsingEffectScreen() }
                     composable(ROUTE_REVEAL_SWIPE) { RevealSwipeScreen() }
                 }

@@ -52,7 +52,10 @@ fun FormScreen() {
 
     var date by remember { mutableStateOf<Date?>(null) }
 
-    Column(Modifier.verticalScroll(rememberScrollState())) {
+    Column(Modifier
+        .fillMaxSize()
+        .verticalScroll(rememberScrollState())
+    ) {
         TextField(
             value = nameState,
             label = { Text("Digite seu nome") },

@@ -4,9 +4,7 @@ import android.content.Context
 import android.media.AudioManager
 import android.util.Log
 import android.view.SoundEffectConstants
-import androidx.compose.foundation.background
-import androidx.compose.foundation.border
-import androidx.compose.foundation.clickable
+import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CutCornerShape
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -34,11 +32,12 @@ import dev.jeziellago.compose.markdowntext.MarkdownText
 fun Form2Screen() {
     val textState = remember { mutableStateOf("") }
     var enabled by remember { mutableStateOf(true) }
-    Box(modifier = Modifier.fillMaxWidth()) {
+    Box(Modifier.fillMaxSize()) {
         Column(
             modifier = Modifier
+                .fillMaxSize()
+                .verticalScroll(rememberScrollState())
                 .padding(16.dp)
-                .fillMaxWidth()
         ) {
             PaddingSample()
             RotatedText()

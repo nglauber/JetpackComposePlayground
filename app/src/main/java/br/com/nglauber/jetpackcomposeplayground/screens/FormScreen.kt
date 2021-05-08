@@ -28,7 +28,9 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.viewinterop.AndroidView
+import androidx.compose.ui.viewinterop.AndroidViewBinding
 import br.com.nglauber.jetpackcomposeplayground.R
+import br.com.nglauber.jetpackcomposeplayground.databinding.MyBindingLayoutBinding
 import java.util.*
 import kotlin.math.roundToInt
 
@@ -89,6 +91,7 @@ fun FormScreen() {
             Text(date.toString())
         }
         MyCalendar(date) { date = it }
+        BindingView()
     }
 }
 
@@ -174,6 +177,18 @@ fun SegmentedControl() {
                 )
             }
             Spacer(modifier = Modifier.width(2.dp))
+        }
+    }
+}
+
+@Composable
+fun BindingView() {
+    AndroidViewBinding(factory = MyBindingLayoutBinding::inflate) {
+        var count = 0
+        txtTitle.text = "Count: $count"
+        btnOk.setOnClickListener {
+            count++
+            txtTitle.text = "Count: $count"
         }
     }
 }

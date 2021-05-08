@@ -12,11 +12,8 @@ import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Delete
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.setValue
+import androidx.compose.runtime.*
 import androidx.compose.runtime.livedata.observeAsState
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
@@ -46,9 +43,11 @@ fun SocialNetworkScreen() {
     val viewModel: AppViewModel =
         viewModel("AppViewModel", AppViewModelFactory(LocalRepository(context)))
     val defaultSocialNetwork = socialNetworks.first()
-    var currentUser by mutableStateOf(
-        UserBinding(0, "", true, defaultSocialNetwork)
-    )
+    var currentUser by remember {
+        mutableStateOf(
+            UserBinding(0, "", true, defaultSocialNetwork)
+        )
+    }
     Scaffold(
         floatingActionButton = {
             ExtendedFloatingActionButton(

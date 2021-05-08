@@ -23,8 +23,10 @@ fun ViewPagerScreen() {
         R.drawable.female,
     )
     HorizontalPager(
-        state = rememberPagerState(pageCount = images.size),
-        offscreenLimit = 2
+        state = rememberPagerState(
+            pageCount = images.size,
+            initialOffscreenLimit = 2
+        )
     ) { page ->
         Image(
             painterResource(id = images[page]),

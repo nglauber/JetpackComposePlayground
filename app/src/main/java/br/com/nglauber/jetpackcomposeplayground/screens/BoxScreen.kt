@@ -15,6 +15,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import br.com.nglauber.jetpackcomposeplayground.R
+import com.google.accompanist.glide.rememberGlidePainter
 import dev.chrisbanes.accompanist.picasso.PicassoImage
 
 @Composable
@@ -35,6 +36,16 @@ fun BoxScreen() {
                 .clip(CircleShape)
                 .align(Alignment.CenterStart),
             data = "https://pbs.twimg.com/profile_images/836560780422164480/vuClsC2w_400x400.jpg"
+        )
+        Image(
+            rememberGlidePainter(
+                request = "https://pbs.twimg.com/profile_images/836560780422164480/vuClsC2w_400x400.jpg",
+            ),
+            contentDescription = null,
+            modifier = Modifier
+                .size(96.dp)
+                .clip(CircleShape)
+                .align(Alignment.BottomStart)
         )
         Text(
             "Recife - PE",

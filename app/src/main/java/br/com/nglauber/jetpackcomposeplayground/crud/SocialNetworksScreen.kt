@@ -1,6 +1,10 @@
 package br.com.nglauber.jetpackcomposeplayground.crud
 
 import androidx.annotation.DrawableRes
+import androidx.compose.animation.animateContentSize
+import androidx.compose.animation.core.Animatable
+import androidx.compose.animation.core.LinearEasing
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -16,6 +20,7 @@ import androidx.compose.runtime.*
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
@@ -24,6 +29,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.viewmodel.compose.viewModel
 import br.com.nglauber.jetpackcomposeplayground.R
 import br.com.nglauber.jetpacksample.repository.LocalRepository
+import kotlinx.coroutines.launch
 
 enum class SocialNetwork(val title: String, @DrawableRes val icon: Int) {
     FACEBOOK("Facebook", R.drawable.icon_facebook),
@@ -52,7 +58,7 @@ fun SocialNetworkScreen() {
         floatingActionButton = {
             ExtendedFloatingActionButton(
                 text = { Text(text = "Novo") },
-                icon = { Icon(Icons.Default.Add, "Novo usuário")},
+                icon = { Icon(Icons.Default.Add, "Novo usuário") },
                 onClick = {
                     currentUser = UserBinding(0, "", true, defaultSocialNetwork)
                 }
@@ -158,9 +164,57 @@ fun UserList(
     LazyColumn(
         modifier = Modifier.fillMaxSize()
     ) {
-        items(users, key = { user -> user.id }) {
-            UserItem(user = it, onDeleteUser = onDeleteUser, onUpdate = onUpdateUser)
+        items(users, key = { user -> user.id }) { user ->
+            UserItemAnim(user, onDeleteUser, onUpdateUser)
         }
+    }
+}
+
+@Composable
+fun UserItemAnim(
+    user: UserBinding,
+    onDeleteUser: (UserBinding) -> Unit,
+    onUpdateUser: (UserBinding) -> Unit
+) {
+    val scope = rememberCoroutineScope()
+    // Animation to slide out the component
+    val translateXAnim = remember(user.id) {
+        Animatable(0f)
+    }
+    var markedAsDeleted by remember(key1 = user.id) {
+        mutableStateOf(false)
+    }
+    BoxWithConstraints(
+        modifier = Modifier
+            .graphicsLayer {
+                translationX = translateXAnim.value
+            }
+            .animateContentSize(
+                animationSpec = tween(100, easing = LinearEasing),
+                finishedListener = { startSize, endSize ->
+                    if (markedAsDeleted) {
+                        onDeleteUser(user)
+                    }
+                }
+            )
+            .then(
+                if (markedAsDeleted) Modifier.height(height = 0.dp)
+                else Modifier.wrapContentSize()
+            )
+    ) {
+        UserItem(
+            user = user,
+            onDeleteUser = {
+                scope.launch {
+                    translateXAnim.animateTo(
+                        targetValue = constraints.maxWidth.toFloat(),
+                        animationSpec = tween(300)
+                    )
+                    markedAsDeleted = true
+                }
+            },
+            onUpdate = onUpdateUser
+        )
     }
 }
 
@@ -203,6 +257,7 @@ fun UserItem(
             OutlinedButton(
                 modifier = Modifier.padding(end = 8.dp),
                 onClick = {
+
                     onDeleteUser(user)
                 },
                 content = { Icon(Icons.Filled.Delete, "Delete") }

@@ -26,6 +26,7 @@ fun MainScreen(navController: NavHostController) {
     val names = remember {
         listOf(
             "Keyboard with ConstraintLayout" to ROUTE_KEYBOARD,
+            "Number pad" to ROUTE_NUMBER_PAD,
             "Image" to ROUTE_IMAGE,
             "Take Picture" to ROUTE_TAKE_PICTURE,
             "DropDown" to ROUTE_DROPDOWN,

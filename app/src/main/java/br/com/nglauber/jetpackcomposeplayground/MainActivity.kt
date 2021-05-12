@@ -33,6 +33,7 @@ class MainActivity : AppCompatActivity() {
                     composable(ROUTE_MAIN) { MainScreen(navController) }
                     composable(ROUTE_BOTTOM_NAV) { BottomNavScreen() }
                     composable(ROUTE_KEYBOARD) { KeyboardScreen() }
+                    composable(ROUTE_NUMBER_PAD) { NumberPadScreen() }
                     composable(ROUTE_IMAGE) { ImageScreen() }
                     composable(ROUTE_TAKE_PICTURE) { TakePictureScreen() }
                     composable(ROUTE_DROPDOWN) { DropDownScreen() }

@@ -13,17 +13,17 @@ import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.runtime.*
-import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.viewmodel.compose.viewModel
 import br.com.nglauber.jetpackcomposeplayground.R
 import br.com.nglauber.jetpackcomposeplayground.rest.model.Book
+import br.com.nglauber.jetpackcomposeplayground.rest.model.RequestState
 import com.google.accompanist.coil.rememberCoilPainter
 import com.google.accompanist.pager.*
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 
 @Stable
@@ -42,41 +42,56 @@ fun BooksScreen() {
     LaunchedEffect(viewModel) {
         viewModel.loadBooks()
     }
-    BooksScreenContent(viewModel.booksResult)
+    BooksScreenContent(viewModel.booksList)
 }
 
 @ExperimentalPagerApi
 @Composable
 fun BooksScreenContent(
-    booksResultLiveData: LiveData<ListBookResult>
+    booksResultLiveData: StateFlow<RequestState<List<Book>>>
 ) {
     val context = LocalContext.current
     val resources = context.resources
 
-    val listBookResult by booksResultLiveData.observeAsState()
+    val listBookResult by booksResultLiveData.collectAsState()
     val screenState by remember { mutableStateOf(BookScreenState()) }
     val scrollState0 = rememberLazyListState()
     val scrollState1 = rememberLazyListState()
     val pagerState = rememberPagerState(pageCount = 2)
 
     Scaffold(
-        topBar = { TopAppBar(title = { Text("Books") }) },
+        topBar = {
+            TopAppBar(title = { Text("Books") })
+        },
         content = {
-            if (listBookResult == null || listBookResult?.loading == true) {
-                Loading(resources)
-            } else {
-                BooksScreenTabs(
-                    context = context,
-                    screenState = screenState,
-                    books = listBookResult?.books ?: emptyList(),
-                    scrollStates = arrayOf(scrollState0, scrollState1),
-                    pagerState = pagerState
-                )
+            when (val result = listBookResult) {
+                is RequestState.Loading -> {
+                    Loading(resources)
+                }
+                is RequestState.Error -> {
+                    ErrorMessage()
+                }
+                is RequestState.Success -> {
+                    BooksScreenTabs(
+                        context = context,
+                        screenState = screenState,
+                        books = result.data,
+                        pagerState = pagerState,
+                        scrollStates = arrayOf(scrollState0, scrollState1)
+                    )
+                }
             }
         }
     )
     if (screenState.bookToDelete != null) {
         DeleteFavoriteBookDialog(resources, screenState)
+    }
+}
+
+@Composable
+fun ErrorMessage() {
+    Box(modifier = Modifier.fillMaxSize()) {
+        Text(text = "Erro!", modifier = Modifier.align(Alignment.Center))
     }
 }
 
@@ -103,8 +118,8 @@ fun BooksScreenTabs(
     context: Context,
     screenState: BookScreenState,
     books: List<Book>,
-    vararg scrollStates: LazyListState,
-    pagerState: PagerState
+    pagerState: PagerState,
+    vararg scrollStates: LazyListState
 ) {
     val coroutineScope = rememberCoroutineScope()
     Column {

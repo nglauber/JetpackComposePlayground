@@ -1,29 +1,34 @@
 package br.com.nglauber.jetpackcomposeplayground.rest
 
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import br.com.nglauber.jetpackcomposeplayground.rest.model.Book
 import br.com.nglauber.jetpackcomposeplayground.rest.model.BookHttp
+import br.com.nglauber.jetpackcomposeplayground.rest.model.RequestState
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-class BooksViewModel: ViewModel() {
-    val booksResult =
-        MutableLiveData<ListBookResult>().apply {
-            value = ListBookResult(false, emptyList())
-        }
+class BooksViewModel : ViewModel() {
+    private val _state = MutableStateFlow<RequestState<List<Book>>>(
+        RequestState.Idle
+    )
+    val booksList: StateFlow<RequestState<List<Book>>> get() = _state
 
     fun loadBooks() {
         viewModelScope.launch {
-            booksResult.value = booksResult.value?.copy(loading = true)
-            val books = withContext(Dispatchers.IO) {
-                BookHttp.loadBooksGson()
+            _state.value = RequestState.Loading
+            try {
+                val books = withContext(Dispatchers.IO) {
+                    BookHttp.loadBooksGson()
+                }
+                _state.value = RequestState.Success(books)
+            } catch (t: Throwable) {
+                t.printStackTrace()
+                _state.value = RequestState.Error(t)
             }
-            booksResult.value = booksResult.value?.copy(
-                books = books ?: emptyList(),
-                loading = false
-            )
         }
     }
 }

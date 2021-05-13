@@ -48,12 +48,10 @@ fun BooksScreen() {
 @ExperimentalPagerApi
 @Composable
 fun BooksScreenContent(
-    booksResultLiveData: StateFlow<RequestState<List<Book>>>
+    booksResultFlow: StateFlow<RequestState<List<Book>>>
 ) {
     val context = LocalContext.current
-    val resources = context.resources
-
-    val listBookResult by booksResultLiveData.collectAsState()
+    val listBookResult = booksResultFlow.collectAsState()
     val screenState by remember { mutableStateOf(BookScreenState()) }
     val scrollState0 = rememberLazyListState()
     val scrollState1 = rememberLazyListState()
@@ -61,12 +59,12 @@ fun BooksScreenContent(
 
     Scaffold(
         topBar = {
-            TopAppBar(title = { Text("Books") })
+            BookTopBar(pagerState, screenState.selectedTab)
         },
         content = {
-            when (val result = listBookResult) {
+            when (val result = listBookResult.value) {
                 is RequestState.Loading -> {
-                    Loading(resources)
+                    Loading()
                 }
                 is RequestState.Error -> {
                     ErrorMessage()
@@ -84,19 +82,45 @@ fun BooksScreenContent(
         }
     )
     if (screenState.bookToDelete != null) {
-        DeleteFavoriteBookDialog(resources, screenState)
+        DeleteFavoriteBookDialog(screenState)
+    }
+}
+
+@ExperimentalPagerApi
+@Composable
+fun BookTopBar(pagerState: PagerState, selectedTab: Int) {
+    val coroutineScope = rememberCoroutineScope()
+
+    Surface(elevation = AppBarDefaults.TopAppBarElevation) {
+        Column {
+            TopAppBar(
+                title = { Text("Books") },
+                elevation = 0.dp
+            )
+            BooksTabs(
+                selectedTab = selectedTab,
+                onSelected = { index ->
+                    coroutineScope.launch {
+                        pagerState.animateScrollToPage(index)
+                    }
+                },
+                pagerState = pagerState
+            )
+        }
     }
 }
 
 @Composable
 fun ErrorMessage() {
     Box(modifier = Modifier.fillMaxSize()) {
-        Text(text = "Erro!", modifier = Modifier.align(Alignment.Center))
+        Text(text = "Error!", modifier = Modifier.align(Alignment.Center))
     }
 }
 
 @Composable
-fun Loading(resources: Resources) {
+fun Loading() {
+    val resources = LocalContext.current.resources
+
     Box(modifier = Modifier.fillMaxSize()) {
         Column(
             modifier = Modifier
@@ -121,22 +145,10 @@ fun BooksScreenTabs(
     pagerState: PagerState,
     vararg scrollStates: LazyListState
 ) {
-    val coroutineScope = rememberCoroutineScope()
     Column {
-        BooksTabs(
-            resources = context.resources,
-            selectedTab = screenState.selectedTab,
-            onSelected = { index ->
-                coroutineScope.launch {
-                    pagerState.animateScrollToPage(index)
-                }
-            },
-            pagerState = pagerState
-        )
         HorizontalPager(state = pagerState) { page ->
             when (page) {
                 0 -> BooksList(
-                    context.resources,
                     books,
                     action = { book: Book ->
                         screenState.booksFavorites.add(book)
@@ -152,7 +164,6 @@ fun BooksScreenTabs(
                     scrollState = scrollStates[0]
                 )
                 1 -> BooksList(
-                    context.resources,
                     screenState.booksFavorites,
                     action = { book: Book ->
                         screenState.bookToDelete = book
@@ -166,9 +177,9 @@ fun BooksScreenTabs(
 
 @Composable
 private fun DeleteFavoriteBookDialog(
-    resources: Resources,
     screenState: BookScreenState
 ) {
+    val resources = LocalContext.current.resources
     screenState.bookToDelete?.let { book ->
         DeleteFavBookDialog(
             resources,
@@ -187,11 +198,11 @@ private fun DeleteFavoriteBookDialog(
 @ExperimentalPagerApi
 @Composable
 fun BooksTabs(
-    resources: Resources,
     selectedTab: Int,
     onSelected: (Int) -> Unit,
     pagerState: PagerState
 ) {
+    val resources = LocalContext.current.resources
     TabRow(
         selectedTabIndex = selectedTab,
         indicator = { tabPositions ->
@@ -218,11 +229,11 @@ fun BooksTabs(
 
 @Composable
 fun BooksList(
-    resources: Resources,
     books: Collection<Book>?,
     scrollState: LazyListState,
     action: (Book) -> Unit
 ) {
+    val resources = LocalContext.current.resources
     if (books == null || books.isEmpty()) {
         Box(modifier = Modifier.fillMaxSize()) {
             Text(

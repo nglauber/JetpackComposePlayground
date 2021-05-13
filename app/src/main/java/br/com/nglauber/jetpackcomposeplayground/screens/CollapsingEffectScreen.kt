@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -48,7 +49,7 @@ fun CollapsingEffectScreen() {
             Text(
                 text = it,
                 Modifier
-                    .background(Color.White)
+                    .background(MaterialTheme.colors.surface)
                     .fillMaxWidth()
                     .padding(8.dp)
             )

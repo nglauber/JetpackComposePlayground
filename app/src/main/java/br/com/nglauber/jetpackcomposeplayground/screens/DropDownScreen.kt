@@ -5,6 +5,7 @@ import androidx.compose.animation.core.FastOutLinearInEasing
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
@@ -67,7 +68,9 @@ fun CountrySelection(items: List<String>, defaultValue: String = "") {
                 label = {
                     Text(
                         text = "Country",
-                        color = if (text.value == "") Color.Black else componentColor
+                        color = if (text.value == "") {
+                            if (isSystemInDarkTheme()) Color.White else Color.Black
+                        } else componentColor
                     )
                 },
                 modifier = Modifier.fillMaxWidth(),

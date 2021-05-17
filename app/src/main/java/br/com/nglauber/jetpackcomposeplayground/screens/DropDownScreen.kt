@@ -76,7 +76,16 @@ fun CountrySelection(items: List<String>, defaultValue: String = "") {
                 modifier = Modifier.fillMaxWidth(),
                 colors = TextFieldDefaults.outlinedTextFieldColors(
                     unfocusedBorderColor = componentColor
-                )
+                ),
+                trailingIcon = {
+                    Icon(
+                        Icons.Filled.ArrowDropDown,
+                        null,
+                        modifier = Modifier
+                            .padding(end = 8.dp)
+                            .rotate(animRotation.value)
+                    )
+                }
             )
             DropDownList(
                 requestToOpen = isOpen.value,
@@ -95,14 +104,6 @@ fun CountrySelection(items: List<String>, defaultValue: String = "") {
                         openCloseOfDropDownList(true)
                     }
                 )
-        )
-        Icon(
-            Icons.Filled.ArrowDropDown,
-            null,
-            modifier = Modifier
-                .align(Alignment.CenterEnd)
-                .padding(end = 8.dp)
-                .rotate(animRotation.value)
         )
     }
 }

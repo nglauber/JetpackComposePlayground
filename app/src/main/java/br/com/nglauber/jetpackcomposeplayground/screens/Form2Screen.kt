@@ -27,6 +27,7 @@ import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import dev.jeziellago.compose.markdowntext.MarkdownText
+import kotlin.math.roundToInt
 
 @Composable
 fun Form2Screen() {
@@ -59,6 +60,7 @@ fun Form2Screen() {
             ButtonsSample(enabled)
             MarkdownText("Click [here](http://www.google.com) or http://www.google.com.")
             CustomShape()
+            MySlider()
         }
         Text(
             "Stack Text",
@@ -66,6 +68,27 @@ fun Form2Screen() {
                 .align(Alignment.TopEnd)
                 .padding(end = 16.dp, top = 16.dp)
         )
+    }
+}
+
+@Composable
+fun MySlider() {
+    val maxValue = 5
+    var value by remember { mutableStateOf(0f) }
+    Column(
+        Modifier
+            .fillMaxWidth()
+            .padding(16.dp)
+    ) {
+        Slider(value = value, onValueChange = { value = it })
+        Row(
+            Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.SpaceBetween
+        ) {
+            for (i in 0..maxValue) {
+                Text(i.toString())
+            }
+        }
     }
 }
 

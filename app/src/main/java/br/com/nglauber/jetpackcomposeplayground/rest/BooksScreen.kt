@@ -281,7 +281,6 @@ fun BookItemContent(
         Image(
             painter = rememberCoilPainter(
                 request = book.coverUrl,
-                shouldRefetchOnSizeChange = { _, _ -> false },
             ),
             contentDescription = "",
             modifier = Modifier.size(96.dp, 144.dp),

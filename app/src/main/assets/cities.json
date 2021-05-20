@@ -1,0 +1,17 @@
+[
+  {
+    "Name": "Caruaru",
+    "ID__c": 1,
+    "Id": "PE_CAU"
+  },
+  {
+    "Name": "Recife",
+    "ID__c": 2,
+    "Id": "PE_REC"
+  },
+  {
+    "Name": "Petrolina",
+    "ID__c": 3,
+    "Id": "PE_PET"
+  }
+]

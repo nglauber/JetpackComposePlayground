@@ -26,6 +26,7 @@ import androidx.compose.ui.unit.Density
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import dev.jeziellago.compose.markdowntext.MarkdownText
 
 @Composable
 fun Form2Screen() {
@@ -56,7 +57,7 @@ fun Form2Screen() {
             AnnotatedTextSample()
             Switch(checked = enabled, onCheckedChange = { enabled = it })
             ButtonsSample(enabled)
-//            MarkdownText("Click [here](http://www.google.com) or http://www.google.com.")
+            MarkdownText("Click [here](http://www.google.com) or http://www.google.com.")
             CustomShape()
             MySlider()
         }

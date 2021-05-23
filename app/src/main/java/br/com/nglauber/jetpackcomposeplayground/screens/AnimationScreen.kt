@@ -24,6 +24,9 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
 import br.com.nglauber.jetpackcomposeplayground.R
+import com.airbnb.lottie.compose.LottieAnimation
+import com.airbnb.lottie.compose.LottieAnimationSpec
+import com.airbnb.lottie.compose.rememberLottieAnimationState
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
@@ -315,6 +318,23 @@ fun AnimatedVectorDrawableAnim() {
     )
 }
 
+@Composable
+fun LottieAnimationDemo() {
+    val animationSpec = remember {
+        LottieAnimationSpec.RawRes(R.raw.lottie_msg_inbox)
+    }
+    LottieAnimation(
+        animationSpec,
+        modifier = Modifier
+            .size(200.dp)
+            .background(Color.Black),
+        animationState = rememberLottieAnimationState(
+            autoPlay = true,
+            repeatCount = Int.MAX_VALUE
+        )
+    )
+}
+
 @ExperimentalComposeUiApi
 @ExperimentalAnimationApi
 @Composable
@@ -329,5 +349,6 @@ fun AnimationScreen() {
         LineAnimation()
         HeartBeatDemo()
         AnimatedVectorDrawableAnim()
+        LottieAnimationDemo()
     }
 }

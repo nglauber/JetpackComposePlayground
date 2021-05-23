@@ -78,6 +78,7 @@ dependencies {
     implementation "com.github.jeziellago:compose-markdown:$markdown_version"
     implementation "de.charlex.compose:revealswipe:$reveal_swipe_version"
     implementation "dev.chrisbanes.accompanist:accompanist-picasso:$accompanist_picasso_version"
+    implementation "com.airbnb.android:lottie-compose:$lottieVersion"
 
     testImplementation "junit:junit:$junit_version"
     androidTestImplementation "androidx.test.ext:junit:$ext_junit_version"

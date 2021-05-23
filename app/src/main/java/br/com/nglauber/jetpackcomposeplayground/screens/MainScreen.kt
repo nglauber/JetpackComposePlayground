@@ -36,6 +36,7 @@ fun MainScreen(navController: NavHostController) {
             "Emphasis" to ROUTE_EMPHASIS,
             "ConstraintLayout" to ROUTE_CONSTRAINT,
             "ConstraintLayout | Barrier" to ROUTE_CONSTRAINT_BARRIER,
+            "Subcomposable" to ROUTE_SUBCOMPOSABLE,
             "Box/Stack/Frame Layout" to ROUTE_BOX,
             "Coroutines" to ROUTE_COROUTINES,
             "Scaffold" to ROUTE_SCAFFOLD,

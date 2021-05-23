@@ -46,6 +46,7 @@ class MainActivity : AppCompatActivity() {
                         composable(ROUTE_EMPHASIS) { EmphasisScreen() }
                         composable(ROUTE_CONSTRAINT) { ConstraintLayoutScreen() }
                         composable(ROUTE_CONSTRAINT_BARRIER) { ConstraintLayoutBarrierScreen() }
+                        composable(ROUTE_SUBCOMPOSABLE) { SubcomposableSampleScreen() }
                         composable(ROUTE_BOX) { BoxScreen() }
                         composable(ROUTE_COROUTINES) { CoroutinesScreen() }
                         composable(ROUTE_SCAFFOLD) { ScaffoldScreen() }

@@ -35,6 +35,7 @@ fun MainScreen(navController: NavHostController) {
             "Focus Request" to ROUTE_FOCUS_REQUEST,
             "Emphasis" to ROUTE_EMPHASIS,
             "ConstraintLayout" to ROUTE_CONSTRAINT,
+            "ConstraintLayout | Barrier" to ROUTE_CONSTRAINT_BARRIER,
             "Box/Stack/Frame Layout" to ROUTE_BOX,
             "Coroutines" to ROUTE_COROUTINES,
             "Scaffold" to ROUTE_SCAFFOLD,

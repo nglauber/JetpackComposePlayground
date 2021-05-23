@@ -8,7 +8,6 @@ import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import androidx.navigation.compose.navigate
 import androidx.navigation.compose.rememberNavController
 import kotlin.random.Random
 
@@ -113,7 +112,9 @@ fun TabProfile(navController: NavHostController) {
     NavHost(navController = navController, startDestination = "tab2_main") {
         composable("tab2_main") {
             Tab2MainScreen(device) {
-                navController.currentBackStackEntry?.arguments?.putParcelable("bt_device", device)
+                navController.currentBackStackEntry?.arguments = Bundle().apply {
+                    putParcelable("bt_device", device)
+                }
                 navController.navigate("tab2_details")
             }
         }

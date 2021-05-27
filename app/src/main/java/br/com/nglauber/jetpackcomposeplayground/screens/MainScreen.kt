@@ -38,6 +38,7 @@ fun MainScreen(navController: NavHostController) {
             "ConstraintLayout | Barrier" to ROUTE_CONSTRAINT_BARRIER,
             "Subcomposable" to ROUTE_SUBCOMPOSABLE,
             "Box/Stack/Frame Layout" to ROUTE_BOX,
+            "Avatar Stack" to ROUTE_AVATAR_STACK,
             "Coroutines" to ROUTE_COROUTINES,
             "Scaffold" to ROUTE_SCAFFOLD,
             "BackDrop Scaffold" to ROUTE_BACKDROP_SCAFFOLD,

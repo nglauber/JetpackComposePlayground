@@ -57,6 +57,7 @@ fun MainScreen(navController: NavHostController) {
             "Nested Scroll" to ROUTE_NESTED_SCROLL,
             "Horizontal Scroll" to ROUTE_HORIZONTAL_SCROLL,
             "Collapsing Effect" to ROUTE_COLLAPSING_EFFECT,
+            "Scroll Animation" to ROUTE_SCROLL_ANIMATION,
             "ViewPager" to ROUTE_VIEW_PAGER,
             "ViewPager + Tabs" to ROUTE_VIEW_PAGER_TABS,
             "ViewPager + Bottom Nav" to ROUTE_VIEW_PAGER_BOTTOM_NAV,

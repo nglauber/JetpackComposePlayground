@@ -8,6 +8,7 @@ import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CutCornerShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -20,6 +21,10 @@ import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.input.OffsetMapping
+import androidx.compose.ui.text.input.TransformedText
+import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.Density
@@ -54,6 +59,7 @@ fun Form2Screen() {
                     },
                 )
             }
+            TextFieldWithVisualTransformation()
             AnnotatedTextSample()
             Switch(checked = enabled, onCheckedChange = { enabled = it })
             ButtonsSample(enabled)
@@ -267,4 +273,40 @@ fun CustomShape() {
             }
         )
     )
+}
+
+@Composable
+private fun TextFieldWithVisualTransformation() {
+    var text by remember {
+        mutableStateOf("")
+    }
+    TextField(
+        value = text,
+        onValueChange = { text = it },
+        visualTransformation = PrefixTransformation("(+55)"),
+        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Phone)
+    )
+}
+
+class PrefixTransformation(private val prefix: String) : VisualTransformation {
+    override fun filter(text: AnnotatedString): TransformedText {
+        return prefixFilter(text, prefix)
+    }
+}
+
+private fun prefixFilter(number: AnnotatedString, prefix: String): TransformedText {
+    val out = prefix + number.text
+    val prefixOffset = prefix.length
+    val numberOffsetTranslator = object : OffsetMapping {
+        override fun originalToTransformed(offset: Int): Int {
+            return offset + prefixOffset
+        }
+
+        override fun transformedToOriginal(offset: Int): Int {
+            if (offset <= prefixOffset - 1) return prefixOffset
+            return offset - prefixOffset
+        }
+    }
+
+    return TransformedText(AnnotatedString(out), numberOffsetTranslator)
 }

@@ -70,6 +70,7 @@ class MainActivity : AppCompatActivity() {
                         composable(ROUTE_VIEW_PAGER_BOTTOM_NAV) { BottomNavSwipeScreen() }
                         composable(ROUTE_COLLAPSING_EFFECT) { CollapsingEffectScreen() }
                         composable(ROUTE_SCROLL_ANIMATION) { ScrollAnimationScreen() }
+                        composable(ROUTE_SCROLL_CURVED) { CurvedScrollScreen() }
                         composable(ROUTE_REVEAL_SWIPE) { RevealSwipeScreen() }
                     }
                 }

@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.compose.animation.*
 import androidx.compose.animation.core.*
 import androidx.compose.foundation.*
+import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
@@ -18,10 +19,13 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
+import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.animatedVectorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import br.com.nglauber.jetpackcomposeplayground.R
 import com.airbnb.lottie.compose.LottieAnimation
@@ -335,6 +339,57 @@ fun LottieAnimationDemo() {
     )
 }
 
+enum class ComponentState { Pressed, Released }
+
+@Composable
+fun LongPressAnimation() {
+    var toState by remember { mutableStateOf(ComponentState.Released) }
+    val transition: Transition<ComponentState> = updateTransition(targetState = toState, label = "")
+
+    // Defines a float animation to scale x,y
+    val scaleX: Float by transition.animateFloat(
+        transitionSpec = {
+            tween(100)
+        },
+        label = "scaleX"
+    ) { state ->
+        if (state == ComponentState.Pressed) 0.90f else 1f
+    }
+    val scaleY: Float by transition.animateFloat(
+        transitionSpec = {
+            tween(100)
+        },
+        label = "scaleY"
+    ) { state ->
+        if (state == ComponentState.Pressed) 0.90f else 1f
+    }
+    val modifier = Modifier.pointerInput(Unit) {
+        detectTapGestures(
+            onPress = {
+                toState = ComponentState.Pressed
+                tryAwaitRelease()
+                toState = ComponentState.Released
+            }
+        )
+    }
+    Box(
+        modifier
+            .width((100 * scaleX).dp)
+            .height((100 * scaleY).dp),
+        contentAlignment = Alignment.Center
+    ) {
+        Image(
+            painterResource(id = R.drawable.dog),
+            null,
+            modifier = Modifier
+                .graphicsLayer {
+                    this.scaleX = scaleX
+                    this.scaleY = scaleY
+                }
+        )
+    }
+}
+
 @ExperimentalComposeUiApi
 @ExperimentalAnimationApi
 @Composable
@@ -350,5 +405,14 @@ fun AnimationScreen() {
         HeartBeatDemo()
         AnimatedVectorDrawableAnim()
         LottieAnimationDemo()
+        LongPressAnimation()
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun PreviewLongPressAnimation() {
+    MaterialTheme {
+        LongPressAnimation()
     }
 }

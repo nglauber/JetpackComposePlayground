@@ -3,7 +3,7 @@ package br.com.nglauber.jetpackcomposeplayground.screens
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
-import androidx.activity.compose.registerForActivityResult
+import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContract
 import androidx.compose.foundation.layout.Column
 import androidx.compose.material.Button
@@ -38,7 +38,7 @@ class MyActivityResultContract : ActivityResultContract<Int, String>() {
 @Composable
 fun GetActivityResultScreen() {
     var textResult by rememberSaveable { mutableStateOf("") }
-    val launcher = registerForActivityResult(MyActivityResultContract()) { text ->
+    val launcher = rememberLauncherForActivityResult(MyActivityResultContract()) { text ->
         textResult = text
     }
 

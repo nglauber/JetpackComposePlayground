@@ -5,7 +5,7 @@ import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Environment
-import androidx.activity.compose.registerForActivityResult
+import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
@@ -36,11 +36,12 @@ fun TakePictureScreen() {
         file
     )
     val result = remember { mutableStateOf<Bitmap?>(null) }
-    val launcher = registerForActivityResult(ActivityResultContracts.TakePicture()) { success ->
-        if (success) {
-            result.value = imageFromResult(ctx, uri)
+    val launcher =
+        rememberLauncherForActivityResult(ActivityResultContracts.TakePicture()) { success ->
+            if (success) {
+                result.value = imageFromResult(ctx, uri)
+            }
         }
-    }
 
     Column(Modifier.fillMaxSize()) {
         Button(onClick = { launcher.launch(uri) }) {

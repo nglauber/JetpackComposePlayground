@@ -38,14 +38,16 @@ fun RevealSwipeScreen() {
         ) {
             items(items) {
                 val (text, color) = it
-                RevealItem(
-                    text = text,
-                    color = color,
-                    directions = mutableSetOf<RevealDirection>().apply {
-                        if (fromStart) add(RevealDirection.StartToEnd)
-                        if (fromEnd) add(RevealDirection.EndToStart)
-                    }
-                )
+                key(text, color) { // fix an issue that the swipe doesn't work after scroll down
+                    RevealItem(
+                        text = text,
+                        color = color,
+                        directions = mutableSetOf<RevealDirection>().apply {
+                            if (fromStart) add(RevealDirection.StartToEnd)
+                            if (fromEnd) add(RevealDirection.EndToStart)
+                        }
+                    )
+                }
             }
         }
     }

@@ -34,6 +34,7 @@ class MainActivity : AppCompatActivity() {
                 Surface(color = MaterialTheme.colors.background) {
                     NavHost(navController = navController, startDestination = ROUTE_MAIN) {
                         composable(ROUTE_MAIN) { MainScreen(navController) }
+                        composable(ROUTE_DERIVED_STATE) { DerivedStateScreen() }
                         composable(ROUTE_BOTTOM_NAV) { BottomNavScreen() }
                         composable(ROUTE_KEYBOARD) { KeyboardScreen() }
                         composable(ROUTE_NUMBER_PAD) { NumberPadScreen() }

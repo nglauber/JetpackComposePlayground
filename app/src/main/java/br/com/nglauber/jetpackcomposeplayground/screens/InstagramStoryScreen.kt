@@ -43,7 +43,7 @@ fun MyInstagramScreen() {
                 detectTapGestures(
                     onTap = { offset ->
                         currentStep =
-                            if (offset.x < maxWidth.value / 2) {
+                            if (offset.x < constraints.maxWidth / 2) {
                                 max(0, currentStep - 1)
                             } else {
                                 min(stepCount - 1, currentStep + 1)

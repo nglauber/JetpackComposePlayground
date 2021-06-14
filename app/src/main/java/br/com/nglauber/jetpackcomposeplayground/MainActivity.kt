@@ -57,6 +57,7 @@ class MainActivity : AppCompatActivity() {
                         composable(ROUTE_SCORE) { ScoreScreen() }
                         composable(ROUTE_BOOKS) { BooksScreen() }
                         composable(ROUTE_ANIMATION) { AnimationScreen() }
+                        composable(ROUTE_INSTAGRAM_PROGRESS) { MyInstagramScreen() }
                         composable(ROUTE_SLIDE_ANIMATION) { SlideInAnimationScreen() }
                         composable(ROUTE_CANVAS) { CanvasScreen() }
                         composable(ROUTE_BOTTOM_SHEET) { BottomSheetScreen() }

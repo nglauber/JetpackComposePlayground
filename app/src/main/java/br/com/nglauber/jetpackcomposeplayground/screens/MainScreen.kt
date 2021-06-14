@@ -48,6 +48,7 @@ fun MainScreen(navController: NavHostController) {
             "Books Http" to ROUTE_BOOKS,
             "Animation" to ROUTE_ANIMATION,
             "Slide Animation" to ROUTE_SLIDE_ANIMATION,
+            "Instagram Progress" to ROUTE_INSTAGRAM_PROGRESS,
             "Canvas" to ROUTE_CANVAS,
             "BottomSheet" to ROUTE_BOTTOM_SHEET,
             "Broadcast" to ROUTE_BROADCAST,

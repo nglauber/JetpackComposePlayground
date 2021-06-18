@@ -47,7 +47,7 @@ val socialNetworks = listOf(
 fun SocialNetworkScreen() {
     val context = LocalContext.current
     val viewModel: AppViewModel =
-        viewModel("AppViewModel", AppViewModelFactory(LocalRepository(context)))
+        viewModel(factory = AppViewModelFactory(LocalRepository(context)), key = "AppViewModel")
     val defaultSocialNetwork = socialNetworks.first()
     var currentUser by remember {
         mutableStateOf(

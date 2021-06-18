@@ -4,10 +4,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
-import androidx.compose.material.Card
-import androidx.compose.material.Checkbox
-import androidx.compose.material.Icon
-import androidx.compose.material.Text
+import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Delete
 import androidx.compose.material.icons.outlined.Star
@@ -19,6 +16,7 @@ import de.charlex.compose.RevealDirection
 import de.charlex.compose.RevealSwipe
 import kotlin.random.Random
 
+@ExperimentalMaterialApi
 @Composable
 fun RevealSwipeScreen() {
     var fromStart by remember { mutableStateOf(true) }
@@ -53,6 +51,7 @@ fun RevealSwipeScreen() {
     }
 }
 
+@ExperimentalMaterialApi
 @Composable
 fun RevealItem(text: String, color: Color, directions: Set<RevealDirection>) {
     RevealSwipe(

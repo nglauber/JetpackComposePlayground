@@ -16,7 +16,6 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import br.com.nglauber.jetpackcomposeplayground.R
 import com.google.accompanist.glide.rememberGlidePainter
-import dev.chrisbanes.accompanist.picasso.PicassoImage
 
 @Composable
 fun BoxScreen() {
@@ -28,14 +27,6 @@ fun BoxScreen() {
             contentDescription = "Recife",
             modifier = Modifier.fillMaxSize(),
             contentScale = ContentScale.Crop
-        )
-        PicassoImage(
-            contentDescription = "",
-            modifier = Modifier
-                .size(96.dp)
-                .clip(CircleShape)
-                .align(Alignment.CenterStart),
-            data = "https://pbs.twimg.com/profile_images/836560780422164480/vuClsC2w_400x400.jpg"
         )
         Image(
             rememberGlidePainter(

@@ -59,11 +59,13 @@ class MainActivity : AppCompatActivity() {
                         composable(ROUTE_ANIMATION) { AnimationScreen() }
                         composable(ROUTE_INSTAGRAM_PROGRESS) { MyInstagramScreen() }
                         composable(ROUTE_SLIDE_ANIMATION) { SlideInAnimationScreen() }
+                        composable(ROUTE_FLIP_CARD) { FlipCardScreen() }
                         composable(ROUTE_CANVAS) { CanvasScreen() }
                         composable(ROUTE_BOTTOM_SHEET) { BottomSheetScreen() }
                         composable(ROUTE_BROADCAST) { BroadcastScreen() }
                         composable(ROUTE_ACTIVITY_RESULT) { GetActivityResultScreen() }
                         composable(ROUTE_GRID) { GridScreen() }
+                        composable(ROUTE_TABLE) { TableScreen() }
                         composable(ROUTE_LIST_STICK_HEADER) { ListWithStickHeaderScreen() }
                         composable(ROUTE_NESTED_SCROLL) { NestedScrollScreen() }
                         composable(ROUTE_HORIZONTAL_SCROLL) { HorizontalScrollScreen() }

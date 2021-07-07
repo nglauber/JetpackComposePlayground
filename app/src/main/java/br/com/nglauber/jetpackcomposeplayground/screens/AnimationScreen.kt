@@ -22,7 +22,6 @@ import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.animatedVectorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.tooling.preview.Preview
@@ -292,34 +291,35 @@ fun LineAnimation() {
 @ExperimentalComposeUiApi
 @Composable
 fun AnimatedVectorDrawableAnim() {
-    val image = animatedVectorResource(R.drawable.avd_anim)
-    var atEnd by remember { mutableStateOf(false) }
-    var isRunning by remember { mutableStateOf(true) }
-    val scope = rememberCoroutineScope()
-    suspend fun runAnimation() {
-        while (isRunning) {
-            delay(1000)
-            atEnd = !atEnd
-        }
-    }
-    LaunchedEffect(image) {
-        runAnimation()
-    }
-    Image(
-        painter = image.painterFor(atEnd),
-        null,
-        Modifier
-            .size(150.dp)
-            .clickable {
-                isRunning = !isRunning
-                if (isRunning)
-                    scope.launch {
-                        runAnimation()
-                    }
-            },
-        contentScale = ContentScale.Fit,
-        colorFilter = ColorFilter.tint(Color.Red)
-    )
+    //TODO animatedVectorResource was removed in RC01
+//    val image = animatedVectorResource(R.drawable.avd_anim)
+//    var atEnd by remember { mutableStateOf(false) }
+//    var isRunning by remember { mutableStateOf(true) }
+//    val scope = rememberCoroutineScope()
+//    suspend fun runAnimation() {
+//        while (isRunning) {
+//            delay(1000)
+//            atEnd = !atEnd
+//        }
+//    }
+//    LaunchedEffect(image) {
+//        runAnimation()
+//    }
+//    Image(
+//        painter = image.painterFor(atEnd),
+//        null,
+//        Modifier
+//            .size(150.dp)
+//            .clickable {
+//                isRunning = !isRunning
+//                if (isRunning)
+//                    scope.launch {
+//                        runAnimation()
+//                    }
+//            },
+//        contentScale = ContentScale.Fit,
+//        colorFilter = ColorFilter.tint(Color.Red)
+//    )
 }
 
 @Composable

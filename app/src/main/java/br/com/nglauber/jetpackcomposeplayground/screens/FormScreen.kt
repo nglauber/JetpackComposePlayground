@@ -191,11 +191,12 @@ fun SegmentedControl() {
 @Composable
 fun BindingView() {
     AndroidViewBinding(factory = MyBindingLayoutBinding::inflate) {
+        val ctx = this.root.context
         var count = 0
-        txtTitle.text = "Count: $count"
+        txtTitle.text = ctx.getString(R.string.count_text, count)
         btnOk.setOnClickListener {
             count++
-            txtTitle.text = "Count: $count"
+            txtTitle.text = ctx.getString(R.string.count_text, count)
         }
     }
 }

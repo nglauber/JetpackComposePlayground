@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name">Jetpack Compose Playground</string>
 
+    <string name="count_text">Count: %d</string>
+
     <string name="msg_fav_delete_title">Delete</string>
     <string name="msg_fav_delete_message">Do you want to remove \'%s\' from the favorites?</string>
     <string name="msg_fav_delete_confirm">Yep!</string>
@@ -16,4 +18,13 @@
     <string name="msg_added_favorites">\'%s\' added to favorites!</string>
 
     <string name="show_toast">Toast</string>
+
+    <string name="activity_java_text">This is a Java Activity using Compose</string>
+
+    <string name="option1">Opção 1</string>
+    <string name="option2">Opção 2</string>
+    <string name="option3">Opção 3</string>
+
+    <string name="text_my_binding">My binding</string>
+    <string name="btn_ok">OK</string>
 </resources>

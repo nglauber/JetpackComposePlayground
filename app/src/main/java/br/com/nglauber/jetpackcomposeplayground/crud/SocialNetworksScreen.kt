@@ -149,7 +149,6 @@ fun InputPanel(currentUser: UserBinding, onInsertUser: (UserBinding) -> Unit) {
             }
         }
         Button(onClick = {
-            //formModel.users.add(formModel.currentUser)
             onInsertUser(currentUser)
         }, content = { Text("Save") })
     }

@@ -10,10 +10,7 @@ import androidx.compose.foundation.border
 import androidx.compose.foundation.gestures.TransformableState
 import androidx.compose.foundation.gestures.detectTransformGestures
 import androidx.compose.foundation.gestures.transformable
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.*
@@ -27,19 +24,26 @@ import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.imageResource
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.core.content.ContextCompat
 import androidx.core.graphics.drawable.toBitmap
 import br.com.nglauber.jetpackcomposeplayground.R
+import com.google.accompanist.imageloading.rememberDrawablePainter
+
 
 @Composable
 fun ImageScreen() {
     Column(Modifier.fillMaxSize()) {
-        RoundedImage()
-        GrayscaleImage()
-        GrayscaleDrawable()
+        Row {
+            RoundedImage()
+            GrayscaleImage()
+        }
+        Row {
+            GrayscaleDrawable()
+            NinePatchImage()
+        }
         ZoomableImage()
 //        ZoomAndTranslateImage()
     }
@@ -159,4 +163,18 @@ fun ZoomAndTranslateImage() {
                 ),
         )
     }
+}
+
+@Composable
+fun NinePatchImage() {
+    val context = LocalContext.current
+    Image(
+        rememberDrawablePainter(
+            drawable = ContextCompat.getDrawable(context, R.drawable.balao)
+        ),
+        contentDescription = "Faq card 1",
+        Modifier
+            .fillMaxWidth()
+            .height(150.dp)
+    )
 }

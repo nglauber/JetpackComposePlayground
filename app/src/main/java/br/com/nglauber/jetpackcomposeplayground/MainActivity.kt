@@ -76,6 +76,7 @@ class MainActivity : AppCompatActivity() {
                         composable(ROUTE_SCROLL_ANIMATION) { ScrollAnimationScreen() }
                         composable(ROUTE_SCROLL_CURVED) { CurvedScrollScreen() }
                         composable(ROUTE_REVEAL_SWIPE) { RevealSwipeScreen() }
+                        composable(ROUTE_LIFECYCLE) { LifecycleSampleScreen() }
                     }
                 }
             }

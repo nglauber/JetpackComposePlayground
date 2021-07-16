@@ -67,6 +67,7 @@ fun MainScreen(navController: NavHostController) {
             "ViewPager + Tabs" to ROUTE_VIEW_PAGER_TABS,
             "ViewPager + Bottom Nav" to ROUTE_VIEW_PAGER_BOTTOM_NAV,
             "Composable View" to ROUTE_COMPOSABLE_VIEW,
+            "Lifecycle Sample" to ROUTE_LIFECYCLE,
             "Exit" to ROUTE_EXIT
         )
     }

@@ -1,5 +1,7 @@
 package br.com.nglauber.jetpackcomposeplayground.screens
 
+import android.graphics.Paint
+import android.graphics.Path
 import androidx.compose.animation.core.*
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
@@ -18,10 +20,8 @@ import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.StrokeCap
-import androidx.compose.ui.graphics.drawscope.Stroke
-import androidx.compose.ui.graphics.drawscope.inset
-import androidx.compose.ui.graphics.drawscope.rotate
-import androidx.compose.ui.graphics.drawscope.withTransform
+import androidx.compose.ui.graphics.drawscope.*
+import androidx.compose.ui.graphics.nativeCanvas
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import androidx.compose.ui.platform.LocalDensity
@@ -29,6 +29,7 @@ import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import br.com.nglauber.jetpackcomposeplayground.R
 import kotlinx.coroutines.isActive
 
@@ -74,6 +75,24 @@ fun CanvasSample() {
             ) {
                 draw(Size(96.dp.toPx(), 96.dp.toPx()))
             }
+        }
+        drawIntoCanvas {
+            val textPadding = 250.dp.toPx()
+            val arcHeight = 400.dp.toPx()
+            val arcWidth = 300.dp.toPx()
+            val path = Path().apply {
+                addArc(0f, textPadding, arcWidth, arcHeight, 180f, 180f)
+            }
+            it.nativeCanvas.drawTextOnPath(
+                "Curved Text with Jetpack Compose",
+                path,
+                0f,
+                0f,
+                Paint().apply {
+                    textSize = 16.sp.toPx()
+                    textAlign = Paint.Align.CENTER
+                }
+            )
         }
     }
 }

@@ -31,7 +31,6 @@ import androidx.compose.ui.unit.Density
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import dev.jeziellago.compose.markdowntext.MarkdownText
 
 @Composable
 fun Form2Screen() {
@@ -283,30 +282,49 @@ private fun TextFieldWithVisualTransformation() {
     TextField(
         value = text,
         onValueChange = { text = it },
-        visualTransformation = PrefixTransformation("(+55)"),
+        visualTransformation = PhoneTransformation("XX-X-XXXX-XXXX", "+55 "),
         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Phone)
     )
 }
 
-class PrefixTransformation(private val prefix: String) : VisualTransformation {
+class PhoneTransformation(
+    private val mask: String,
+    private val prefix: String = "",
+) : VisualTransformation {
     override fun filter(text: AnnotatedString): TransformedText {
-        return prefixFilter(text, prefix)
-    }
-}
-
-private fun prefixFilter(number: AnnotatedString, prefix: String): TransformedText {
-    val out = prefix + number.text
-    val prefixOffset = prefix.length
-    val numberOffsetTranslator = object : OffsetMapping {
-        override fun originalToTransformed(offset: Int): Int {
-            return offset + prefixOffset
-        }
-
-        override fun transformedToOriginal(offset: Int): Int {
-            if (offset <= prefixOffset - 1) return prefixOffset
-            return offset - prefixOffset
-        }
+        return prefixFilter(text, prefix, mask)
     }
 
-    return TransformedText(AnnotatedString(out), numberOffsetTranslator)
+    private fun prefixFilter(
+        number: AnnotatedString,
+        prefix: String,
+        format: String
+    ): TransformedText {
+
+        val transformedNumber = StringBuffer()
+        var spaceCount = 0
+
+        number.text.forEachIndexed { index, c ->
+            if (index + spaceCount < format.length && format[index + spaceCount] == '-') {
+                spaceCount++
+                transformedNumber.append(' ')
+            }
+            transformedNumber.append(c)
+        }
+
+        val out = prefix + transformedNumber
+        val prefixOffset = prefix.length
+        val numberOffsetTranslator = object : OffsetMapping {
+            override fun originalToTransformed(offset: Int): Int {
+                return offset + prefixOffset + spaceCount
+            }
+
+            override fun transformedToOriginal(offset: Int): Int {
+                if (offset <= prefixOffset - 1) return prefixOffset
+                return offset - prefixOffset - spaceCount
+            }
+        }
+
+        return TransformedText(AnnotatedString(out), numberOffsetTranslator)
+    }
 }

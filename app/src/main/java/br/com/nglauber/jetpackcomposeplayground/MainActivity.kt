@@ -19,13 +19,13 @@ import br.com.nglauber.jetpackcomposeplayground.screens.*
 import br.com.nglauber.jetpackcomposeplayground.ui.theme.JetpackComposePlaygroundTheme
 import com.google.accompanist.pager.ExperimentalPagerApi
 
+@ExperimentalFoundationApi
+@ExperimentalAnimationApi
+@ExperimentalPagerApi
+@ExperimentalMaterialApi
+@ExperimentalComposeUiApi
 class MainActivity : AppCompatActivity() {
 
-    @ExperimentalComposeUiApi
-    @ExperimentalPagerApi
-    @ExperimentalFoundationApi
-    @ExperimentalMaterialApi
-    @ExperimentalAnimationApi
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {

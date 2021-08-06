@@ -21,7 +21,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import br.com.nglauber.jetpackcomposeplayground.R
 import br.com.nglauber.jetpackcomposeplayground.rest.model.Book
 import br.com.nglauber.jetpackcomposeplayground.rest.model.RequestState
-import com.google.accompanist.coil.rememberCoilPainter
+import coil.compose.rememberImagePainter
 import com.google.accompanist.pager.*
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
@@ -279,9 +279,7 @@ fun BookItemContent(
             .fillMaxWidth()
     ) {
         Image(
-            painter = rememberCoilPainter(
-                request = book.coverUrl,
-            ),
+            painter = rememberImagePainter(book.coverUrl),
             contentDescription = "",
             modifier = Modifier.size(96.dp, 144.dp),
         )

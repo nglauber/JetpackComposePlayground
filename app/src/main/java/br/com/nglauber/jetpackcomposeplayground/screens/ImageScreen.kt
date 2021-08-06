@@ -30,8 +30,8 @@ import androidx.compose.ui.unit.dp
 import androidx.core.content.ContextCompat
 import androidx.core.graphics.drawable.toBitmap
 import br.com.nglauber.jetpackcomposeplayground.R
-import com.google.accompanist.imageloading.rememberDrawablePainter
-
+import coil.annotation.ExperimentalCoilApi
+import coil.compose.rememberImagePainter
 
 @Composable
 fun ImageScreen() {
@@ -165,12 +165,13 @@ fun ZoomAndTranslateImage() {
     }
 }
 
+@ExperimentalCoilApi
 @Composable
 fun NinePatchImage() {
     val context = LocalContext.current
     Image(
-        rememberDrawablePainter(
-            drawable = ContextCompat.getDrawable(context, R.drawable.balao)
+        rememberImagePainter(
+            ContextCompat.getDrawable(context, R.drawable.balao)
         ),
         contentDescription = "Faq card 1",
         Modifier

@@ -17,6 +17,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
+import androidx.navigation.NavOptionsBuilder
 import br.com.nglauber.jetpackcomposeplayground.*
 
 @Composable
@@ -88,8 +89,11 @@ fun MainScreen(navController: NavHostController) {
                                 activity?.startActivity(
                                     Intent(activity, MyJavaActivity::class.java)
                                 )
-                            else ->
+                            else -> {
+                                NavOptionsBuilder()
+                                    .anim {  }
                                 navController.navigate(route)
+                            }
                         }
                     })
                     .fillMaxWidth()

@@ -57,6 +57,7 @@ dependencies {
     implementation "androidx.compose.ui:ui-viewbinding:$compose_version"
     implementation "androidx.compose.material:material:$compose_version"
     implementation "androidx.compose.material:material-ripple:$compose_version"
+    implementation "androidx.compose.runtime:runtime:$compose_version"
     implementation "androidx.compose.runtime:runtime-livedata:$compose_version"
 
     implementation "androidx.core:core-ktx:$core_ktx_version"
@@ -72,11 +73,11 @@ dependencies {
     implementation "com.google.android.material:material:$material_version"
     implementation "com.google.code.gson:gson:$gson_version"
 
-    implementation "com.google.accompanist:accompanist-coil:$accompanist_coil_version"
-    implementation "com.google.accompanist:accompanist-glide:$accompanist_glide_version"
+    implementation "com.google.accompanist:accompanist-navigation-animation:$accompanist_pager_version"
     implementation "com.google.accompanist:accompanist-pager:$accompanist_pager_version"
     implementation "com.google.accompanist:accompanist-pager-indicators:$accompanist_pager_version"
 
+    implementation "io.coil-kt:coil-compose:$coilVersion"
     implementation "com.squareup.okhttp3:okhttp:$okhttp_version"
     implementation "com.github.jeziellago:compose-markdown:$markdown_version"
     implementation "de.charlex.compose:revealswipe:$reveal_swipe_version"

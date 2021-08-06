@@ -4,19 +4,23 @@ import android.os.Bundle
 import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.animation.ExperimentalAnimationApi
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.slideInHorizontally
+import androidx.compose.animation.slideOutHorizontally
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.ui.ExperimentalComposeUiApi
-import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.composable
-import androidx.navigation.compose.rememberNavController
+import com.google.accompanist.navigation.animation.navigation
+import com.google.accompanist.navigation.animation.composable
 import br.com.nglauber.jetpackcomposeplayground.bottomnav.BottomNavScreen
 import br.com.nglauber.jetpackcomposeplayground.crud.SocialNetworkScreen
 import br.com.nglauber.jetpackcomposeplayground.rest.BooksScreen
 import br.com.nglauber.jetpackcomposeplayground.screens.*
 import br.com.nglauber.jetpackcomposeplayground.ui.theme.JetpackComposePlaygroundTheme
+import com.google.accompanist.navigation.animation.AnimatedNavHost
+import com.google.accompanist.navigation.animation.rememberAnimatedNavController
 import com.google.accompanist.pager.ExperimentalPagerApi
 
 @ExperimentalFoundationApi
@@ -29,10 +33,25 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            val navController = rememberNavController()
+            val navController = rememberAnimatedNavController()
             JetpackComposePlaygroundTheme {
                 Surface(color = MaterialTheme.colors.background) {
-                    NavHost(navController = navController, startDestination = ROUTE_MAIN) {
+                    AnimatedNavHost(
+                        navController = navController,
+                        startDestination = ROUTE_MAIN,
+                        enterTransition = { initial, _ ->
+                            slideInHorizontally(initialOffsetX = { it }, animationSpec = tween(300))
+                        },
+                        exitTransition = { _, target ->
+                            slideOutHorizontally(targetOffsetX = { -it }, animationSpec = tween(300))
+                        },
+                        popEnterTransition = { initial, _ ->
+                            slideInHorizontally(initialOffsetX = { -it }, animationSpec = tween(300))
+                        },
+                        popExitTransition = { initial, _ ->
+                            slideOutHorizontally(targetOffsetX = { it }, animationSpec = tween(300))
+                        },
+                    ) {
                         composable(ROUTE_MAIN) { MainScreen(navController) }
                         composable(ROUTE_DERIVED_STATE) { DerivedStateScreen() }
                         composable(ROUTE_BOTTOM_NAV) { BottomNavScreen() }

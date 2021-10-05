@@ -55,7 +55,7 @@ fun BooksScreenContent(
     val screenState by remember { mutableStateOf(BookScreenState()) }
     val scrollState0 = rememberLazyListState()
     val scrollState1 = rememberLazyListState()
-    val pagerState = rememberPagerState(pageCount = 2)
+    val pagerState = rememberPagerState(initialPage = 0)
 
     Scaffold(
         topBar = {
@@ -146,7 +146,7 @@ fun BooksScreenTabs(
     vararg scrollStates: LazyListState
 ) {
     Column {
-        HorizontalPager(state = pagerState) { page ->
+        HorizontalPager(state = pagerState, count = 2) { page ->
             when (page) {
                 0 -> BooksList(
                     books,

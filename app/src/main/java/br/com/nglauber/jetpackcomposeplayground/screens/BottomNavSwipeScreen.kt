@@ -27,7 +27,7 @@ fun BottomNavSwipeScreen() {
         R.drawable.male,
         R.drawable.female,
     )
-    val pageState = rememberPagerState(pageCount = images.size)
+    val pageState = rememberPagerState(initialPage = 0)
     Scaffold(
         bottomBar = {
             BottomAppBar(
@@ -52,7 +52,8 @@ fun BottomNavSwipeScreen() {
         },
     ) {
         HorizontalPager(
-            state = pageState
+            state = pageState,
+            count = images.size
         ) { page ->
             Image(
                 painterResource(id = images[page]),

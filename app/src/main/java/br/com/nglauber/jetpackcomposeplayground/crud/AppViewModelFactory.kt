@@ -7,7 +7,7 @@ import br.com.nglauber.jetpacksample.repository.LocalRepository
 class AppViewModelFactory(
     private val repo: LocalRepository
 ) : ViewModelProvider.Factory {
-    override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+    override fun <T : ViewModel> create(modelClass: Class<T>): T {
         return AppViewModel(repo) as T
     }
 }

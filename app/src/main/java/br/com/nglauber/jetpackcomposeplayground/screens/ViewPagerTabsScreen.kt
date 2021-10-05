@@ -24,7 +24,7 @@ fun ViewPagerTabsScreen() {
     val coroutineScope = rememberCoroutineScope()
     val pages = (1..5).map { it.toString() }
     val colors = listOf(Color.Red, Color.Green, Color.Blue, Color.Yellow, Color.Magenta)
-    val pagerState = rememberPagerState(pageCount = pages.size)
+    val pagerState = rememberPagerState(initialPage = 0)
 
     Column(modifier = Modifier.fillMaxSize()) {
         TabRow(
@@ -48,7 +48,7 @@ fun ViewPagerTabsScreen() {
             }
         }
 
-        HorizontalPager(state = pagerState) { page ->
+        HorizontalPager(state = pagerState, count = pages.size) { page ->
             Text(
                 text = "Page ${pages[page]}",
                 modifier = Modifier

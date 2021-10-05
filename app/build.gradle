@@ -5,7 +5,7 @@ plugins {
 }
 
 android {
-    compileSdkVersion 30
+    compileSdkVersion 31
     buildToolsVersion "30.0.3"
 
     defaultConfig {
@@ -73,9 +73,10 @@ dependencies {
     implementation "com.google.android.material:material:$material_version"
     implementation "com.google.code.gson:gson:$gson_version"
 
-    implementation "com.google.accompanist:accompanist-navigation-animation:$accompanist_pager_version"
-    implementation "com.google.accompanist:accompanist-pager:$accompanist_pager_version"
-    implementation "com.google.accompanist:accompanist-pager-indicators:$accompanist_pager_version"
+    implementation "com.google.accompanist:accompanist-navigation-animation:$accompanist_version"
+    implementation "com.google.accompanist:accompanist-pager:$accompanist_version"
+    implementation "com.google.accompanist:accompanist-pager-indicators:$accompanist_version"
+    implementation "com.google.accompanist:accompanist-navigation-material:$accompanist_version"
 
     implementation "io.coil-kt:coil-compose:$coilVersion"
     implementation "com.squareup.okhttp3:okhttp:$okhttp_version"

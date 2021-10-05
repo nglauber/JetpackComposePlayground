@@ -1,5 +1,6 @@
 package br.com.nglauber.jetpackcomposeplayground.bottomnav
 
+import android.net.Uri
 import android.os.Bundle
 import androidx.compose.material.*
 import androidx.compose.runtime.*
@@ -9,6 +10,8 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
+import com.google.gson.Gson
 import kotlin.random.Random
 
 typealias BackToFirstTab = () -> Unit
@@ -112,15 +115,19 @@ fun TabProfile(navController: NavHostController) {
     NavHost(navController = navController, startDestination = "tab2_main") {
         composable("tab2_main") {
             Tab2MainScreen(device) {
-                navController.currentBackStackEntry?.arguments = Bundle().apply {
-                    putParcelable("bt_device", device)
-                }
-                navController.navigate("tab2_details")
+                val json = Uri.encode(Gson().toJson(device))
+                navController.navigate("tab2_details/$json")
             }
         }
-        composable("tab2_details") {
-            val prevScreenDevice =
-                navController.previousBackStackEntry?.arguments?.getParcelable<Device>("bt_device")
+        composable(
+            "tab2_details/{device}",
+            arguments = listOf(
+                navArgument("device") {
+                    type = AssetParamType()
+                }
+            )
+        ) {
+            val prevScreenDevice = it.arguments?.getParcelable<Device>("device")
             Tab2DetailsScreen(prevScreenDevice!!)
         }
     }

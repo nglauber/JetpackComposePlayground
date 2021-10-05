@@ -69,6 +69,7 @@ fun MainScreen(navController: NavHostController) {
             "ViewPager + Bottom Nav" to ROUTE_VIEW_PAGER_BOTTOM_NAV,
             "Composable View" to ROUTE_COMPOSABLE_VIEW,
             "Lifecycle Sample" to ROUTE_LIFECYCLE,
+            "Route BottomSheet" to ROUTE_BOTTOM_SHEET_NAV,
             "Exit" to ROUTE_EXIT
         )
     }
@@ -91,7 +92,7 @@ fun MainScreen(navController: NavHostController) {
                                 )
                             else -> {
                                 NavOptionsBuilder()
-                                    .anim {  }
+                                    .anim { }
                                 navController.navigate(route)
                             }
                         }

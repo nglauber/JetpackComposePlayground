@@ -1,11 +1,9 @@
 package br.com.nglauber.jetpackcomposeplayground.screens
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import br.com.nglauber.jetpackcomposeplayground.R
@@ -24,9 +22,9 @@ fun ViewPagerScreen() {
     )
     HorizontalPager(
         state = rememberPagerState(
-            pageCount = images.size,
-            initialOffscreenLimit = 2
-        )
+            initialPage = 0,
+        ),
+        count = images.size,
     ) { page ->
         Image(
             painterResource(id = images[page]),

@@ -15,6 +15,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavBackStackEntry
+import kotlinx.coroutines.delay
 
 @Composable
 fun BottomSheetViaRoute(
@@ -23,10 +24,11 @@ fun BottomSheetViaRoute(
     val viewModel: MyViewModel = viewModel(navBackStackEntry)
     val list by viewModel.listFlow.collectAsState(emptyList())
     LaunchedEffect(Unit) {
+        delay(40)
         viewModel.loadList()
     }
     Column(Modifier.verticalScroll(rememberScrollState())) {
-        //Text(text = "BottomSheet via route", style = MaterialTheme.typography.h3)
+        Text(text = "BottomSheet via route", style = MaterialTheme.typography.h3)
         list.forEach {
             Text(
                 text = it,

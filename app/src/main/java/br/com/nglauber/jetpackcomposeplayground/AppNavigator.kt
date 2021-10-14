@@ -2,21 +2,8 @@ package br.com.nglauber.jetpackcomposeplayground
 
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.ExperimentalFoundationApi
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.ExperimentalMaterialApi
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.ExperimentalComposeUiApi
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import br.com.nglauber.jetpackcomposeplayground.bottomnav.BottomNavScreen
@@ -65,7 +52,7 @@ fun NavGraphBuilder.AppNavigator(
     composable(ROUTE_SLIDE_ANIMATION) { SlideInAnimationScreen() }
     composable(ROUTE_FLIP_CARD) { FlipCardScreen() }
     composable(ROUTE_CANVAS) { CanvasScreen() }
-    composable(ROUTE_BOTTOM_SHEET) { BottomSheetScreen() }
+    composable(ROUTE_BOTTOM_SHEET) { BottomSheetScreen(it) }
     composable(ROUTE_BROADCAST) { BroadcastScreen() }
     composable(ROUTE_ACTIVITY_RESULT) { GetActivityResultScreen() }
     composable(ROUTE_GRID) { GridScreen() }

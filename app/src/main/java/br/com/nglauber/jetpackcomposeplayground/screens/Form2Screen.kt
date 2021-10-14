@@ -16,7 +16,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.*
+import androidx.compose.ui.layout.SubcomposeLayout
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.TextStyle
@@ -35,6 +37,7 @@ import androidx.compose.ui.unit.sp
 @Composable
 fun Form2Screen() {
     val textState = remember { mutableStateOf("") }
+    var multilineTextState by remember { mutableStateOf("") }
     var enabled by remember { mutableStateOf(true) }
     Box(Modifier.fillMaxSize()) {
         Column(
@@ -65,6 +68,12 @@ fun Form2Screen() {
 //            MarkdownText("Click [here](http://www.google.com) or http://www.google.com.")
             CustomShape()
             MySlider()
+            MultilineTextFieldSample(
+                text = multilineTextState,
+                onTextChanged = { multilineTextState = it },
+                minLines = 4,
+                modifier = Modifier.fillMaxWidth()
+            )
         }
         Text(
             "Stack Text",
@@ -326,5 +335,45 @@ class PhoneTransformation(
         }
 
         return TransformedText(AnnotatedString(out), numberOffsetTranslator)
+    }
+}
+
+object MultilineText
+
+@Composable
+fun MultilineTextFieldSample(
+    text: String,
+    onTextChanged: (String) -> Unit,
+    minLines: Int,
+    modifier: Modifier = Modifier
+) {
+    val localDensity = LocalDensity.current
+    SubcomposeLayout { constraints ->
+        val subcomp = subcompose(MultilineText) {
+            // Measuring the max height
+            val fakeText = (1 until minLines).joinToString { "\n" }
+            OutlinedTextField(fakeText, onValueChange = {})
+        }
+        val placeable = subcomp.first().measure(constraints)
+        val height = placeable.height
+        val heightInDp = with(localDensity) { ((height + 1) / density).dp }
+
+        // Measure the actual content
+        val placeables = subcompose(ContentPlaceables) {
+            // This is the actual content, but now we know the maximum height
+            OutlinedTextField(
+                value = text,
+                onValueChange = onTextChanged,
+                modifier = modifier.heightIn(min = heightInDp),
+                maxLines = minLines
+            )
+        }
+        val contentPlaceable = placeables
+            .first()
+            .measure(constraints)
+
+        layout(contentPlaceable.width, contentPlaceable.height) {
+            contentPlaceable.placeRelative(0, 0)
+        }
     }
 }

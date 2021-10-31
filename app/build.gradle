@@ -10,8 +10,8 @@ android {
 
     defaultConfig {
         applicationId "br.com.nglauber.jetpackcomposeplayground"
-        minSdkVersion 21
-        targetSdkVersion 30
+        minSdkVersion 24
+        targetSdkVersion 31
         versionCode 1
         versionName "1.0"
 
@@ -83,6 +83,8 @@ dependencies {
     implementation "com.github.jeziellago:compose-markdown:$markdown_version"
     implementation "de.charlex.compose:revealswipe:$reveal_swipe_version"
     implementation "com.airbnb.android:lottie-compose:$lottieVersion"
+
+    implementation "androidx.startup:startup-runtime:1.1.0"
 
     testImplementation "junit:junit:$junit_version"
     androidTestImplementation "androidx.test.ext:junit:$ext_junit_version"

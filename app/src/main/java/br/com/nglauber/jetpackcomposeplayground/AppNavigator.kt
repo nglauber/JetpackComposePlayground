@@ -48,6 +48,7 @@ fun NavGraphBuilder.AppNavigator(
     composable(ROUTE_SCORE) { ScoreScreen() }
     composable(ROUTE_BOOKS) { BooksScreen() }
     composable(ROUTE_ANIMATION) { AnimationScreen() }
+    composable(ROUTE_ANIMATING_LIST) { AnimatingListScreen() }
     composable(ROUTE_INSTAGRAM_PROGRESS) { MyInstagramScreen() }
     composable(ROUTE_SLIDE_ANIMATION) { SlideInAnimationScreen() }
     composable(ROUTE_FLIP_CARD) { FlipCardScreen() }

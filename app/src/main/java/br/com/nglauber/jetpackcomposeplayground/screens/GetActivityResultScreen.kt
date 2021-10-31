@@ -20,7 +20,7 @@ import kotlin.random.Random
 
 
 class MyActivityResultContract : ActivityResultContract<Int, String>() {
-    override fun createIntent(context: Context, input: Int?): Intent {
+    override fun createIntent(context: Context, input: Int): Intent {
         return Intent(context, ResponseActivity::class.java).apply {
             putExtra(EXTRA_INT, input)
         }

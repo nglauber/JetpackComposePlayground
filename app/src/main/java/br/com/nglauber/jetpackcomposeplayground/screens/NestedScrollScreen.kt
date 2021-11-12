@@ -55,9 +55,9 @@ fun NestedScrollScreen() {
                     Text(
                         item, modifier = Modifier
                             .height(120.dp)
+                            .fillParentMaxWidth(.5f)
                             .padding(4.dp)
                             .background(Color.Yellow)
-                            .fillParentMaxWidth(.5f)
                     )
                 }
             }

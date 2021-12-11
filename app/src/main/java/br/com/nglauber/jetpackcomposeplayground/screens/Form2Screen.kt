@@ -14,6 +14,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
+import androidx.compose.ui.geometry.Rect
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.*
 import androidx.compose.ui.layout.SubcomposeLayout
@@ -256,10 +257,10 @@ fun TextFieldWithMaxLength() {
 
 @Composable
 fun CustomShape() {
+    val arcHeight = with(LocalDensity.current) { 30.dp.toPx() }
     Box(modifier = Modifier
-        .size(50.dp, 50.dp)
-        .border(
-            width = 16.dp,
+        .size(100.dp, 100.dp)
+        .background(
             color = Color.Red,
             shape = object : Shape {
                 override fun createOutline(
@@ -268,12 +269,19 @@ fun CustomShape() {
                     density: Density
                 ): Outline {
                     return Outline.Generic(
-                        // Just left border
                         Path().apply {
                             moveTo(0f, 0f)
-                            lineTo(0f, size.height)
-                            lineTo(16f, size.height)
-                            lineTo(16f, 0f)
+                            lineTo(0f, size.height - arcHeight)
+                            arcTo(
+                                Rect(
+                                    0f,
+                                    size.height - arcHeight,
+                                    size.width,
+                                    size.height
+                                ), 180f, -180f, false
+                            )
+                            lineTo(size.width, size.height - arcHeight)
+                            lineTo(size.width, 0f)
                             close()
                         }
                     )

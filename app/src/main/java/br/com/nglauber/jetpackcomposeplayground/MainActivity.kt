@@ -25,9 +25,9 @@ import com.google.accompanist.pager.ExperimentalPagerApi
 @ExperimentalPagerApi
 @ExperimentalMaterialApi
 @ExperimentalComposeUiApi
+@ExperimentalMaterialNavigationApi
 class MainActivity : AppCompatActivity() {
 
-    @ExperimentalMaterialNavigationApi
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
@@ -39,25 +39,25 @@ class MainActivity : AppCompatActivity() {
                         AnimatedNavHost(
                             navController = navController,
                             startDestination = ROUTE_MAIN,
-                            enterTransition = { initial, _ ->
+                            enterTransition = {
                                 slideInHorizontally(
                                     initialOffsetX = { it },
                                     animationSpec = tween(300)
                                 )
                             },
-                            exitTransition = { _, target ->
+                            exitTransition = {
                                 slideOutHorizontally(
                                     targetOffsetX = { -it },
                                     animationSpec = tween(300)
                                 )
                             },
-                            popEnterTransition = { initial, _ ->
+                            popEnterTransition = {
                                 slideInHorizontally(
                                     initialOffsetX = { -it },
                                     animationSpec = tween(300)
                                 )
                             },
-                            popExitTransition = { initial, _ ->
+                            popExitTransition = {
                                 slideOutHorizontally(
                                     targetOffsetX = { it },
                                     animationSpec = tween(300)

@@ -70,4 +70,7 @@ fun NavGraphBuilder.AppNavigator(
     composable(ROUTE_REVEAL_SWIPE) { RevealSwipeScreen() }
     composable(ROUTE_LIFECYCLE) { LifecycleSampleScreen() }
     bottomSheet(ROUTE_BOTTOM_SHEET_NAV) { BottomSheetViaRoute(it) }
+    composable(ROUTE_CUSTOM_ROUTE_A) { CustomBackStackScreenA(navController) }
+    composable(ROUTE_CUSTOM_ROUTE_B) { CustomBackStackScreenB(navController) }
+    composable(ROUTE_CUSTOM_ROUTE_C) { CustomBackStackScreenC(navController) }
 }

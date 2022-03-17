@@ -71,6 +71,7 @@ fun MainScreen(navController: NavHostController) {
             "Composable View" to ROUTE_COMPOSABLE_VIEW,
             "Lifecycle Sample" to ROUTE_LIFECYCLE,
             "Route BottomSheet" to ROUTE_BOTTOM_SHEET_NAV,
+            "Custom backstack" to ROUTE_CUSTOM_ROUTE_C,
             "Exit" to ROUTE_EXIT
         )
     }

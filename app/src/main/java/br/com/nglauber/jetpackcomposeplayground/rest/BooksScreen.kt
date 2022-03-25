@@ -16,6 +16,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import br.com.nglauber.jetpackcomposeplayground.R
@@ -43,6 +44,15 @@ fun BooksScreen() {
         viewModel.loadBooks()
     }
     BooksScreenContent(viewModel.booksList)
+
+    val lifecycleOwner = LocalLifecycleOwner.current
+    DisposableEffect(lifecycleOwner) {
+        lifecycleOwner.lifecycle.addObserver(viewModel)
+        onDispose {
+            lifecycleOwner.lifecycle.removeObserver(viewModel)
+        }
+    }
+
 }
 
 @ExperimentalPagerApi

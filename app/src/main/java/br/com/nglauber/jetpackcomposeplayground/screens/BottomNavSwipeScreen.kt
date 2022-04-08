@@ -15,8 +15,12 @@ import br.com.nglauber.jetpackcomposeplayground.R
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
 import com.google.accompanist.pager.rememberPagerState
+import kotlinx.coroutines.CancellationException
+import kotlinx.coroutines.currentCoroutineContext
+import kotlinx.coroutines.ensureActive
 import kotlinx.coroutines.launch
 
+@ExperimentalMaterialApi
 @ExperimentalPagerApi
 @Composable
 fun BottomNavSwipeScreen() {
@@ -28,40 +32,86 @@ fun BottomNavSwipeScreen() {
         R.drawable.female,
     )
     val pageState = rememberPagerState(initialPage = 0)
-    Scaffold(
-        bottomBar = {
-            BottomAppBar(
-                backgroundColor = MaterialTheme.colors.primary,
-                content = {
-                    for (page in images.indices) {
-                        BottomNavigationItem(
-                            icon = { Icon(Icons.Filled.Home, "Page $page") },
-                            selected = page == pageState.currentPage,
-                            onClick = {
-                                scope.launch {
-                                    pageState.animateScrollToPage(page)
-                                }
-                            },
-                            selectedContentColor = Color.Magenta,
-                            unselectedContentColor = Color.LightGray,
-                            label = { Text(text = "Page $page") }
-                        )
-                    }
-                }
-            )
-        },
-    ) {
-        HorizontalPager(
-            state = pageState,
-            count = images.size
-        ) { page ->
-            Image(
-                painterResource(id = images[page]),
-                null,
-                modifier = Modifier
-                    .fillMaxSize(),
-                contentScale = ContentScale.Crop
-            )
+
+    val coroutineScope = rememberCoroutineScope()
+    val modalBottomSheetState = rememberModalBottomSheetState(
+        initialValue = ModalBottomSheetValue.Hidden,
+        confirmStateChange = {
+            it != ModalBottomSheetValue.HalfExpanded
         }
+    )
+    ModalBottomSheetLayout(
+        sheetState = modalBottomSheetState,
+        sheetContent = {
+            DatePickerScreen()
+        }
+    ) {
+        Scaffold(
+            topBar = {
+                TopAppBar(
+                    title = {
+                        Text("App bar")
+                    },
+                    actions = {
+                        IconButton(onClick = {
+                            coroutineScope.launch {
+                                if (modalBottomSheetState.isVisible) {
+                                    modalBottomSheetState.hide()
+                                } else {
+                                    modalBottomSheetState.forceExpand()
+                                }
+                            }
+                        }) {
+                            Icon(Icons.Default.Home, null)
+                        }
+                    }
+                )
+            },
+            bottomBar = {
+                BottomAppBar(
+                    backgroundColor = MaterialTheme.colors.primary,
+                    content = {
+                        for (page in images.indices) {
+                            BottomNavigationItem(
+                                icon = { Icon(Icons.Filled.Home, "Page $page") },
+                                selected = page == pageState.currentPage,
+                                onClick = {
+                                    scope.launch {
+                                        pageState.animateScrollToPage(page)
+                                    }
+                                },
+                                selectedContentColor = Color.Magenta,
+                                unselectedContentColor = Color.LightGray,
+                                label = { Text(text = "Page $page") }
+                            )
+                        }
+                    }
+                )
+            },
+        ) {
+            HorizontalPager(
+                state = pageState,
+                count = images.size
+            ) { page ->
+                Image(
+                    painterResource(id = images[page]),
+                    null,
+                    modifier = Modifier
+                        .fillMaxSize(),
+                    contentScale = ContentScale.Crop
+                )
+            }
+        }
+    }
+}
+
+// https://issuetracker.google.com/issues/181593642#comment6
+@ExperimentalMaterialApi
+suspend fun ModalBottomSheetState.forceExpand() {
+    try {
+        animateTo(ModalBottomSheetValue.Expanded)
+    } catch (e: CancellationException) {
+        currentCoroutineContext().ensureActive()
+        forceExpand()
     }
 }

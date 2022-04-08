@@ -34,6 +34,7 @@ fun MainScreen(navController: NavHostController) {
             "Bottom Nav" to ROUTE_BOTTOM_NAV,
             "Form" to ROUTE_FORM2,
             "Form + Android View" to ROUTE_FORM,
+            "Date Picker" to ROUTE_DATE_PICKER,
             "Focus Request" to ROUTE_FOCUS_REQUEST,
             "Emphasis" to ROUTE_EMPHASIS,
             "ConstraintLayout" to ROUTE_CONSTRAINT,

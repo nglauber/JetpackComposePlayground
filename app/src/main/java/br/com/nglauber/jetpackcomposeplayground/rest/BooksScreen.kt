@@ -30,9 +30,7 @@ import kotlinx.coroutines.launch
 @Stable
 class BookScreenState {
     var selectedTab by mutableStateOf(0)
-    var booksFavorites by mutableStateOf<MutableSet<Book>>(
-        mutableSetOf()
-    )
+    var booksFavorites = mutableStateListOf<Book>()
     var bookToDelete by mutableStateOf<Book?>(null)
 }
 
@@ -161,6 +159,7 @@ fun BooksScreenTabs(
                 0 -> BooksList(
                     books,
                     action = { book: Book ->
+                        if (screenState.booksFavorites.contains(book)) return@BooksList
                         screenState.booksFavorites.add(book)
                         Toast.makeText(
                             context,

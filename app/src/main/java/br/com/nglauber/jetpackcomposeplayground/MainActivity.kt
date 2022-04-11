@@ -1,6 +1,7 @@
 package br.com.nglauber.jetpackcomposeplayground
 
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.animation.ExperimentalAnimationApi
@@ -11,6 +12,7 @@ import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.ExperimentalComposeUiApi
 import br.com.nglauber.jetpackcomposeplayground.ui.theme.JetpackComposePlaygroundTheme
 import com.google.accompanist.navigation.animation.AnimatedNavHost
@@ -19,6 +21,7 @@ import com.google.accompanist.navigation.material.ExperimentalMaterialNavigation
 import com.google.accompanist.navigation.material.ModalBottomSheetLayout
 import com.google.accompanist.navigation.material.rememberBottomSheetNavigator
 import com.google.accompanist.pager.ExperimentalPagerApi
+import kotlinx.coroutines.flow.collect
 
 @ExperimentalFoundationApi
 @ExperimentalAnimationApi
@@ -36,6 +39,12 @@ class MainActivity : AppCompatActivity() {
             JetpackComposePlaygroundTheme {
                 Surface(color = MaterialTheme.colors.background) {
                     ModalBottomSheetLayout(bottomSheetNavigator) {
+                        // Observing backstack
+                        LaunchedEffect(navController) {
+                            navController.currentBackStackEntryFlow.collect {
+                                Log.d("NGVL", "${it.destination.route}")
+                            }
+                        }
                         AnimatedNavHost(
                             navController = navController,
                             startDestination = ROUTE_MAIN,

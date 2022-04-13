@@ -54,6 +54,7 @@ fun MainScreen(navController: NavHostController) {
             "Instagram Progress" to ROUTE_INSTAGRAM_PROGRESS,
             "Flip card" to ROUTE_FLIP_CARD,
             "Canvas" to ROUTE_CANVAS,
+            "Speedometer" to ROUTE_SPEEDOMETER,
             "BottomSheet" to ROUTE_BOTTOM_SHEET,
             "Broadcast" to ROUTE_BROADCAST,
             "Activity Result" to ROUTE_ACTIVITY_RESULT,

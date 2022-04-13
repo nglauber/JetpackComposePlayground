@@ -54,6 +54,7 @@ fun NavGraphBuilder.AppNavigator(
     composable(ROUTE_SLIDE_ANIMATION) { SlideInAnimationScreen() }
     composable(ROUTE_FLIP_CARD) { FlipCardScreen() }
     composable(ROUTE_CANVAS) { CanvasScreen() }
+    composable(ROUTE_SPEEDOMETER) { SpeedometerScreen() }
     composable(ROUTE_BOTTOM_SHEET) { BottomSheetScreen(it) }
     composable(ROUTE_BROADCAST) { BroadcastScreen() }
     composable(ROUTE_ACTIVITY_RESULT) { GetActivityResultScreen() }

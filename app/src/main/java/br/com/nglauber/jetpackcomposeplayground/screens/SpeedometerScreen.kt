@@ -37,7 +37,7 @@ fun SpeedometerScreen() {
                 progress.animateTo(
                     targetValue = intValue,
                     animationSpec = tween(
-                        durationMillis = 3000,
+                        durationMillis = 1000,
                         easing = FastOutLinearInEasing,
                     )
                 )
@@ -53,15 +53,10 @@ fun SpeedometerScreen() {
 fun Speedometer(
     progress: Int,
 ) {
-    val mainColor = Color(255, 113, 113)
-    val secondaryColor = mainColor.copy(alpha = .2f)
-    val paint = Paint().apply {
-        color = mainColor
-    }
     val arcDegrees = 275
     val startArcAngle = 135f
     val startStepAngle = -45
-    val numberOfMarkers = 51
+    val numberOfMarkers = 55
     val degreesMarkerStep = arcDegrees / numberOfMarkers
 
     Canvas(
@@ -76,6 +71,17 @@ fun Speedometer(
                 val quarterOffset = Offset(w / 4f, h / 4f)
 
                 // Drawing Center Arc background
+                val (mainColor, secondaryColor) = when {
+                    progress < 20 -> // Red
+                        Color(0xFFD32F2F) to Color(0xFFFFCDD2)
+                    progress < 40 -> // Orange
+                        Color(0xFFF57C00) to Color(0xFFFFE0B2)
+                    else -> // Green
+                        Color(0xFF388E3C) to Color(0xFFC8E6C9)
+                }
+                val paint = Paint().apply {
+                    color = mainColor
+                }
                 val centerArcSize = Size(w / 2f, h / 2f)
                 val centerArcStroke = Stroke(20f, 0f, StrokeCap.Round)
                 drawArc(

@@ -64,6 +64,7 @@ fun MainScreen(navController: NavHostController) {
             "Reveal Swipe" to ROUTE_REVEAL_SWIPE,
             "Nested Scroll" to ROUTE_NESTED_SCROLL,
             "Horizontal Scroll" to ROUTE_HORIZONTAL_SCROLL,
+            "Lazy Row Snapper" to ROUTE_SNAPPER,
             "Collapsing Effect" to ROUTE_COLLAPSING_EFFECT,
             "Scroll Animation" to ROUTE_SCROLL_ANIMATION,
             "Touchable feedback" to ROUTE_TOUCHABLE_FEEDBACK,

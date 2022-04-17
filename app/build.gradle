@@ -84,6 +84,8 @@ dependencies {
     implementation "de.charlex.compose:revealswipe:$reveal_swipe_version"
     implementation "com.airbnb.android:lottie-compose:$lottieVersion"
 
+    implementation "dev.chrisbanes.snapper:snapper:$snapper_version"
+
     implementation "androidx.startup:startup-runtime:1.1.0"
 
     testImplementation "junit:junit:$junit_version"

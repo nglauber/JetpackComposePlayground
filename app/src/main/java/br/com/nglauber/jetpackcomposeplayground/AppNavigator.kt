@@ -14,7 +14,9 @@ import com.google.accompanist.navigation.animation.composable
 import com.google.accompanist.navigation.material.ExperimentalMaterialNavigationApi
 import com.google.accompanist.navigation.material.bottomSheet
 import com.google.accompanist.pager.ExperimentalPagerApi
+import dev.chrisbanes.snapper.ExperimentalSnapperApi
 
+@ExperimentalSnapperApi
 @ExperimentalMaterialNavigationApi
 @ExperimentalFoundationApi
 @ExperimentalPagerApi
@@ -63,6 +65,7 @@ fun NavGraphBuilder.AppNavigator(
     composable(ROUTE_LIST_STICK_HEADER) { ListWithStickHeaderScreen() }
     composable(ROUTE_NESTED_SCROLL) { NestedScrollScreen() }
     composable(ROUTE_HORIZONTAL_SCROLL) { HorizontalScrollScreen() }
+    composable(ROUTE_SNAPPER) { RowSnapperScreen() }
     composable(ROUTE_VIEW_PAGER) { ViewPagerScreen() }
     composable(ROUTE_VIEW_PAGER_TABS) { ViewPagerTabsScreen() }
     composable(ROUTE_VIEW_PAGER_BOTTOM_NAV) { BottomNavSwipeScreen() }

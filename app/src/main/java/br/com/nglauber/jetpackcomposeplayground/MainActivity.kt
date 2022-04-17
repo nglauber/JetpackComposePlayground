@@ -21,8 +21,10 @@ import com.google.accompanist.navigation.material.ExperimentalMaterialNavigation
 import com.google.accompanist.navigation.material.ModalBottomSheetLayout
 import com.google.accompanist.navigation.material.rememberBottomSheetNavigator
 import com.google.accompanist.pager.ExperimentalPagerApi
+import dev.chrisbanes.snapper.ExperimentalSnapperApi
 import kotlinx.coroutines.flow.collect
 
+@ExperimentalSnapperApi
 @ExperimentalFoundationApi
 @ExperimentalAnimationApi
 @ExperimentalPagerApi

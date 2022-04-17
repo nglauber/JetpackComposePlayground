@@ -33,6 +33,7 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
         useIR = true
+        freeCompilerArgs = ["-Xjvm-default=all"]
     }
     buildFeatures {
         compose true
@@ -85,8 +86,6 @@ dependencies {
     implementation "com.airbnb.android:lottie-compose:$lottieVersion"
 
     implementation "dev.chrisbanes.snapper:snapper:$snapper_version"
-
-    implementation "androidx.startup:startup-runtime:1.1.0"
 
     testImplementation "junit:junit:$junit_version"
     androidTestImplementation "androidx.test.ext:junit:$ext_junit_version"

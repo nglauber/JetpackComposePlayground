@@ -4,9 +4,11 @@ import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.GridItemSpan
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.itemsIndexed
 import androidx.compose.material.Checkbox
+import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateListOf
@@ -50,6 +52,11 @@ fun GridScreen() {
                 }
                 Checkbox(checked = visible[index], { visible[index] = it })
                 Text("Item $it")
+            }
+        }
+        item(span = { GridItemSpan(3) }) {
+            Box(Modifier.fillMaxWidth()) {
+                CircularProgressIndicator(Modifier.align(Alignment.Center))
             }
         }
     }

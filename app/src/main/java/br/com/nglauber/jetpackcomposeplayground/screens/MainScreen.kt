@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
+import androidx.compose.material.Divider
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -69,7 +70,7 @@ fun MainScreen(navController: NavHostController) {
             "Scroll Animation" to ROUTE_SCROLL_ANIMATION,
             "Touchable feedback" to ROUTE_TOUCHABLE_FEEDBACK,
             "Curved Scroll" to ROUTE_SCROLL_CURVED,
-            "ViewPager" to ROUTE_VIEW_PAGER,
+            "ViewPager (Lazy Load Content)" to ROUTE_VIEW_PAGER,
             "ViewPager + Tabs" to ROUTE_VIEW_PAGER_TABS,
             "ViewPager + Bottom Nav" to ROUTE_VIEW_PAGER_BOTTOM_NAV,
             "Composable View" to ROUTE_COMPOSABLE_VIEW,
@@ -107,6 +108,7 @@ fun MainScreen(navController: NavHostController) {
                     .fillMaxWidth()
                     .padding(16.dp)
             )
+            Divider()
         }
     }
 }

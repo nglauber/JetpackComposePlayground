@@ -22,7 +22,7 @@ import com.google.accompanist.navigation.material.ModalBottomSheetLayout
 import com.google.accompanist.navigation.material.rememberBottomSheetNavigator
 import com.google.accompanist.pager.ExperimentalPagerApi
 import dev.chrisbanes.snapper.ExperimentalSnapperApi
-import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.collectLatest
 
 @ExperimentalSnapperApi
 @ExperimentalFoundationApi
@@ -43,7 +43,7 @@ class MainActivity : AppCompatActivity() {
                     ModalBottomSheetLayout(bottomSheetNavigator) {
                         // Observing backstack
                         LaunchedEffect(navController) {
-                            navController.currentBackStackEntryFlow.collect {
+                            navController.currentBackStackEntryFlow.collectLatest {
                                 Log.d("NGVL", "${it.destination.route}")
                             }
                         }

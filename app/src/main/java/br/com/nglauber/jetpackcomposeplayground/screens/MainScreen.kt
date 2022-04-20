@@ -62,6 +62,7 @@ fun MainScreen(navController: NavHostController) {
             "Grid" to ROUTE_GRID,
             "Table" to ROUTE_TABLE,
             "List with Stick Header" to ROUTE_LIST_STICK_HEADER,
+            "List with Stick Header (Custom)" to ROUTE_LIST_STICK_HEADER_CUSTOM,
             "Reveal Swipe" to ROUTE_REVEAL_SWIPE,
             "Nested Scroll" to ROUTE_NESTED_SCROLL,
             "Horizontal Scroll" to ROUTE_HORIZONTAL_SCROLL,

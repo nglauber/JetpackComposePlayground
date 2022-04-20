@@ -63,6 +63,7 @@ fun NavGraphBuilder.AppNavigator(
     composable(ROUTE_GRID) { GridScreen() }
     composable(ROUTE_TABLE) { TableScreen() }
     composable(ROUTE_LIST_STICK_HEADER) { ListWithStickHeaderScreen() }
+    composable(ROUTE_LIST_STICK_HEADER_CUSTOM) { ListWithCustomStickHeaderScreen() }
     composable(ROUTE_NESTED_SCROLL) { NestedScrollScreen() }
     composable(ROUTE_HORIZONTAL_SCROLL) { HorizontalScrollScreen() }
     composable(ROUTE_SNAPPER) { RowSnapperScreen() }

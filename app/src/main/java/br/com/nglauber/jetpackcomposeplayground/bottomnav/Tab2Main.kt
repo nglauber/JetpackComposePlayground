@@ -5,7 +5,9 @@ import android.os.Parcelable
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Button
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -33,12 +35,13 @@ class AssetParamType : NavType<Device>(isNullableAllowed = false) {
 }
 
 @Composable
-fun Tab2MainScreen(device: Device, onDetailsSelected: () -> Unit) {
+fun Tab2MainScreen(device: Device, paddingValues: PaddingValues, onDetailsSelected: () -> Unit) {
     val onBackPressed = localBackToFirstTab.current
     Column(
         modifier = Modifier
             .background(Color(0xFF90A4AE))
             .fillMaxSize()
+            .padding(paddingValues)
     ) {
         Text(text = "Tab 2 - $device")
         Button(onClick = onDetailsSelected) {

@@ -2,6 +2,7 @@ package br.com.nglauber.jetpackcomposeplayground.bottomnav
 
 import android.net.Uri
 import android.os.Bundle
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
@@ -46,13 +47,13 @@ fun BottomNavScreen() {
         CompositionLocalProvider(localBackToFirstTab provides {
             currentTab = TabItem.ListInfo.route
         }) {
-            TabContent(currentTab)
+            TabContent(currentTab, it)
         }
     }
 }
 
 @Composable
-fun TabContent(tabItem: String) {
+fun TabContent(tabItem: String, paddingValues: PaddingValues) {
     val tab1NavState =
         rememberSaveable { mutableStateOf(Bundle()) }
     val tab2NavState =
@@ -61,12 +62,12 @@ fun TabContent(tabItem: String) {
     when (tabItem) {
         TabItem.ListInfo.route -> {
             TabWrapper(tab1NavState) { navController ->
-                TabList(navController)
+                TabList(navController, paddingValues)
             }
         }
         TabItem.ProfileInfo.route -> {
             TabWrapper(tab2NavState) { navController ->
-                TabProfile(navController)
+                TabProfile(navController, paddingValues)
             }
         }
     }
@@ -95,26 +96,28 @@ fun TabWrapper(
 }
 
 @Composable
-fun TabList(navController: NavHostController) {
+fun TabList(navController: NavHostController, paddingValues: PaddingValues) {
     NavHost(navController = navController, startDestination = "tab1_main") {
         composable("tab1_main") {
-            Tab1MainScreen {
+            Tab1MainScreen(paddingValues) {
                 navController.navigate("tab1_details")
             }
         }
-        composable("tab1_details") { Tab1DetailsScreen() }
+        composable("tab1_details") {
+            Tab1DetailsScreen(paddingValues)
+        }
     }
 }
 
 @Composable
-fun TabProfile(navController: NavHostController) {
+fun TabProfile(navController: NavHostController, paddingValues: PaddingValues) {
     val device = Device(
         Random.nextInt(0, 100).toString(), "test"
     )
 
     NavHost(navController = navController, startDestination = "tab2_main") {
         composable("tab2_main") {
-            Tab2MainScreen(device) {
+            Tab2MainScreen(device, paddingValues) {
                 val json = Uri.encode(Gson().toJson(device))
                 navController.navigate("tab2_details/$json")
             }
@@ -128,7 +131,7 @@ fun TabProfile(navController: NavHostController) {
             )
         ) {
             val prevScreenDevice = it.arguments?.getParcelable<Device>("device")
-            Tab2DetailsScreen(prevScreenDevice!!)
+            Tab2DetailsScreen(prevScreenDevice!!, paddingValues)
         }
     }
 }

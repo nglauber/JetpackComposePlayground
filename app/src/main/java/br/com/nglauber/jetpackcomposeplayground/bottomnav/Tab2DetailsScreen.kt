@@ -2,17 +2,18 @@ package br.com.nglauber.jetpackcomposeplayground.bottomnav
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.constraintlayout.compose.ConstraintLayout
-import androidx.navigation.NavHostController
 
 @Composable
-fun Tab2DetailsScreen(device: Device) {
-    Column {
+fun Tab2DetailsScreen(device: Device, paddingValues: PaddingValues) {
+    Column(Modifier.padding(paddingValues)) {
         Text(text = "Tab 2 - Details - $device")
         ConstraintLayoutWeightDemo()
     }

@@ -1,32 +1,14 @@
 <animated-vector xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:aapt="http://schemas.android.com/aapt">
-    <aapt:attr name="android:drawable">
-        <vector
-            android:name="vector"
-            android:width="24dp"
-            android:height="24dp"
-            android:viewportWidth="24"
-            android:viewportHeight="24">
-            <group
-                android:name="rotation"
-                android:pivotX="12"
-                android:pivotY="12"
-                android:rotation="0">
-                <path
-                    android:name="v"
-                    android:fillColor="#ff0000"
-                    android:pathData="M 3 13 L 7 17 L 7 17 L 9 19 L 9 19 L 9 19 L 10 18 L 10 18 L 21 7 L 19 5 L 9 15 L 5 11 Z" />
-            </group>
-        </vector>
-    </aapt:attr>
+    xmlns:aapt="http://schemas.android.com/aapt"
+    android:drawable="@drawable/ic_check">
     <target android:name="v">
         <aapt:attr name="android:animation">
             <objectAnimator
                 android:duration="300"
                 android:interpolator="@android:interpolator/fast_out_slow_in"
                 android:propertyName="pathData"
-                android:valueFrom="M 3 13 L 7 17 L 7 17 L 9 19 L 9 19 L 9 19 L 10 18 L 10 18 L 21 7 L 19 5 L 9 15 L 5 11 Z"
-                android:valueTo="M 4 6 L 10 12 L 4 18 L 6 20 L 12 14 L 18 20 L 20 18 L 14 12 L 20 6 L 18 4 L 12 10 L 6 4 Z"
+                android:valueFrom="@string/check_path"
+                android:valueTo="@string/cancel_path"
                 android:valueType="pathType" />
         </aapt:attr>
     </target>

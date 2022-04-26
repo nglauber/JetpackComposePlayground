@@ -3,6 +3,10 @@ package br.com.nglauber.jetpackcomposeplayground.screens
 import android.util.Log
 import androidx.compose.animation.*
 import androidx.compose.animation.core.*
+import androidx.compose.animation.graphics.ExperimentalAnimationGraphicsApi
+import androidx.compose.animation.graphics.res.animatedVectorResource
+import androidx.compose.animation.graphics.res.rememberAnimatedVectorPainter
+import androidx.compose.animation.graphics.vector.AnimatedImageVector
 import androidx.compose.foundation.*
 import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.*
@@ -20,9 +24,12 @@ import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -31,6 +38,8 @@ import com.airbnb.lottie.compose.LottieAnimation
 import com.airbnb.lottie.compose.LottieCompositionSpec
 import com.airbnb.lottie.compose.animateLottieCompositionAsState
 import com.airbnb.lottie.compose.rememberLottieComposition
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 // Source: https://slides.com/wajahatkarim/composeanimations#/title
 @Composable
@@ -287,38 +296,92 @@ fun LineAnimation() {
 
 }
 
-@ExperimentalComposeUiApi
+@ExperimentalAnimationGraphicsApi
 @Composable
-fun AnimatedVectorDrawableAnim() {
-    //TODO animatedVectorResource was removed in RC01
-//    val image = animatedVectorResource(R.drawable.avd_anim)
-//    var atEnd by remember { mutableStateOf(false) }
-//    var isRunning by remember { mutableStateOf(true) }
-//    val scope = rememberCoroutineScope()
-//    suspend fun runAnimation() {
-//        while (isRunning) {
-//            delay(1000)
-//            atEnd = !atEnd
-//        }
-//    }
-//    LaunchedEffect(image) {
-//        runAnimation()
-//    }
-//    Image(
-//        painter = image.painterFor(atEnd),
-//        null,
-//        Modifier
-//            .size(150.dp)
-//            .clickable {
-//                isRunning = !isRunning
-//                if (isRunning)
-//                    scope.launch {
-//                        runAnimation()
-//                    }
-//            },
-//        contentScale = ContentScale.Fit,
-//        colorFilter = ColorFilter.tint(Color.Red)
-//    )
+fun AnimatedVectorDrawableAnimRepeated() {
+    var atEnd by remember { mutableStateOf(false) }
+    // This state is necessary to control start/stop animation
+    var isRunning by remember { mutableStateOf(true) }
+    // The coroutine scope is necessary to launch the coroutine
+    // in response to the click event
+    val scope = rememberCoroutineScope()
+
+    // This function is called when the component is first launched
+    // and lately when the button is pressed
+    suspend fun runAnimation() {
+        while (isRunning) {
+            delay(1000) // set here your delay between animations
+            atEnd = !atEnd
+        }
+    }
+    // This is necessary just if you want to run the animation when the
+    // component is displayed. Otherwise, you can remove it.
+    LaunchedEffect(Unit) {
+        runAnimation()
+    }
+    val painter = rememberVectorPainter(
+        image = ImageVector.vectorResource(R.drawable.ic_check)
+    )
+    val animatedPainter = rememberAnimatedVectorPainter(
+        animatedImageVector = AnimatedImageVector.animatedVectorResource(R.drawable.avd_anim),
+        atEnd = !atEnd
+    )
+    Image(
+        painter = if (atEnd) painter else animatedPainter,
+        null,
+        Modifier
+            .size(150.dp)
+            .clickable {
+                isRunning = !isRunning // start/stop animation
+                if (isRunning) // run the animation if isRunning is true.
+                    scope.launch {
+                        runAnimation()
+                    }
+            },
+        contentScale = ContentScale.Fit,
+        colorFilter = ColorFilter.tint(Color.Red)
+    )
+}
+
+@ExperimentalAnimationGraphicsApi
+@Composable
+fun AnimatedVectorDrawableAnimRestart() {
+    val image = AnimatedImageVector.animatedVectorResource(R.drawable.avd_anim)
+    var atEnd by remember { mutableStateOf(false) }
+    // This state is necessary to control start/stop animation
+    var isRunning by remember { mutableStateOf(true) }
+    // The coroutine scope is necessary to launch the coroutine
+    // in response to the click event
+    val scope = rememberCoroutineScope()
+
+    // This function is called when the component is first launched
+    // and lately when the button is pressed
+    suspend fun runAnimation() {
+        while (isRunning) {
+            delay(1000) // set here your delay between animations
+            atEnd = !atEnd
+        }
+    }
+    // This is necessary just if you want to run the animation when the
+    // component is displayed. Otherwise, you can remove it.
+    LaunchedEffect(image) {
+        runAnimation()
+    }
+    Image(
+        painter = rememberAnimatedVectorPainter(image, atEnd),
+        null,
+        Modifier
+            .size(150.dp)
+            .clickable {
+                isRunning = !isRunning // start/stop animation
+                if (isRunning) // run the animation if isRunning is true.
+                    scope.launch {
+                        runAnimation()
+                    }
+            },
+        contentScale = ContentScale.Fit,
+        colorFilter = ColorFilter.tint(Color.Red)
+    )
 }
 
 @Composable
@@ -387,6 +450,7 @@ fun LongPressAnimation() {
     }
 }
 
+@ExperimentalAnimationGraphicsApi
 @ExperimentalComposeUiApi
 @ExperimentalAnimationApi
 @Composable
@@ -400,7 +464,16 @@ fun AnimationScreen() {
         GenderSelectAnimation()
         LineAnimation()
         HeartBeatDemo()
-        AnimatedVectorDrawableAnim()
+        Row {
+            Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                Text(text = "Repeated")
+                AnimatedVectorDrawableAnimRepeated()
+            }
+            Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                Text(text = "Restart")
+                AnimatedVectorDrawableAnimRestart()
+            }
+        }
         LottieAnimationDemo()
         LongPressAnimation()
     }

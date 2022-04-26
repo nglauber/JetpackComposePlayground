@@ -1,6 +1,7 @@
 package br.com.nglauber.jetpackcomposeplayground
 
 import androidx.compose.animation.ExperimentalAnimationApi
+import androidx.compose.animation.graphics.ExperimentalAnimationGraphicsApi
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.ui.ExperimentalComposeUiApi
@@ -16,6 +17,7 @@ import com.google.accompanist.navigation.material.bottomSheet
 import com.google.accompanist.pager.ExperimentalPagerApi
 import dev.chrisbanes.snapper.ExperimentalSnapperApi
 
+@ExperimentalAnimationGraphicsApi
 @ExperimentalSnapperApi
 @ExperimentalMaterialNavigationApi
 @ExperimentalFoundationApi

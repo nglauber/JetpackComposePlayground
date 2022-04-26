@@ -6,6 +6,7 @@ import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.animation.core.tween
+import androidx.compose.animation.graphics.ExperimentalAnimationGraphicsApi
 import androidx.compose.animation.slideInHorizontally
 import androidx.compose.animation.slideOutHorizontally
 import androidx.compose.foundation.ExperimentalFoundationApi
@@ -24,6 +25,7 @@ import com.google.accompanist.pager.ExperimentalPagerApi
 import dev.chrisbanes.snapper.ExperimentalSnapperApi
 import kotlinx.coroutines.flow.collectLatest
 
+@ExperimentalAnimationGraphicsApi
 @ExperimentalSnapperApi
 @ExperimentalFoundationApi
 @ExperimentalAnimationApi

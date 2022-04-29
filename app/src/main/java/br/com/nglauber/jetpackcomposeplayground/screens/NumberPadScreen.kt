@@ -10,7 +10,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
-import androidx.compose.ui.focus.focusOrder
+import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.input.key.*
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.ImeAction
@@ -49,7 +49,7 @@ fun NumberPadScreen() {
                     modifier = Modifier
                         .padding(2.dp)
                         .width(50.dp)
-                        .focusOrder(focusRequesters[i])
+                        .focusRequester(focusRequesters[i])
                         .onKeyEvent { event ->
                             if (event.type == KeyEventType.KeyUp
                                 && event.key == Key.Backspace

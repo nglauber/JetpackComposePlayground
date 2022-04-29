@@ -1,9 +1,6 @@
 package br.com.nglauber.jetpackcomposeplayground.screens
 
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.CutCornerShape
@@ -11,8 +8,6 @@ import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.*
 import androidx.compose.runtime.*
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -21,11 +16,14 @@ import kotlinx.coroutines.launch
 
 @Composable
 fun ScaffoldScreen() {
-    val users = (18..100).map { User("User $it", it) }
+    val users = (18..100).map { Person("User $it", it) }
     val scope = rememberCoroutineScope()
     var selectedTab: Int by remember { mutableStateOf(0) }
     var menuExpanded by remember { mutableStateOf(false) }
     val scaffoldState = rememberScaffoldState()
+    val fabShape = CutCornerShape(
+        topStart = 20.dp, bottomEnd = 20.dp
+    )
     Scaffold(
         scaffoldState = scaffoldState,
         topBar = {
@@ -70,6 +68,7 @@ fun ScaffoldScreen() {
         bottomBar = {
             BottomAppBar(
                 backgroundColor = MaterialTheme.colors.primary,
+                cutoutShape = fabShape,
                 content = {
                     BottomNavigationItem(
                         icon = { Icon(Icons.Filled.Home, "Home") },
@@ -90,15 +89,37 @@ fun ScaffoldScreen() {
                 }
             )
         },
+        floatingActionButtonPosition = FabPosition.Center,
+        isFloatingActionButtonDocked = true,
         floatingActionButton = {
-            FloatingActionButton(
-                onClick = {},
-                backgroundColor = Color.Red,
-                contentColor = Color.White,
-                shape = CutCornerShape(
-                    topStart = 20.dp, bottomEnd = 20.dp
-                )
-            ) { Icon(Icons.Filled.Add, "Add") }
+            var requestToOpen by remember {
+                mutableStateOf(false)
+            }
+            Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                DropdownMenu(
+                    modifier = Modifier.wrapContentWidth(),
+                    expanded = requestToOpen,
+                    onDismissRequest = { requestToOpen = false },
+                ) {
+                    (1..2).forEach {
+                        DropdownMenuItem(
+                            onClick = {
+                                requestToOpen = false
+                            }
+                        ) {
+                            Text("Option $it")
+                        }
+                    }
+                }
+                FloatingActionButton(
+                    onClick = {
+                        requestToOpen = true
+                    },
+                    backgroundColor = Color.Red,
+                    contentColor = Color.White,
+                    shape = fabShape
+                ) { Icon(Icons.Filled.Add, "Add") }
+            }
         },
         drawerContent = {
             Text(text = "My Drawer")
@@ -125,13 +146,13 @@ fun ScaffoldScreen() {
     )
 }
 
-data class User(
+data class Person(
     val name: String,
     val age: Int
 )
 
 @Composable
-fun UserListScreen(users: List<User>) {
+fun UserListScreen(users: List<Person>) {
     LazyColumn(
         modifier = Modifier.fillMaxSize()
     ) {

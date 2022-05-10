@@ -5,11 +5,13 @@ import androidx.compose.animation.graphics.ExperimentalAnimationGraphicsApi
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.ui.ExperimentalComposeUiApi
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import br.com.nglauber.jetpackcomposeplayground.bottomnav.BottomNavScreen
 import br.com.nglauber.jetpackcomposeplayground.crud.SocialNetworkScreen
 import br.com.nglauber.jetpackcomposeplayground.rest.BooksScreen
+import br.com.nglauber.jetpackcomposeplayground.rest2.DogsViewModel
 import br.com.nglauber.jetpackcomposeplayground.screens.*
 import com.google.accompanist.navigation.animation.composable
 import com.google.accompanist.navigation.material.ExperimentalMaterialNavigationApi
@@ -67,7 +69,10 @@ fun NavGraphBuilder.AppNavigator(
     composable(ROUTE_LIST_STICK_HEADER) { ListWithStickHeaderScreen() }
     composable(ROUTE_LIST_STICK_HEADER_CUSTOM) { ListWithCustomStickHeaderScreen() }
     composable(ROUTE_LIST_GRADIENT_BG) { ListWithGradientBgScreen() }
-    composable(ROUTE_NESTED_SCROLL) { NestedScrollScreen() }
+    composable(ROUTE_NESTED_SCROLL) {
+        val viewModel = viewModel<DogsViewModel>()
+        NestedScrollScreen(viewModel)
+    }
     composable(ROUTE_HORIZONTAL_SCROLL) { HorizontalScrollScreen() }
     composable(ROUTE_SNAPPER) { RowSnapperScreen() }
     composable(ROUTE_VIEW_PAGER) { ViewPagerScreen() }

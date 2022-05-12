@@ -10,6 +10,7 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.Dp
@@ -34,13 +35,15 @@ private fun ListBg(lazyListState: LazyListState, itemsCount: Int, maxHeight: Dp)
             modifier = Modifier
                 .fillMaxWidth()
                 .height(totalHeight)
-                .background(
-                    Brush.linearGradient(
-                        0f to Color.Red,
-                        0.6f to Color.DarkGray,
-                        1.0f to Color.Green,
+                .drawBehind {
+                    drawRoundRect(
+                        Brush.linearGradient(
+                            0f to Color.Red,
+                            0.6f to Color.DarkGray,
+                            1.0f to Color.Green,
+                        ),
                     )
-                )
+                }
         )
     }
 }

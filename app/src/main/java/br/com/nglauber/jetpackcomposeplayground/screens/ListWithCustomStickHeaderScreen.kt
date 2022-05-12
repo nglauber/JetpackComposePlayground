@@ -6,6 +6,8 @@ import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.derivedStateOf
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -27,7 +29,11 @@ fun ListWithCustomStickHeaderScreen() {
         }
         val commonModifier = Modifier.width(50.dp)
         val listState = rememberLazyListState()
-        val moveStickyHeader = endIndexes.contains(listState.firstVisibleItemIndex + 1)
+        val moveStickyHeader by remember {
+            derivedStateOf {
+                endIndexes.contains(listState.firstVisibleItemIndex + 1)
+            }
+        }
         LazyColumn(
             modifier = Modifier.fillMaxSize(),
             state = listState,

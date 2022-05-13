@@ -31,7 +31,10 @@ import androidx.core.content.ContextCompat
 import androidx.core.graphics.drawable.toBitmap
 import br.com.nglauber.jetpackcomposeplayground.R
 import coil.annotation.ExperimentalCoilApi
-import coil.compose.rememberImagePainter
+import coil.compose.rememberAsyncImagePainter
+import coil.decode.SvgDecoder
+import coil.request.ImageRequest
+import coil.size.Size
 
 @Composable
 fun ImageScreen() {
@@ -44,9 +47,28 @@ fun ImageScreen() {
             GrayscaleDrawable()
             NinePatchImage()
         }
+        Row {
+            SvgImageSample()
+        }
         ZoomableImage()
 //        ZoomAndTranslateImage()
     }
+}
+
+@Composable
+fun SvgImageSample() {
+    val painter = rememberAsyncImagePainter(
+        model = ImageRequest.Builder(LocalContext.current)
+            .decoderFactory(SvgDecoder.Factory())
+            .data("https://upload.wikimedia.org/wikipedia/commons/d/d7/Android_robot.svg")
+            .size(Size.ORIGINAL) // Set the target size to load the image at.
+            .build()
+    )
+    Image(
+        painter = painter,
+        modifier = Modifier.size(100.dp),
+        contentDescription = null
+    )
 }
 
 @Composable
@@ -170,7 +192,7 @@ fun ZoomAndTranslateImage() {
 fun NinePatchImage() {
     val context = LocalContext.current
     Image(
-        rememberImagePainter(
+        rememberAsyncImagePainter(
             ContextCompat.getDrawable(context, R.drawable.balao)
         ),
         contentDescription = "Faq card 1",

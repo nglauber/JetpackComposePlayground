@@ -82,6 +82,7 @@ dependencies {
     implementation "com.google.accompanist:accompanist-navigation-material:$accompanist_version"
 
     implementation "io.coil-kt:coil-compose:$coilVersion"
+    implementation "io.coil-kt:coil-svg:$coilVersion"
     implementation "com.squareup.okhttp3:okhttp:$okhttp_version"
     implementation "com.github.jeziellago:compose-markdown:$markdown_version"
     implementation "de.charlex.compose:revealswipe:$reveal_swipe_version"

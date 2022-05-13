@@ -22,7 +22,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import br.com.nglauber.jetpackcomposeplayground.R
 import br.com.nglauber.jetpackcomposeplayground.rest.model.Book
 import br.com.nglauber.jetpackcomposeplayground.rest.model.RequestState
-import coil.compose.rememberImagePainter
+import coil.compose.rememberAsyncImagePainter
 import com.google.accompanist.pager.*
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
@@ -288,7 +288,7 @@ fun BookItemContent(
             .fillMaxWidth()
     ) {
         Image(
-            painter = rememberImagePainter(book.coverUrl),
+            painter = rememberAsyncImagePainter(book.coverUrl),
             contentDescription = "",
             modifier = Modifier.size(96.dp, 144.dp),
         )

@@ -23,7 +23,7 @@ import androidx.compose.ui.unit.dp
 import br.com.nglauber.jetpackcomposeplayground.rest.model.RequestState
 import br.com.nglauber.jetpackcomposeplayground.rest2.DogsViewModel
 import br.com.nglauber.jetpackcomposeplayground.rest2.model.Doggy
-import coil.compose.rememberImagePainter
+import coil.compose.rememberAsyncImagePainter
 
 @Composable
 fun NestedScrollScreen(viewModel: DogsViewModel) {
@@ -103,7 +103,7 @@ private fun NestedScrollScreenContent(dogs: List<Doggy>) {
 fun DogCardSmall(dog: Doggy, modifier: Modifier) {
     Box(modifier) {
         Image(
-            painter = rememberImagePainter(data = dog.url),
+            painter = rememberAsyncImagePainter(model = dog.url),
             contentDescription = dog.name,
             contentScale = ContentScale.Crop
         )
@@ -114,7 +114,7 @@ fun DogCardSmall(dog: Doggy, modifier: Modifier) {
 fun DogCardBig(dog: Doggy, modifier: Modifier) {
     Box(modifier) {
         Image(
-            painter = rememberImagePainter(data = dog.url),
+            painter = rememberAsyncImagePainter(model = dog.url),
             contentDescription = dog.name,
             contentScale = ContentScale.Crop
         )

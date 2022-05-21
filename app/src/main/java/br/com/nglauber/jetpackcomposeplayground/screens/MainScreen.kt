@@ -66,6 +66,7 @@ fun MainScreen(navController: NavHostController) {
             "List with Gradient Background" to ROUTE_LIST_GRADIENT_BG,
             "Reveal Swipe" to ROUTE_REVEAL_SWIPE,
             "Nested Scroll" to ROUTE_NESTED_SCROLL,
+            "Multi-Scroll (NestedScrollConnection)" to ROUTE_MULTI_SCROLL,
             "Horizontal Scroll" to ROUTE_HORIZONTAL_SCROLL,
             "Lazy Row Snapper" to ROUTE_SNAPPER,
             "Collapsing Effect" to ROUTE_COLLAPSING_EFFECT,

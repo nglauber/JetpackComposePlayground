@@ -73,6 +73,7 @@ fun NavGraphBuilder.AppNavigator(
         val viewModel = viewModel<DogsViewModel>()
         NestedScrollScreen(viewModel)
     }
+    composable(ROUTE_MULTI_SCROLL) { MultiScrollScreen() }
     composable(ROUTE_HORIZONTAL_SCROLL) { HorizontalScrollScreen() }
     composable(ROUTE_SNAPPER) { RowSnapperScreen() }
     composable(ROUTE_VIEW_PAGER) { ViewPagerScreen() }

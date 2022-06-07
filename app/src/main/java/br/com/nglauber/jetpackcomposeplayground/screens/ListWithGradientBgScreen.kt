@@ -3,11 +3,13 @@ package br.com.nglauber.jetpackcomposeplayground.screens
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.derivedStateOf
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.drawBehind
@@ -17,9 +19,12 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 
 @Composable
-private fun ListBg(lazyListState: LazyListState, itemsCount: Int, maxHeight: Dp) {
-    val firstVisibleIndex = lazyListState.firstVisibleItemIndex
-    val totalVisibleItems = lazyListState.layoutInfo.visibleItemsInfo.size
+private fun ListBg(
+    firstVisibleIndex: Int,
+    totalVisibleItems: Int,
+    itemsCount: Int,
+    maxHeight: Dp
+) {
     val hasNoScroll = itemsCount <= totalVisibleItems
     val totalHeight = if (hasNoScroll) maxHeight else maxHeight * 3
     val scrollableBgHeight = if (hasNoScroll) maxHeight else totalHeight - maxHeight
@@ -51,9 +56,19 @@ private fun ListBg(lazyListState: LazyListState, itemsCount: Int, maxHeight: Dp)
 @Composable
 fun ListWithGradientBgScreen() {
     val lazyListState = rememberLazyListState()
+    val firstVisibleIndex by remember {
+        derivedStateOf {
+            lazyListState.firstVisibleItemIndex
+        }
+    }
+    val totalVisibleItems by remember {
+        derivedStateOf {
+            lazyListState.layoutInfo.visibleItemsInfo.size
+        }
+    }
     val itemsCount = 50
     BoxWithConstraints(Modifier.fillMaxSize()) {
-        ListBg(lazyListState, itemsCount, maxHeight)
+        ListBg(firstVisibleIndex, totalVisibleItems, itemsCount, maxHeight)
         LazyColumn(state = lazyListState, modifier = Modifier.fillMaxSize()) {
             item {
                 Column(

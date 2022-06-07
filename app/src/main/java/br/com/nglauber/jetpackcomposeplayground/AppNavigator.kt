@@ -69,6 +69,7 @@ fun NavGraphBuilder.AppNavigator(
     composable(ROUTE_LIST_STICK_HEADER) { ListWithStickHeaderScreen() }
     composable(ROUTE_LIST_STICK_HEADER_CUSTOM) { ListWithCustomStickHeaderScreen() }
     composable(ROUTE_LIST_GRADIENT_BG) { ListWithGradientBgScreen() }
+    composable(ROUTE_LIST_PARALLAX_IMG) { ListWithParallaxImageScreen() }
     composable(ROUTE_NESTED_SCROLL) {
         val viewModel = viewModel<DogsViewModel>()
         NestedScrollScreen(viewModel)

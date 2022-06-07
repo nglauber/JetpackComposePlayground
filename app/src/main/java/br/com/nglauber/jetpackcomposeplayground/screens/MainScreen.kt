@@ -64,6 +64,7 @@ fun MainScreen(navController: NavHostController) {
             "List with Stick Header" to ROUTE_LIST_STICK_HEADER,
             "List with Stick Header (Custom)" to ROUTE_LIST_STICK_HEADER_CUSTOM,
             "List with Gradient Background" to ROUTE_LIST_GRADIENT_BG,
+            "List with Parallax Image" to ROUTE_LIST_PARALLAX_IMG,
             "Reveal Swipe" to ROUTE_REVEAL_SWIPE,
             "Nested Scroll" to ROUTE_NESTED_SCROLL,
             "Multi-Scroll (NestedScrollConnection)" to ROUTE_MULTI_SCROLL,

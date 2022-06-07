@@ -59,6 +59,7 @@ fun ScrollAnimationScreen() {
     ) {
         Column(
             Modifier
+                .padding(it)
                 .fillMaxWidth()
                 .verticalScroll(rememberScrollState())
         ) {

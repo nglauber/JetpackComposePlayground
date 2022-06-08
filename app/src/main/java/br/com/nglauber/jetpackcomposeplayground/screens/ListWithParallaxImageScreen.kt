@@ -16,33 +16,37 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import coil.compose.rememberAsyncImagePainter
 
+// https://stackoverflow.com/questions/72528090/offset-a-wide-image-for-horizontal-parallax-effect-in-android-compose/72533004#72533004
 @Composable
 private fun ListBg(
     firstVisibleIndex: Int,
     totalVisibleItems: Int,
     firstVisibleItemOffset: Int,
     itemsCount: Int,
+    itemWidth: Dp,
     maxWidth: Dp
 ) {
     val density = LocalDensity.current
-    val firstItemOffsetDp =
-        with(density) { firstVisibleItemOffset.toDp() } / itemsCount
+    val firstItemOffsetDp = with(density) { firstVisibleItemOffset.toDp() }
     val hasNoScroll = itemsCount <= totalVisibleItems
     val totalWidth = if (hasNoScroll) maxWidth else maxWidth * 2
     val scrollableBgWidth = if (hasNoScroll) maxWidth else totalWidth - maxWidth
     val scrollStep = scrollableBgWidth / itemsCount
-    val xOffset = if (hasNoScroll) 0.dp else -(scrollStep * firstVisibleIndex) - firstItemOffsetDp
+    val firstVisibleScrollPercentage = firstItemOffsetDp.value / itemWidth.value
+    val xOffset =
+        if (hasNoScroll) 0.dp else -(scrollStep * firstVisibleIndex) - (scrollStep * firstVisibleScrollPercentage)
     Box(
         Modifier
             .wrapContentWidth(unbounded = true, align = Alignment.Start)
-            .offset(x = xOffset)
+            .offset { IntOffset(x = xOffset.roundToPx(), y = 0) }
     ) {
         Image(
             painter = rememberAsyncImagePainter(
-                model = "https://placekitten.com/2000/400",
+                model = "https://raw.githubusercontent.com/nglauber/JetpackComposePlayground/master/misc/kitten.jpeg",
                 contentScale = ContentScale.FillWidth,
             ),
             contentDescription = null,
@@ -73,15 +77,24 @@ fun ListWithParallaxImageScreen() {
         }
     }
     val itemsCount = 10
+    val itemWidth = 300.dp
+    val itemPadding = 16.dp
     BoxWithConstraints(Modifier.fillMaxSize()) {
-        ListBg(firstVisibleIndex, totalVisibleItems, firstVisibleItemOffset, itemsCount, maxWidth)
+        ListBg(
+            firstVisibleIndex,
+            totalVisibleItems,
+            firstVisibleItemOffset,
+            itemsCount,
+            itemWidth + (itemPadding * 2),
+            maxWidth
+        )
         LazyRow(state = lazyListState, modifier = Modifier.fillMaxSize()) {
             items(itemsCount) {
                 Card(
                     backgroundColor = Color.LightGray.copy(alpha = .5f),
                     modifier = Modifier
-                        .padding(16.dp)
-                        .width(300.dp)
+                        .padding(itemPadding)
+                        .width(itemWidth)
                         .height(200.dp)
                 ) {
                     Text(

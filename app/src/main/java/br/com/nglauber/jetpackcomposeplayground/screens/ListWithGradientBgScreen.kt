@@ -16,8 +16,10 @@ import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 
+// https://stackoverflow.com/questions/72140863/itemdecoration-in-jetpack-compose/72143882#72143882
 @Composable
 private fun ListBg(
     firstVisibleIndex: Int,
@@ -34,7 +36,7 @@ private fun ListBg(
         Modifier
             .wrapContentHeight(unbounded = true, align = Alignment.Top)
             .background(Color.Yellow)
-            .offset(y = yOffset)
+            .offset { IntOffset(x = 0, y = yOffset.roundToPx()) }
     ) {
         Box(
             modifier = Modifier

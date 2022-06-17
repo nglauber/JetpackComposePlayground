@@ -30,6 +30,7 @@ fun MainScreen(navController: NavHostController) {
             "Derived State and Side Effect" to ROUTE_DERIVED_STATE,
             "Number pad" to ROUTE_NUMBER_PAD,
             "Image" to ROUTE_IMAGE,
+            "Image Rotation (one finger)" to ROUTE_IMAGE_ROTATION,
             "Take Picture" to ROUTE_TAKE_PICTURE,
             "DropDown" to ROUTE_DROPDOWN,
             "Bottom Nav" to ROUTE_BOTTOM_NAV,

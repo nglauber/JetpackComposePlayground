@@ -36,6 +36,7 @@ fun NavGraphBuilder.AppNavigator(
     composable(ROUTE_KEYBOARD) { KeyboardScreen() }
     composable(ROUTE_NUMBER_PAD) { NumberPadScreen() }
     composable(ROUTE_IMAGE) { ImageScreen() }
+    composable(ROUTE_IMAGE_ROTATION) { OneFingerImageRotationScreen() }
     composable(ROUTE_TAKE_PICTURE) { TakePictureScreen() }
     composable(ROUTE_DROPDOWN) { DropDownScreen() }
     composable(ROUTE_FORM) { FormScreen() }

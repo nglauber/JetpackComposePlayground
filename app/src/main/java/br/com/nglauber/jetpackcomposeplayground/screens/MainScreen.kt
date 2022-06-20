@@ -74,6 +74,7 @@ fun MainScreen(navController: NavHostController) {
             "Collapsing Effect" to ROUTE_COLLAPSING_EFFECT,
             "Scroll Animation" to ROUTE_SCROLL_ANIMATION,
             "Touchable feedback" to ROUTE_TOUCHABLE_FEEDBACK,
+            "Reactions (Facebook) Touch" to ROUTE_REACTIONS_TOUCH,
             "Curved Scroll" to ROUTE_SCROLL_CURVED,
             "ViewPager (Lazy Load Content)" to ROUTE_VIEW_PAGER,
             "ViewPager + Tabs" to ROUTE_VIEW_PAGER_TABS,

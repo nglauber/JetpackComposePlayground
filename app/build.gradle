@@ -80,6 +80,7 @@ dependencies {
     implementation "com.google.accompanist:accompanist-pager:$accompanist_version"
     implementation "com.google.accompanist:accompanist-pager-indicators:$accompanist_version"
     implementation "com.google.accompanist:accompanist-navigation-material:$accompanist_version"
+    implementation "com.google.accompanist:accompanist-swiperefresh:$accompanist_version"
 
     implementation "io.coil-kt:coil-compose:$coilVersion"
     implementation "io.coil-kt:coil-svg:$coilVersion"
@@ -89,6 +90,12 @@ dependencies {
     implementation "com.airbnb.android:lottie-compose:$lottieVersion"
 
     implementation "dev.chrisbanes.snapper:snapper:$snapper_version"
+
+    implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
+    implementation "com.squareup.retrofit2:converter-gson:$gson_converter_version"
+    implementation "com.squareup.okhttp3:logging-interceptor:$logging_interceptor_version"
+    implementation "androidx.paging:paging-runtime-ktx:$paging_runtime_version"
+    implementation "androidx.paging:paging-compose:$paging_compose_version"
 
     testImplementation "junit:junit:$junit_version"
     androidTestImplementation "androidx.test.ext:junit:$ext_junit_version"

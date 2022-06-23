@@ -10,6 +10,8 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import br.com.nglauber.jetpackcomposeplayground.bottomnav.BottomNavScreen
 import br.com.nglauber.jetpackcomposeplayground.crud.SocialNetworkScreen
+import br.com.nglauber.jetpackcomposeplayground.paging.MarvelCharactersScreen
+import br.com.nglauber.jetpackcomposeplayground.paging.MarvelCharactersViewModel
 import br.com.nglauber.jetpackcomposeplayground.rest.BooksScreen
 import br.com.nglauber.jetpackcomposeplayground.rest2.DogsViewModel
 import br.com.nglauber.jetpackcomposeplayground.screens.*
@@ -55,6 +57,10 @@ fun NavGraphBuilder.AppNavigator(
     composable(ROUTE_SOCIAL_NETWORKS) { SocialNetworkScreen() }
     composable(ROUTE_SCORE) { ScoreScreen() }
     composable(ROUTE_BOOKS) { BooksScreen() }
+    composable(ROUTE_PAGING_MARVEL) {
+        val viewModel = viewModel<MarvelCharactersViewModel>()
+        MarvelCharactersScreen(viewModel)
+    }
     composable(ROUTE_ANIMATION) { AnimationScreen() }
     composable(ROUTE_ANIMATING_LIST) { AnimatingListScreen() }
     composable(ROUTE_INSTAGRAM_PROGRESS) { MyInstagramScreen() }

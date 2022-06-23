@@ -50,6 +50,7 @@ fun MainScreen(navController: NavHostController) {
             "Social Networks" to ROUTE_SOCIAL_NETWORKS,
             "Score" to ROUTE_SCORE,
             "Books Http" to ROUTE_BOOKS,
+            "Paging Library" to ROUTE_PAGING_MARVEL,
             "Animation" to ROUTE_ANIMATION,
             "AnimatingList" to ROUTE_ANIMATING_LIST,
             "Slide Animation" to ROUTE_SLIDE_ANIMATION,

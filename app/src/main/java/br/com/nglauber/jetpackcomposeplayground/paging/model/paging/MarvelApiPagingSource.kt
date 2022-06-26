@@ -26,10 +26,10 @@ class MarvelApiPagingSource(
 
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Character> {
         return try {
-            val page = params.key ?: 1
-            val nextPageNumber = page * PAGE_SIZE
-            val response = marvelApi.allCharacters(offset = nextPageNumber)
-            val nextKey = if (nextPageNumber >= response.data.total) null else page + 1
+            val page = params.key ?: 0
+            val offset = page * PAGE_SIZE
+            val response = marvelApi.allCharacters(offset = offset)
+            val nextKey = if (offset >= response.data.total) null else page + 1
             return LoadResult.Page(
                 data = response.data.results,
                 prevKey = null, // Only paging forward.

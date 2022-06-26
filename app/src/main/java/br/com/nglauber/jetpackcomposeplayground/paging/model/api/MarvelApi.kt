@@ -10,7 +10,8 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
 import retrofit2.http.Query
-import java.security.NoSuchAlgorithmException
+import java.math.BigInteger
+import java.security.MessageDigest
 import java.util.*
 
 interface MarvelApi {
@@ -41,7 +42,7 @@ interface MarvelApi {
 
             val gson = GsonBuilder().setLenient().create()
             val retrofit = Retrofit.Builder()
-                .baseUrl("http://gateway.marvel.com/v1/public/")
+                .baseUrl("https://gateway.marvel.com/v1/public/")
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .client(httpClient.build())
                 .build()
@@ -49,24 +50,11 @@ interface MarvelApi {
             return retrofit.create(MarvelApi::class.java)
         }
 
-        private fun md5(s: String): String {
-            try {
-                val digest = java.security.MessageDigest.getInstance("MD5")
-                digest.update(s.toByteArray())
-                val messageDigest = digest.digest()
-                val hexString = StringBuilder()
-                for (aMessageDigest in messageDigest) {
-                    var h = Integer.toHexString(0xFF and aMessageDigest.toInt())
-                    while (h.length < 2)
-                        h = "0$h"
-                    hexString.append(h)
-                }
-                return hexString.toString()
-
-            } catch (e: NoSuchAlgorithmException) {
-                e.printStackTrace()
-            }
-            return ""
+        private fun md5(input: String): String {
+            val md = MessageDigest.getInstance("MD5")
+            return BigInteger(1, md.digest(input.toByteArray()))
+                .toString(16)
+                .padStart(32, '0')
         }
     }
 }

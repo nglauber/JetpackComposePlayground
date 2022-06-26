@@ -21,8 +21,11 @@ import com.google.accompanist.swiperefresh.SwipeRefresh
 import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
 
 @Composable
-fun MarvelCharactersScreen(viewModel: MarvelCharactersViewModel) {
-    val lazyPagingItems = viewModel.charactersPagedListFlow.collectAsLazyPagingItems()
+fun MarvelCharactersScreen(
+    viewModel: MarvelCharactersViewModel
+) {
+    val lazyPagingItems =
+        viewModel.charactersPagedListFlow.collectAsLazyPagingItems()
     val swipeRefreshState = rememberSwipeRefreshState(false)
 
     SwipeRefresh(
@@ -37,31 +40,22 @@ fun MarvelCharactersScreen(viewModel: MarvelCharactersViewModel) {
                     CharacterItem(it)
                 }
             }
-            item {
-                when {
-                    lazyPagingItems.loadState.refresh is LoadState.Loading ||
-                            lazyPagingItems.loadState.append is LoadState.Loading -> {
-                        Box(
-                            modifier = Modifier.fillMaxWidth(),
-                            contentAlignment = Alignment.Center
-                        ) {
-                            CircularProgressIndicator()
-                        }
+            val state = lazyPagingItems.loadState
+            when {
+                state.refresh is LoadState.Loading ||
+                        state.append is LoadState.Loading -> {
+                    item {
+                        LoadingIndicator()
                     }
-                    lazyPagingItems.loadState.append is LoadState.Error ||
-                            lazyPagingItems.loadState.refresh is LoadState.Error -> {
-                        Box(
-                            modifier = Modifier.fillMaxWidth(),
-                            contentAlignment = Alignment.Center
-                        ) {
-                            Button(
-                                onClick = {
-                                    lazyPagingItems.refresh()
-                                }
-                            ) {
-                                Text(text = "Retry")
+                }
+                state.append is LoadState.Error ||
+                        state.refresh is LoadState.Error -> {
+                    item {
+                        ErrorRetryIndicator(
+                            onRefresh = {
+                                lazyPagingItems.refresh()
                             }
-                        }
+                        )
                     }
                 }
             }
@@ -79,8 +73,11 @@ private fun CharacterItem(
             .fillMaxWidth(),
         verticalAlignment = Alignment.CenterVertically,
     ) {
+        val thumbnail = character.thumbnail
         Image(
-            painter = rememberAsyncImagePainter("${character.thumbnail.path}.${character.thumbnail.extension}"),
+            painter = rememberAsyncImagePainter(
+                "${thumbnail.pathSec}.${thumbnail.extension}"
+            ),
             contentDescription = null,
             modifier = Modifier.size(144.dp, 144.dp),
         )
@@ -89,5 +86,31 @@ private fun CharacterItem(
             text = character.name,
             style = MaterialTheme.typography.h6
         )
+    }
+}
+
+@Composable
+private fun LoadingIndicator() {
+    Box(
+        modifier = Modifier.fillMaxWidth(),
+        contentAlignment = Alignment.Center
+    ) {
+        CircularProgressIndicator()
+    }
+}
+
+@Composable
+fun ErrorRetryIndicator(
+    onRefresh: () -> Unit
+) {
+    Box(
+        modifier = Modifier.fillMaxWidth(),
+        contentAlignment = Alignment.Center
+    ) {
+        Button(
+            onClick = onRefresh
+        ) {
+            Text(text = "Retry")
+        }
     }
 }

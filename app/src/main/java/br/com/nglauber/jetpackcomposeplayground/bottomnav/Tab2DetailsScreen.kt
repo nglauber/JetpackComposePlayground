@@ -12,9 +12,9 @@ import androidx.compose.ui.graphics.Color
 import androidx.constraintlayout.compose.ConstraintLayout
 
 @Composable
-fun Tab2DetailsScreen(device: Device, paddingValues: PaddingValues) {
+fun Tab2DetailsScreen(paddingValues: PaddingValues) {
     Column(Modifier.padding(paddingValues)) {
-        Text(text = "Tab 2 - Details - $device")
+        Text(text = "Tab 2 - Details")
         ConstraintLayoutWeightDemo()
     }
 }

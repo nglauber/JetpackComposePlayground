@@ -8,6 +8,7 @@ import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
+import androidx.navigation.navArgument
 import br.com.nglauber.jetpackcomposeplayground.bottomnav.BottomNavScreen
 import br.com.nglauber.jetpackcomposeplayground.crud.SocialNetworkScreen
 import br.com.nglauber.jetpackcomposeplayground.paging.MarvelCharactersScreen
@@ -99,4 +100,20 @@ fun NavGraphBuilder.AppNavigator(
     composable(ROUTE_CUSTOM_ROUTE_A) { CustomBackStackScreenA(navController) }
     composable(ROUTE_CUSTOM_ROUTE_B) { CustomBackStackScreenB(navController) }
     composable(ROUTE_CUSTOM_ROUTE_C) { CustomBackStackScreenC(navController) }
+    composable(ROUTE_CUSTOM_NAV_TYPE_SCREEN_1) {
+        CustomNavTypeScreen1(onDeviceSelected = {
+            navController.navigate("$ROUTE_CUSTOM_NAV_TYPE_SCREEN_2/$it")
+        })
+    }
+    composable(
+        "$ROUTE_CUSTOM_NAV_TYPE_SCREEN_2/{device}",
+        arguments = listOf(
+            navArgument("device") {
+                type = AssetParamType()
+            }
+        )
+    ) {
+        val prevScreenDevice = it.arguments?.getParcelable<Device>("device")
+        CustomNavTypeScreen2(prevScreenDevice)
+    }
 }

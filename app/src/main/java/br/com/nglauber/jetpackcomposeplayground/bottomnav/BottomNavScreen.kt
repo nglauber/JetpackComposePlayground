@@ -1,137 +1,127 @@
 package br.com.nglauber.jetpackcomposeplayground.bottomnav
 
-import android.net.Uri
-import android.os.Bundle
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.material.*
-import androidx.compose.runtime.*
-import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.navigation.NavController
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
+import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavHostController
-import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.composable
-import androidx.navigation.compose.rememberNavController
-import androidx.navigation.navArgument
-import com.google.gson.Gson
-import kotlin.random.Random
+import androidx.navigation.compose.*
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.cancel
+import kotlinx.coroutines.launch
 
-typealias BackToFirstTab = () -> Unit
+// Main Tabs
+private val tabItems = listOf(
+    TabItem.Tab1,
+    TabItem.Tab2,
+)
 
-val localBackToFirstTab = compositionLocalOf<BackToFirstTab> {
-    error("Invalid backstack")
-}
+// Each Tab routes
+private const val TAB_1_MAIN = "tab_1_main"
+private const val TAB_1_DETAILS = "tab_1_details"
+private const val TAB_2_MAIN = "tab_2_main"
+private const val TAB_2_DETAILS = "tab_2_details"
 
+// Source: https://stackoverflow.com/questions/69423228/jetpack-compose-navigation-bottom-nav-multiple-back-stack-view-model-scoping
 @Composable
 fun BottomNavScreen() {
-    var currentTab by rememberSaveable { mutableStateOf(TabItem.ListInfo.route) }
-    val items = listOf(
-        TabItem.ListInfo,
-        TabItem.ProfileInfo,
-    )
-    Scaffold(
-        bottomBar = {
-            BottomNavigation {
-                items.forEach { tabItem ->
-                    BottomNavigationItem(
-                        icon = { Icon(tabItem.icon, tabItem.title) },
-                        label = { Text(tabItem.title) },
-                        selected = tabItem.route == currentTab,
-                        onClick = {
-                            currentTab = tabItem.route
-                        }
-                    )
-                }
-            }
-        }
-    ) {
-        CompositionLocalProvider(localBackToFirstTab provides {
-            currentTab = TabItem.ListInfo.route
-        }) {
-            TabContent(currentTab, it)
-        }
-    }
-}
-
-@Composable
-fun TabContent(tabItem: String, paddingValues: PaddingValues) {
-    val tab1NavState =
-        rememberSaveable { mutableStateOf(Bundle()) }
-    val tab2NavState =
-        rememberSaveable { mutableStateOf(Bundle()) }
-
-    when (tabItem) {
-        TabItem.ListInfo.route -> {
-            TabWrapper(tab1NavState) { navController ->
-                TabList(navController, paddingValues)
-            }
-        }
-        TabItem.ProfileInfo.route -> {
-            TabWrapper(tab2NavState) { navController ->
-                TabProfile(navController, paddingValues)
-            }
-        }
-    }
-}
-
-@Composable
-fun TabWrapper(
-    navState: MutableState<Bundle>,
-    content: @Composable (NavHostController) -> Unit
-) {
     val navController = rememberNavController()
-    val callback by rememberUpdatedState(
-        NavController.OnDestinationChangedListener { _, _, _ ->
-            navState.value = navController.saveState() ?: Bundle()
-        }
-    )
-    DisposableEffect(navController) {
-        navController.addOnDestinationChangedListener(callback)
-        navController.restoreState(navState.value)
-        onDispose {
-            navController.removeOnDestinationChangedListener(callback)
-            navController.enableOnBackPressed(false)
+    val navBackStackEntry by navController.currentBackStackEntryAsState()
+    val currentDestination = navBackStackEntry?.destination
+    val scope = rememberCoroutineScope()
+    var waitEndAnimationJob = remember<Job?> { null }
+    val selectionMap = remember(currentDestination) {
+        tabItems.associateWith { tabItem ->
+            (currentDestination?.hierarchy?.any { it.route == tabItem.route } == true)
         }
     }
-    content(navController)
-}
-
-@Composable
-fun TabList(navController: NavHostController, paddingValues: PaddingValues) {
-    NavHost(navController = navController, startDestination = "tab1_main") {
-        composable("tab1_main") {
-            Tab1MainScreen(paddingValues) {
-                navController.navigate("tab1_details")
+    Scaffold(bottomBar = {
+        BottomNavigation {
+            tabItems.forEach { tabItem ->
+                BottomNavigationItem(icon = { Icon(tabItem.icon, tabItem.title) },
+                    label = { Text(tabItem.title) },
+                    selected = selectionMap.getOrDefault(tabItem, false),
+                    onClick = {
+                        // if we're already waiting for an other screen to start appearing
+                        // we need to cancel that job
+                        waitEndAnimationJob?.cancel()
+                        if (navController.visibleEntries.value.count() > 1) {
+                            // if navController.visibleEntries has more than one item
+                            // we need to wait animation to finish before starting next navigation
+                            waitEndAnimationJob = scope.launch {
+                                navController.visibleEntries.collect { visibleEntries ->
+                                    if (visibleEntries.count() == 1) {
+                                        navigate(navController, tabItem.route)
+                                        waitEndAnimationJob = null
+                                        cancel()
+                                    }
+                                }
+                            }
+                        } else {
+                            // otherwise we can navigate instantly
+                            navigate(navController, tabItem.route)
+                        }
+                    })
             }
         }
-        composable("tab1_details") {
-            Tab1DetailsScreen(paddingValues)
-        }
-    }
-}
-
-@Composable
-fun TabProfile(navController: NavHostController, paddingValues: PaddingValues) {
-    val device = Device(
-        Random.nextInt(0, 100).toString(), "test"
-    )
-
-    NavHost(navController = navController, startDestination = "tab2_main") {
-        composable("tab2_main") {
-            Tab2MainScreen(device, paddingValues) {
-                val json = Uri.encode(Gson().toJson(device))
-                navController.navigate("tab2_details/$json")
-            }
-        }
-        composable(
-            "tab2_details/{device}",
-            arguments = listOf(
-                navArgument("device") {
-                    type = AssetParamType()
-                }
-            )
+    }) { paddingValues ->
+        NavHost(
+            navController = navController, startDestination = TabItem.Tab1.route
         ) {
-            val prevScreenDevice = it.arguments?.getParcelable<Device>("device")
-            Tab2DetailsScreen(prevScreenDevice!!, paddingValues)
+            navigation(
+                route = TabItem.Tab1.route, startDestination = TAB_1_MAIN
+            ) {
+                composable(TAB_1_MAIN) {
+                    Tab1MainScreen(paddingValues, onDetailsSelected = {
+                        navController.navigate(TAB_1_DETAILS)
+                    })
+                }
+                composable(TAB_1_DETAILS) {
+                    Tab1DetailsScreen(paddingValues, goToTab2details = {
+                        navigate(navController, TabItem.Tab2.route)
+                        navController.navigate(TAB_2_DETAILS)
+                    })
+                }
+            }
+            navigation(
+                route = TabItem.Tab2.route, startDestination = TAB_2_MAIN
+            ) {
+                composable(TAB_2_MAIN) {
+                    Tab2MainScreen(paddingValues, onDetailsSelected = {
+                        navController.navigate(TAB_2_DETAILS)
+                    }, onBackPressed = {
+                        navigate(navController, TabItem.Tab1.route)
+                    })
+                }
+                composable(TAB_2_DETAILS) {
+                    Tab2DetailsScreen(paddingValues)
+                }
+            }
         }
+    }
+}
+
+private fun navigate(
+    navController: NavHostController, route: String
+) {
+    navController.navigate(route) {
+        val navigationRoutes = tabItems.map { it.route }
+        val firstBottomBarDestination = navController.backQueue.firstOrNull {
+            navigationRoutes.contains(it.destination.route)
+        }?.destination
+        // remove all navigation items from the stack
+        // so only the currently selected screen remains in the stack
+        if (firstBottomBarDestination != null) {
+            popUpTo(firstBottomBarDestination.id) {
+                inclusive = true
+                saveState = true
+            }
+        }
+        // Avoid multiple copies of the same destination when reselecting the same item
+        launchSingleTop = true
+        // Restore state when reselecting a previously selected item
+        restoreState = true
     }
 }

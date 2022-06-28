@@ -386,13 +386,16 @@ fun AnimatedVectorDrawableAnimRestart() {
 
 @Composable
 fun LottieAnimationDemo() {
-    val composition by rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.lottie_msg_inbox))
+    val composition by rememberLottieComposition(
+        LottieCompositionSpec.RawRes(R.raw.lottie_msg_inbox)
+    )
     val progress by animateLottieCompositionAsState(composition)
     if (progress == 1.0f) {
         Log.d("NGVL", "DONE!")
     }
     LottieAnimation(
         composition,
+        iterations = 3,
         modifier = Modifier
             .size(200.dp)
             .background(Color.Black),
@@ -456,6 +459,7 @@ fun LongPressAnimation() {
 @Composable
 fun AnimationScreen() {
     Column(modifier = Modifier.verticalScroll(rememberScrollState())) {
+        LottieAnimationDemo()
         ExpandableText()
         PortraitModeImage()
         VisibilityAnimationFAB()
@@ -474,7 +478,6 @@ fun AnimationScreen() {
                 AnimatedVectorDrawableAnimRestart()
             }
         }
-        LottieAnimationDemo()
         LongPressAnimation()
     }
 }

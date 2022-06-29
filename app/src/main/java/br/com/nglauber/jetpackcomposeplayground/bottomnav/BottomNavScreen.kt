@@ -4,13 +4,9 @@ import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.*
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.cancel
-import kotlinx.coroutines.launch
 
 // Main Tabs
 private val tabItems = listOf(
@@ -24,14 +20,11 @@ private const val TAB_1_DETAILS = "tab_1_details"
 private const val TAB_2_MAIN = "tab_2_main"
 private const val TAB_2_DETAILS = "tab_2_details"
 
-// Source: https://stackoverflow.com/questions/69423228/jetpack-compose-navigation-bottom-nav-multiple-back-stack-view-model-scoping
 @Composable
 fun BottomNavScreen() {
     val navController = rememberNavController()
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val currentDestination = navBackStackEntry?.destination
-    val scope = rememberCoroutineScope()
-    var waitEndAnimationJob = remember<Job?> { null }
     val selectionMap = remember(currentDestination) {
         tabItems.associateWith { tabItem ->
             (currentDestination?.hierarchy?.any { it.route == tabItem.route } == true)
@@ -44,25 +37,7 @@ fun BottomNavScreen() {
                     label = { Text(tabItem.title) },
                     selected = selectionMap.getOrDefault(tabItem, false),
                     onClick = {
-                        // if we're already waiting for an other screen to start appearing
-                        // we need to cancel that job
-                        waitEndAnimationJob?.cancel()
-                        if (navController.visibleEntries.value.count() > 1) {
-                            // if navController.visibleEntries has more than one item
-                            // we need to wait animation to finish before starting next navigation
-                            waitEndAnimationJob = scope.launch {
-                                navController.visibleEntries.collect { visibleEntries ->
-                                    if (visibleEntries.count() == 1) {
-                                        navigate(navController, tabItem.route)
-                                        waitEndAnimationJob = null
-                                        cancel()
-                                    }
-                                }
-                            }
-                        } else {
-                            // otherwise we can navigate instantly
-                            navigate(navController, tabItem.route)
-                        }
+                        navigate(navController, tabItem.route)
                     })
             }
         }

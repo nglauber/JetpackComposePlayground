@@ -94,6 +94,7 @@ fun NavGraphBuilder.AppNavigator(
     composable(ROUTE_REACTIONS_TOUCH) { ReactionsTouchScreen() }
     composable(ROUTE_SCROLL_CURVED) { CurvedScrollScreen() }
     composable(ROUTE_REVEAL_SWIPE) { RevealSwipeScreen() }
+    composable(ROUTE_SWIPEABLE) { SwipeableSampleScreen5() }
     composable(ROUTE_LIFECYCLE) { LifecycleSampleScreen() }
     composable(ROUTE_EXPORT_COMPOSABLE) { ExportComposableScreen() }
     bottomSheet(ROUTE_BOTTOM_SHEET_NAV) { BottomSheetViaRoute(it) }

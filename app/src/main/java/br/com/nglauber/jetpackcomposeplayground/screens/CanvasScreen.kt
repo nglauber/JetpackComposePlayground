@@ -2,14 +2,13 @@ package br.com.nglauber.jetpackcomposeplayground.screens
 
 import android.graphics.Paint
 import android.graphics.Path
+import androidx.annotation.DrawableRes
 import androidx.compose.animation.core.*
-import androidx.compose.foundation.Canvas
-import androidx.compose.foundation.background
+import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -43,6 +42,74 @@ fun CanvasScreen() {
         CanvasSample()
         DrawGradientCircles()
         MovingSquare()
+        Row() {
+            ButtonWithCurvedText(R.drawable.ic_share, "Share", 48.dp, {})
+            ButtonWithCurvedText(R.drawable.ic_cancel, "Cancel", 72.dp, {})
+            ButtonWithCurvedText(R.drawable.ic_check, "Check", 96.dp, {})
+        }
+    }
+}
+
+//https://stackoverflow.com/questions/72944715/how-can-to-create-a-curved-text-around-a-canvas/72954381#72954381
+@Composable
+fun ButtonWithCurvedText(
+    @DrawableRes icon: Int,
+    text: String,
+    iconSize: Dp,
+    onClick: () -> Unit,
+) {
+    val density = LocalDensity.current
+    val imgSize = iconSize
+    val imageSizePx = with(density) { imgSize.toPx() }
+    val labelSize = 12.sp
+    val textToIconPadding = 4.dp
+    val textToIconPaddingPx = with(density) { textToIconPadding.toPx() }
+    val boxSize = imgSize + (textToIconPadding * 2) + with(density) { labelSize.roundToPx().toDp() }
+    val boxSizePx = with(density) { boxSize.toPx() }
+
+    val imageInset = ((boxSize - imgSize) / 2)
+    val imageInsetPx = with(density) { imageInset.toPx() }
+
+    val arcTop = imageInsetPx - (textToIconPaddingPx / 2f)
+    val arcLeft = imageInsetPx - (textToIconPaddingPx / 2f)
+    val arcBottom = boxSizePx - imageInsetPx + (textToIconPaddingPx / 2f)
+    val arcRight = boxSizePx - imageInsetPx + (textToIconPaddingPx / 2f)
+
+    val vectorPainter = rememberVectorPainter(
+        ImageVector.vectorResource(icon)
+    )
+    Canvas(
+        modifier = Modifier
+            .size(boxSize)
+            .background(Color.Gray)
+            .clickable {
+                onClick()
+            }
+    ) {
+        drawCircle(Color.LightGray, radius = imageSizePx / 2f)
+        with(vectorPainter) {
+            inset(
+                horizontal = imageInsetPx,
+                vertical = imageInsetPx
+            ) {
+                draw(Size(imageSizePx, imageSizePx))
+            }
+        }
+        drawIntoCanvas {
+            val path = Path().apply {
+                addArc(arcLeft, arcTop, arcRight, arcBottom, 270f, 180f)
+            }
+            it.nativeCanvas.drawTextOnPath(
+                text,
+                path,
+                0f,
+                0f,
+                Paint().apply {
+                    textSize = labelSize.toPx()
+                    textAlign = Paint.Align.CENTER
+                }
+            )
+        }
     }
 }
 

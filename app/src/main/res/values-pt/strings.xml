@@ -1,0 +1,36 @@
+<resources>
+    <string name="app_name">Jetpack Compose Playground</string>
+
+    <string name="count_text">Contador: %d</string>
+
+    <string name="msg_fav_delete_title">Excluir</string>
+    <string name="msg_fav_delete_message">Deseja remover \'%s\' dos favoritos?</string>
+    <string name="msg_fav_delete_confirm">Sim!</string>
+    <string name="msg_fav_delete_cancel">Não!</string>
+
+    <string name="book_info_year_pages">Ano: %1$d - Páginas: %2$d</string>
+    <string name="msg_book_list_empty">A lista de livros está vazia!</string>
+
+    <string name="tab_books">Livros</string>
+    <string name="tab_favorites">Favoritos</string>
+    <string name="msg_loading">Carregando livros…</string>
+
+    <string name="msg_added_favorites">\'%s\' adicionado aos favoritos!</string>
+
+    <string name="show_toast">Toast</string>
+
+    <string name="activity_java_text">Essa é uma activity em Java</string>
+
+    <string name="option1">Opção 1</string>
+    <string name="option2">Opção 2</string>
+    <string name="option3">Opção 3</string>
+
+    <string name="text_my_binding">Meu binding</string>
+    <string name="btn_ok">Okay</string>
+
+    <string name="msg_change_language">Mudar idioma para Inglês</string>
+    <string name="btn_set_lang">Mudar idioma</string>
+
+    <string name="check_path" translatable="false">M 3 13 L 7 17 L 7 17 L 9 19 L 9 19 L 9 19 L 10 18 L 10 18 L 21 7 L 19 5 L 9 15 L 5 11 Z</string>
+    <string name="cancel_path" translatable="false">M 4 6 L 10 12 L 4 18 L 6 20 L 12 14 L 18 20 L 20 18 L 14 12 L 20 6 L 18 4 L 12 10 L 6 4 Z</string>
+</resources>

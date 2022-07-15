@@ -1,5 +1,6 @@
 package br.com.nglauber.jetpackcomposeplayground
 
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import androidx.activity.compose.setContent
@@ -16,6 +17,7 @@ import androidx.compose.material.Surface
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.ExperimentalComposeUiApi
 import br.com.nglauber.jetpackcomposeplayground.ui.theme.JetpackComposePlaygroundTheme
+import br.com.nglauber.jetpackcomposeplayground.util.LocaleHelper
 import com.google.accompanist.navigation.animation.AnimatedNavHost
 import com.google.accompanist.navigation.animation.rememberAnimatedNavController
 import com.google.accompanist.navigation.material.ExperimentalMaterialNavigationApi
@@ -83,5 +85,14 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }
+    }
+
+    override fun attachBaseContext(newBase: Context) {
+        super.attachBaseContext(
+            LocaleHelper.setLocale(
+                newBase,
+                JetpackComposePlaygroundApp.appLanguage
+            )
+        )
     }
 }

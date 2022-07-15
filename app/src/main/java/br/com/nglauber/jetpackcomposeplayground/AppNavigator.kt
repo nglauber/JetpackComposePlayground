@@ -117,4 +117,5 @@ fun NavGraphBuilder.AppNavigator(
         val prevScreenDevice = it.arguments?.getParcelable<Device>("device")
         CustomNavTypeScreen2(prevScreenDevice)
     }
+    composable(ROUTE_CHANGE_LANGUAGE) { ChangeLanguageScreen() }
 }

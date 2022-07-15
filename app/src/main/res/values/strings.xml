@@ -21,12 +21,15 @@
 
     <string name="activity_java_text">This is a Java Activity using Compose</string>
 
-    <string name="option1">Opção 1</string>
-    <string name="option2">Opção 2</string>
-    <string name="option3">Opção 3</string>
+    <string name="option1">Option 1</string>
+    <string name="option2">Option 2</string>
+    <string name="option3">Option 3</string>
 
     <string name="text_my_binding">My binding</string>
     <string name="btn_ok">OK</string>
+
+    <string name="msg_change_language">Change language to Portuguese</string>
+    <string name="btn_set_lang">Change Language</string>
 
     <string name="check_path" translatable="false">M 3 13 L 7 17 L 7 17 L 9 19 L 9 19 L 9 19 L 10 18 L 10 18 L 21 7 L 19 5 L 9 15 L 5 11 Z</string>
     <string name="cancel_path" translatable="false">M 4 6 L 10 12 L 4 18 L 6 20 L 12 14 L 18 20 L 20 18 L 14 12 L 20 6 L 18 4 L 12 10 L 6 4 Z</string>

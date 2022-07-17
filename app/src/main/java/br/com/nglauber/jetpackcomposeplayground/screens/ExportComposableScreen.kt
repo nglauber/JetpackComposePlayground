@@ -67,7 +67,11 @@ fun ExportComposableScreen() {
         floatingActionButtonPosition = FabPosition.Center,
         backgroundColor = MaterialTheme.colors.primaryVariant
     ) {
-        Box(modifier = Modifier.fillMaxSize()) {
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(it)
+        ) {
             ProfileUI()
         }
     }

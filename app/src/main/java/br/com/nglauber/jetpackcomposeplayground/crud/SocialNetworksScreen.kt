@@ -65,21 +65,23 @@ fun SocialNetworkScreen() {
             )
         }
     ) {
-        SocialNetwork(
-            usersLiveData = viewModel.allUsers,
-            currentUser = currentUser,
-            onSaveUser = { user ->
-                viewModel.saveUser(user)
-                currentUser = UserBinding(0, "", true, defaultSocialNetwork)
-            },
-            onDeleteUser = { user ->
-                viewModel.deleteUser(user)
-            },
-            onUpdateUser = { user ->
-                currentUser =
-                    UserBinding(user.id, user.name, user.isActive, user.socialNetwork)
-            }
-        )
+        Box(modifier = Modifier.padding(it)) {
+            SocialNetwork(
+                usersLiveData = viewModel.allUsers,
+                currentUser = currentUser,
+                onSaveUser = { user ->
+                    viewModel.saveUser(user)
+                    currentUser = UserBinding(0, "", true, defaultSocialNetwork)
+                },
+                onDeleteUser = { user ->
+                    viewModel.deleteUser(user)
+                },
+                onUpdateUser = { user ->
+                    currentUser =
+                        UserBinding(user.id, user.name, user.isActive, user.socialNetwork)
+                }
+            )
+        }
     }
 }
 

@@ -69,22 +69,24 @@ fun BooksScreenContent(
         topBar = {
             BookTopBar(pagerState, screenState.selectedTab)
         },
-        content = {
-            when (val result = listBookResult.value) {
-                is RequestState.Loading -> {
-                    Loading()
-                }
-                is RequestState.Error -> {
-                    ErrorMessage()
-                }
-                is RequestState.Success -> {
-                    BooksScreenTabs(
-                        context = context,
-                        screenState = screenState,
-                        books = result.data,
-                        pagerState = pagerState,
-                        scrollStates = arrayOf(scrollState0, scrollState1)
-                    )
+        content = { contentPadding ->
+            Box(Modifier.padding(contentPadding)) {
+                when (val result = listBookResult.value) {
+                    is RequestState.Loading -> {
+                        Loading()
+                    }
+                    is RequestState.Error -> {
+                        ErrorMessage()
+                    }
+                    is RequestState.Success -> {
+                        BooksScreenTabs(
+                            context = context,
+                            screenState = screenState,
+                            books = result.data,
+                            pagerState = pagerState,
+                            scrollStates = arrayOf(scrollState0, scrollState1)
+                        )
+                    }
                 }
             }
         }

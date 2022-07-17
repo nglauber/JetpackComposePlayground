@@ -2,6 +2,7 @@ package br.com.nglauber.jetpackcomposeplayground.screens
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Home
@@ -91,7 +92,8 @@ fun BottomNavSwipeScreen() {
         ) {
             HorizontalPager(
                 state = pageState,
-                count = images.size
+                count = images.size,
+                modifier = Modifier.padding(it),
             ) { page ->
                 Image(
                     painterResource(id = images[page]),

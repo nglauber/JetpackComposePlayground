@@ -12,9 +12,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.input.pointer.pointerInput
+import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstrainedLayoutReference
 import androidx.constraintlayout.compose.ConstraintLayout
+import br.com.nglauber.jetpackcomposeplayground.R
 
 @Composable
 fun KeyboardScreen() {
@@ -24,7 +27,7 @@ fun KeyboardScreen() {
             .background(Color(0xFF9575CD))
             .fillMaxSize()
     ) {
-        Text("Last key pressed: $lastPressedKey")
+        Text(stringResource(id = R.string.msg_last_key_pressed, lastPressedKey))
         KeyboardComponent { lastPressedKey = it }
     }
 }
@@ -104,6 +107,7 @@ fun KeyboardKey(
     var isKeyPressed by remember { mutableStateOf(false) }
     Text(keyboardKey, Modifier
         .then(modifier)
+        .testTag(keyboardKey)
         .pointerInput(Unit) {
             detectTapGestures(onPress = {
                 isKeyPressed = true
@@ -129,6 +133,7 @@ fun KeyboardKey(
         Text(
             keyboardKey, Modifier
                 .then(modifierPressed)
+                .testTag("$keyboardKey$KeyboardScreenTestTagPressedSuffix")
                 .background(Color.White)
                 .padding(
                     start = 16.dp,
@@ -140,3 +145,5 @@ fun KeyboardKey(
         )
     }
 }
+
+const val KeyboardScreenTestTagPressedSuffix = "_pressed"

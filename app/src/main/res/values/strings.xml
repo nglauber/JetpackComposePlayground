@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name">Jetpack Compose Playground</string>
 
+    <string name="msg_last_key_pressed">Last key pressed: %s</string>
+
     <string name="count_text">Count: %d</string>
 
     <string name="msg_fav_delete_title">Delete</string>

@@ -4,6 +4,9 @@
     <string name="msg_last_key_pressed">Última tecla pressionada: %s</string>
 
     <string name="count_text">Contador: %d</string>
+    <string name="msg_derived_count">Contador Derivado: %d</string>
+    <string name="msg_side_effect_count">Effect colateral: %d</string>
+    <string name="btn_inc">Inc</string>
 
     <string name="msg_fav_delete_title">Excluir</string>
     <string name="msg_fav_delete_message">Deseja remover \'%s\' dos favoritos?</string>

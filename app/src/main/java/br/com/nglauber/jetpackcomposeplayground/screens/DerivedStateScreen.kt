@@ -1,9 +1,13 @@
 package br.com.nglauber.jetpackcomposeplayground.screens
 
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.Button
 import androidx.compose.material.Text
 import androidx.compose.runtime.*
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
+import br.com.nglauber.jetpackcomposeplayground.R
 
 @Composable
 fun DerivedStateScreen() {
@@ -22,12 +26,16 @@ fun DerivedStateScreen() {
     var sideEffectCount by remember {
         mutableStateOf(count)
     }
-    Column {
-        Text("Count: $count\nDerivedCount: $derivedCount\nSideEffect: $sideEffectCount")
+    Column(
+        Modifier.fillMaxSize()
+    ) {
+        Text(stringResource(id = R.string.count_text, count))
+        Text(stringResource(id = R.string.msg_derived_count, derivedCount))
+        Text(stringResource(id = R.string.msg_side_effect_count, sideEffectCount))
         Button(onClick = {
             count++
         }) {
-            Text("Inc")
+            Text(stringResource(id = R.string.btn_inc))
         }
     }
     SideEffect {

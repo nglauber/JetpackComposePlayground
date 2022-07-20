@@ -7,13 +7,15 @@ import androidx.compose.material.Button
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
+import br.com.nglauber.jetpackcomposeplayground.R
 
 @Composable
 fun Tab1DetailsScreen(paddingValues: PaddingValues, goToTab2details: () -> Unit) {
     Column(Modifier.padding(paddingValues)) {
-        Text(text = "Tab 1 - Details")
+        Text(text = stringResource(id = R.string.tab_1_details))
         Button(onClick = goToTab2details) {
-            Text("Go to Tab2 > Details")
+            Text(stringResource(id = R.string.btn_tab_2_details))
         }
     }
 }

@@ -8,6 +8,8 @@ import androidx.compose.material.TextField
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
+import br.com.nglauber.jetpackcomposeplayground.R
 import java.util.regex.Pattern
 
 private fun isValidEmail(emailStr: CharSequence) =
@@ -27,7 +29,7 @@ fun Tab1MainScreen(paddingValues: PaddingValues, onDetailsSelected: () -> Unit) 
             .fillMaxSize()
             .padding(paddingValues)
     ) {
-        Text(text = "Tab 1")
+        Text(text = stringResource(id = R.string.tab_1))
         TextField(
             value = emailText,
             onValueChange = { text ->
@@ -35,14 +37,14 @@ fun Tab1MainScreen(paddingValues: PaddingValues, onDetailsSelected: () -> Unit) 
                 showError = !isValidEmail(text)
             },
             isError = showError,
-            label = { Text(text = "Email") },
+            label = { Text(text = stringResource(id = R.string.msg_email)) },
             modifier = Modifier.fillMaxWidth(),
         )
         if (showError) {
-            Text("Email is invalid")
+            Text(stringResource(id = R.string.msg_invalid_email))
         }
         Button(onClick = onDetailsSelected) {
-            Text("Next")
+            Text(stringResource(id = R.string.btn_next))
         }
     }
 }

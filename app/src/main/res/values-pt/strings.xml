@@ -8,6 +8,15 @@
     <string name="msg_side_effect_count">Effect colateral: %d</string>
     <string name="btn_inc">Inc</string>
 
+    <string name="tab_1">Aba 1</string>
+    <string name="tab_1_details">Aba 1 - Detalhes</string>
+    <string name="tab_2">Aba 2</string>
+    <string name="tab_2_details">Aba 2 - Detalhes</string>
+    <string name="msg_email">Email</string>
+    <string name="btn_next">Próximo</string>
+    <string name="msg_invalid_email">Email é inválido</string>
+    <string name="btn_tab_2_details">Ir para Aba 2 > Detalhes</string>
+
     <string name="msg_fav_delete_title">Excluir</string>
     <string name="msg_fav_delete_message">Deseja remover \'%s\' dos favoritos?</string>
     <string name="msg_fav_delete_confirm">Sim!</string>

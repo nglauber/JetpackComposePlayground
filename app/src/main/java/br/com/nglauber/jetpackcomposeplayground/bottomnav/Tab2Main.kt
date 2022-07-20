@@ -11,6 +11,8 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
+import br.com.nglauber.jetpackcomposeplayground.R
 
 @Composable
 fun Tab2MainScreen(
@@ -24,9 +26,9 @@ fun Tab2MainScreen(
             .fillMaxSize()
             .padding(paddingValues)
     ) {
-        Text(text = "Tab 2")
+        Text(text = stringResource(id = R.string.tab_2))
         Button(onClick = onDetailsSelected) {
-            Text("Go to Tab 2 > Details")
+            Text(text = stringResource(id = R.string.btn_tab_2_details))
         }
     }
     BackHandler(onBack = {

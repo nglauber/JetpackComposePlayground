@@ -8,6 +8,15 @@
     <string name="msg_side_effect_count">SideEffect: %d</string>
     <string name="btn_inc">Inc</string>
 
+    <string name="tab_1">Tab 1</string>
+    <string name="tab_1_details">Tab 1 - Details</string>
+    <string name="tab_2">Tab 2</string>
+    <string name="tab_2_details">Tab 2 - Details</string>
+    <string name="msg_email">Email</string>
+    <string name="btn_next">Next</string>
+    <string name="msg_invalid_email">Email is invalid</string>
+    <string name="btn_tab_2_details">Go to Tab 2 > Details</string>
+
     <string name="msg_fav_delete_title">Delete</string>
     <string name="msg_fav_delete_message">Do you want to remove \'%s\' from the favorites?</string>
     <string name="msg_fav_delete_confirm">Yep!</string>

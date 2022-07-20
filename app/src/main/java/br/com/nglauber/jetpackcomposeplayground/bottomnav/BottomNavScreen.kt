@@ -4,6 +4,9 @@ import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.*
@@ -33,12 +36,16 @@ fun BottomNavScreen() {
     Scaffold(bottomBar = {
         BottomNavigation {
             tabItems.forEach { tabItem ->
-                BottomNavigationItem(icon = { Icon(tabItem.icon, tabItem.title) },
-                    label = { Text(tabItem.title) },
+                val text = stringResource(id = tabItem.title)
+                BottomNavigationItem(
+                    modifier = Modifier.testTag(text),
+                    icon = { Icon(tabItem.icon, text) },
+                    label = { Text(text) },
                     selected = selectionMap.getOrDefault(tabItem, false),
                     onClick = {
                         navigate(navController, tabItem.route)
-                    })
+                    }
+                )
             }
         }
     }) { paddingValues ->

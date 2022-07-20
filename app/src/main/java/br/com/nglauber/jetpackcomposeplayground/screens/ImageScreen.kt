@@ -60,6 +60,7 @@ fun ImageScreen() {
         )
         Row {
             SvgImageSample()
+            SvgLocalImageSample()
         }
 //        ZoomAndTranslateImage()
     }
@@ -71,6 +72,23 @@ fun SvgImageSample() {
         model = ImageRequest.Builder(LocalContext.current)
             .decoderFactory(SvgDecoder.Factory())
             .data("https://upload.wikimedia.org/wikipedia/commons/d/d7/Android_robot.svg")
+            .size(Size.ORIGINAL) // Set the target size to load the image at.
+            .build()
+    )
+    Image(
+        painter = painter,
+        modifier = Modifier.size(100.dp),
+        contentDescription = null
+    )
+}
+
+@Composable
+fun SvgLocalImageSample() {
+    val ctx = LocalContext.current
+    val painter = rememberAsyncImagePainter(
+        model = ImageRequest.Builder(ctx)
+            .decoderFactory(SvgDecoder.Factory())
+            .data("android.resource://${ctx.applicationContext.packageName}/${R.raw.android_robot}")
             .size(Size.ORIGINAL) // Set the target size to load the image at.
             .build()
     )

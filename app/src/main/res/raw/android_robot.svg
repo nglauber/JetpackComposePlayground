@@ -1,0 +1,61 @@
+<?xml version="1.0"?>
+<svg xmlns:xlink="http://www.w3.org/1999/xlink"
+    viewBox="-147 -70 294 345"
+    xmlns="http://www.w3.org/2000/svg">
+    <g fill="#a4c639">
+        <use
+            stroke="#FFF"
+            stroke-width="14.4"
+            xlink:href="#b" />
+        <use
+            transform="scale(-1,1)"
+            xlink:href="#a" />
+        <g
+            id="a"
+            stroke="#FFF"
+            stroke-width="7.2">
+            <rect
+                height="86"
+                rx="6.5"
+                transform="rotate(29)"
+                width="13"
+                x="14"
+                y="-86" />
+            <rect
+                height="133"
+                id="c"
+                rx="24"
+                width="48"
+                x="-143"
+                y="41" />
+            <use
+                x="85"
+                y="97"
+                xlink:href="#c" />
+        </g>
+        <g id="b">
+            <ellipse
+                cy="41"
+                rx="91"
+                ry="84" />
+            <rect
+                height="182"
+                rx="22"
+                width="182"
+                x="-91"
+                y="20" />
+        </g>
+    </g>
+    <g
+        fill="#FFF"
+        stroke="#FFF"
+        stroke-width="7.2">
+        <path d="m-95 44.5h190" />
+        <circle
+            cx="-42"
+            r="4" />
+        <circle
+            cx="42"
+            r="4" />
+    </g>
+</svg>

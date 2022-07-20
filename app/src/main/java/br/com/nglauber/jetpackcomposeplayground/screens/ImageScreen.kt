@@ -24,18 +24,24 @@ import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.imageResource
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
 import androidx.core.content.ContextCompat
 import androidx.core.graphics.drawable.toBitmap
 import br.com.nglauber.jetpackcomposeplayground.R
+import br.com.nglauber.jetpackcomposeplayground.util.drawableId
+import br.com.nglauber.jetpackcomposeplayground.util.graphicsLayerScale
+import br.com.nglauber.jetpackcomposeplayground.util.graphicsRotation
 import coil.annotation.ExperimentalCoilApi
 import coil.compose.rememberAsyncImagePainter
 import coil.decode.SvgDecoder
 import coil.request.ImageRequest
 import coil.size.Size
 
+@ExperimentalCoilApi
 @Composable
 fun ImageScreen() {
     Column(Modifier.fillMaxSize()) {
@@ -47,10 +53,14 @@ fun ImageScreen() {
             GrayscaleDrawable()
             NinePatchImage()
         }
+        ZoomableImage(
+            Modifier
+                .fillMaxWidth()
+                .weight(1f)
+        )
         Row {
             SvgImageSample()
         }
-        ZoomableImage()
 //        ZoomAndTranslateImage()
     }
 }
@@ -73,11 +83,13 @@ fun SvgImageSample() {
 
 @Composable
 fun RoundedImage() {
+    val imageRes = R.drawable.dog
     Image(
         bitmap = ImageBitmap.imageResource(R.drawable.dog),
         contentDescription = "avatar",
         contentScale = ContentScale.Crop,
         modifier = Modifier
+            .semantics { drawableId = imageRes }
             .size(128.dp)
             .clip(CircleShape)
             .border(2.dp, Color.Gray, CircleShape)
@@ -86,12 +98,13 @@ fun RoundedImage() {
 
 @Composable
 fun GrayscaleImage() {
+    val imageRes = R.drawable.img_ba
     Image(
-        bitmap = ImageBitmap
-            .imageResource(R.drawable.dog),
+        bitmap = ImageBitmap.imageResource(imageRes),
         contentDescription = null,
         contentScale = ContentScale.Crop,
         modifier = Modifier
+            .semantics { drawableId = imageRes }
             .size(128.dp)
             .clip(RoundedCornerShape(8.dp)),
         colorFilter = ColorFilter.colorMatrix(
@@ -104,14 +117,19 @@ fun GrayscaleImage() {
 
 @Composable
 fun GrayscaleDrawable() {
+    val imageRes = R.mipmap.ic_launcher
     val context = LocalContext.current
     val image = remember {
-        val drawable = ContextCompat.getDrawable(context, R.mipmap.ic_launcher)
+        val drawable = ContextCompat.getDrawable(context, imageRes)
         toGrayscale(
             drawable?.toBitmap()!!
         ).asImageBitmap()
     }
-    Image(image, null, contentScale = ContentScale.FillHeight)
+    Image(
+        image,
+        null,
+        contentScale = ContentScale.FillHeight,
+        modifier = Modifier.semantics { drawableId = imageRes })
 }
 
 fun toGrayscale(bmpOriginal: Bitmap): Bitmap {
@@ -129,13 +147,13 @@ fun toGrayscale(bmpOriginal: Bitmap): Bitmap {
 }
 
 @Composable
-fun ZoomableImage() {
+fun ZoomableImage(modifier: Modifier) {
     val scale = remember { mutableStateOf(1f) }
     val rotationState = remember { mutableStateOf(1f) }
     Box(
-        modifier = Modifier
+        modifier = modifier
+            .testTag(ImageScreenZoomableContainerTestTag)
             .clip(RectangleShape) // Clip the box content
-            .fillMaxSize() // Give the size you want...
             .background(Color.Gray)
             .pointerInput(Unit) {
                 detectTransformGestures { centroid, pan, zoom, rotation ->
@@ -146,6 +164,11 @@ fun ZoomableImage() {
     ) {
         Image(
             modifier = Modifier
+                .testTag(ImageScreenZoomableImageTestTag)
+                .semantics {
+                    graphicsLayerScale = scale.value
+                    graphicsRotation = rotationState.value
+                }
                 .align(Alignment.Center) // keep the image centralized into the Box
                 .graphicsLayer(
                     // adding some zoom limits (min 50%, max 200%)
@@ -191,13 +214,18 @@ fun ZoomAndTranslateImage() {
 @Composable
 fun NinePatchImage() {
     val context = LocalContext.current
+    val imageRes = R.drawable.balao
     Image(
         rememberAsyncImagePainter(
-            ContextCompat.getDrawable(context, R.drawable.balao)
+            ContextCompat.getDrawable(context, imageRes)
         ),
         contentDescription = "Faq card 1",
         Modifier
+            .semantics { drawableId = imageRes }
             .fillMaxWidth()
             .height(150.dp)
     )
 }
+
+const val ImageScreenZoomableContainerTestTag = "ZoomableImageContainer"
+const val ImageScreenZoomableImageTestTag = "ZoomableImage"

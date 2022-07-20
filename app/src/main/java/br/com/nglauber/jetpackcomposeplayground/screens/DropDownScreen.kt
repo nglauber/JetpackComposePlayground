@@ -14,10 +14,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.launch
 
@@ -29,7 +29,9 @@ fun DropDownScreen() {
         "Japan",
         "India",
     )
-    CountrySelection(countryList)
+    Column(Modifier.fillMaxSize()) {
+        CountrySelection(countryList)
+    }
 }
 
 @Composable
@@ -96,6 +98,7 @@ fun CountrySelection(items: List<String>, defaultValue: String = "") {
         }
         Spacer(
             modifier = Modifier
+                .testTag(DropDownTestTag)
                 .matchParentSize()
                 .padding(top = 8.dp)
                 .background(Color.Transparent)
@@ -116,7 +119,9 @@ fun DropDownList(
     selectedString: (String) -> Unit
 ) {
     DropdownMenu(
-        modifier = Modifier.fillMaxWidth(),
+        modifier = Modifier
+            .testTag(DropDownListTestTag)
+            .fillMaxWidth(),
         expanded = requestToOpen,
         onDismissRequest = { request(false) },
     ) {
@@ -136,3 +141,6 @@ fun DropDownList(
         }
     }
 }
+
+const val DropDownTestTag = "DropDown"
+const val DropDownListTestTag = "DropDownList"

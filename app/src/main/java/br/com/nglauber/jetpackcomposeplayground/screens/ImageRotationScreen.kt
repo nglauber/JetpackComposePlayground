@@ -16,8 +16,11 @@ import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.input.pointer.pointerInteropFilter
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
 import br.com.nglauber.jetpackcomposeplayground.R
+import br.com.nglauber.jetpackcomposeplayground.util.drawableId
+import br.com.nglauber.jetpackcomposeplayground.util.graphicsRotation
 import kotlin.math.atan2
 
 // https://stackoverflow.com/questions/72603132/rotate-image-with-single-finger-using-compose/72653282#72653282
@@ -59,15 +62,20 @@ fun OneFingerImageRotationScreen() {
                     true
                 }
         ) {
+            val imageRes = R.drawable.dog
             Image(
                 modifier = Modifier
+                    .semantics {
+                        drawableId = imageRes
+                        graphicsRotation = rotation.toFloat()
+                    }
                     .align(Alignment.Center)
                     .size(200.dp)
                     .graphicsLayer(
                         rotationZ = rotation.toFloat()
                     ),
                 contentDescription = null,
-                painter = painterResource(R.drawable.dog)
+                painter = painterResource(imageRes)
             )
         }
     }

@@ -16,7 +16,7 @@ buildscript {
         lifecycle_version = '2.5.0-rc02'
         logging_interceptor_version = '5.0.0-alpha.10'
         lottieVersion = '5.2.0'
-        markdown_version = '0.2.6'
+        markdown_version = '0.3.0'
         material_version = '1.6.1'
         okhttp_version = '5.0.0-alpha.10'
         paging_compose_version = '1.0.0-alpha15'

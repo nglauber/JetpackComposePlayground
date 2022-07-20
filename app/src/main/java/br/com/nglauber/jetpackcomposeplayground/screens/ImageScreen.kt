@@ -103,7 +103,7 @@ fun SvgLocalImageSample() {
 fun RoundedImage() {
     val imageRes = R.drawable.dog
     Image(
-        bitmap = ImageBitmap.imageResource(R.drawable.dog),
+        bitmap = ImageBitmap.imageResource(imageRes),
         contentDescription = "avatar",
         contentScale = ContentScale.Crop,
         modifier = Modifier

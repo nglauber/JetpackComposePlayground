@@ -3,7 +3,6 @@ package br.com.nglauber.jetpackcomposeplayground.screens
 import android.content.Context
 import android.media.AudioManager
 import android.util.Log
-import android.view.SoundEffectConstants
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CutCornerShape
@@ -34,6 +33,7 @@ import androidx.compose.ui.unit.Density
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import dev.jeziellago.compose.markdowntext.MarkdownText
 
 @Composable
 fun Form2Screen() {
@@ -66,7 +66,7 @@ fun Form2Screen() {
             AnnotatedTextSample()
             Switch(checked = enabled, onCheckedChange = { enabled = it })
             ButtonsSample(enabled)
-//            MarkdownText("Click [here](http://www.google.com) or http://www.google.com.")
+            MarkdownText("Click [here](http://www.google.com) or http://www.google.com.")
             CustomShape()
             MySlider()
             MultilineTextFieldSample(
@@ -129,7 +129,7 @@ fun ButtonsSample(enabled: Boolean) {
             onClick = {
                 val audioManager =
                     context.getSystemService(Context.AUDIO_SERVICE) as AudioManager
-                audioManager.playSoundEffect(SoundEffectConstants.CLICK, 1.0f)
+                audioManager.playSoundEffect(AudioManager.FX_KEY_CLICK, 1.0f)
             }
         )
         TextButton(

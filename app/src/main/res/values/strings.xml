@@ -42,6 +42,12 @@
         <item>Dec</item>
     </string-array>
 
+    <string name="msg_name">Name</string>
+    <string name="msg_name_hint">Enter your name</string>
+    <string name="btn_copy">Copy</string>
+    <string name="btn_paste">Paste</string>
+    <string name="msg_clipboard_copy">Copied to clipboard</string>
+
     <string name="msg_fav_delete_title">Delete</string>
     <string name="msg_fav_delete_message">Do you want to remove \'%s\' from the favorites?</string>
     <string name="msg_fav_delete_confirm">Yep!</string>

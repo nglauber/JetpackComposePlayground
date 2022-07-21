@@ -42,6 +42,12 @@
         <item>Dez</item>
     </string-array>
 
+    <string name="msg_name">Nome</string>
+    <string name="msg_name_hint">Digite seu nome</string>
+    <string name="btn_copy">Copiar</string>
+    <string name="btn_paste">Colar</string>
+    <string name="msg_clipboard_copy">Copiado para área de transferência</string>
+
     <string name="msg_fav_delete_title">Excluir</string>
     <string name="msg_fav_delete_message">Deseja remover \'%s\' dos favoritos?</string>
     <string name="msg_fav_delete_confirm">Sim!</string>

@@ -15,9 +15,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalClipboardManager
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
+import br.com.nglauber.jetpackcomposeplayground.R
 
 @Composable
 fun ConstraintLayoutScreen() {
@@ -34,14 +37,18 @@ private fun ConstraintLayoutForm() {
     var text by remember {
         mutableStateOf("")
     }
+    var pastedText by remember {
+        mutableStateOf("")
+    }
     ConstraintLayout(
         modifier = Modifier
             .fillMaxWidth()
             .padding(16.dp)
     ) {
-        val (text1Ref, edit1Ref, btn1Ref, btn2Ref) = createRefs()
+        val (text1Ref, edit1Ref, btn1Ref, btn2Ref, pastedTextRef) = createRefs()
+
         Text(
-            "Nome",
+            stringResource(id = R.string.msg_name),
             Modifier.constrainAs(text1Ref) {
                 top.linkTo(parent.top)
                 centerHorizontallyTo(parent)
@@ -50,7 +57,7 @@ private fun ConstraintLayoutForm() {
         TextField(
             value = text,
             onValueChange = { text = it },
-            label = { Text("Digite seu nome") },
+            label = { Text(stringResource(id = R.string.msg_name_hint)) },
             modifier = Modifier
                 .padding(top = 8.dp)
                 .constrainAs(edit1Ref) {
@@ -60,8 +67,10 @@ private fun ConstraintLayoutForm() {
                 })
         Button(
             onClick = {
-                clipboardManager.setText(AnnotatedString("Some text"))
-                Toast.makeText(context, "Copied to clipboard", Toast.LENGTH_SHORT).show()
+                if (text.isNotEmpty()) {
+                    clipboardManager.setText(AnnotatedString(text))
+                    Toast.makeText(context, R.string.msg_clipboard_copy, Toast.LENGTH_SHORT).show()
+                }
             },
             modifier = Modifier
                 .padding(top = 8.dp)
@@ -70,11 +79,11 @@ private fun ConstraintLayoutForm() {
                     top.linkTo(edit1Ref.bottom)
                 }
         ) {
-            Text("Copy")
+            Text(stringResource(id = R.string.btn_copy))
         }
         TextButton(
             onClick = {
-                text = clipboardManager.getText()?.toString() ?: ""
+                pastedText = clipboardManager.getText()?.toString() ?: ""
             },
             modifier = Modifier
                 .padding(end = 8.dp)
@@ -83,8 +92,19 @@ private fun ConstraintLayoutForm() {
                     baseline.linkTo(btn1Ref.baseline)
                 }
         ) {
-            Text("Paste")
+            Text(stringResource(id = R.string.btn_paste))
         }
+        Text(
+            text = pastedText,
+            modifier = Modifier
+                .testTag(ConstraintLayoutScreenPastedTextTestTag)
+                .padding(end = 8.dp)
+                .constrainAs(pastedTextRef) {
+                    start.linkTo(edit1Ref.start)
+                    end.linkTo(btn1Ref.end)
+                    top.linkTo(btn1Ref.bottom)
+                }
+        )
     }
 }
 
@@ -124,3 +144,5 @@ private fun ConstraintLayoutWeightDemo() {
         )
     }
 }
+
+const val ConstraintLayoutScreenPastedTextTestTag = "clPastedText"

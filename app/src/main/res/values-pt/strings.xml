@@ -17,6 +17,31 @@
     <string name="msg_invalid_email">Email é inválido</string>
     <string name="btn_tab_2_details">Ir para Aba 2 > Detalhes</string>
 
+    <string-array name="days_of_week">
+        <item>Dom</item>
+        <item>Seg</item>
+        <item>Ter</item>
+        <item>Qua</item>
+        <item>Qui</item>
+        <item>Sex</item>
+        <item>Sab</item>
+    </string-array>
+
+    <string-array name="months_abbreviation">
+        <item>Jan</item>
+        <item>Fev</item>
+        <item>Mar</item>
+        <item>Abr</item>
+        <item>Mai</item>
+        <item>Jun</item>
+        <item>Jul</item>
+        <item>Ago</item>
+        <item>Set</item>
+        <item>Out</item>
+        <item>Nov</item>
+        <item>Dez</item>
+    </string-array>
+
     <string name="msg_fav_delete_title">Excluir</string>
     <string name="msg_fav_delete_message">Deseja remover \'%s\' dos favoritos?</string>
     <string name="msg_fav_delete_confirm">Sim!</string>

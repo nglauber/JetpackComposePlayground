@@ -13,14 +13,14 @@ import androidx.compose.material.icons.filled.ArrowForward
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.res.stringArrayResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import br.com.nglauber.jetpackcomposeplayground.R
 import java.util.*
-
-private val weekDayNames = listOf("Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat")
-private val monthNames =
-    listOf("Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec")
 
 @Composable
 fun DatePickerScreen() {
@@ -62,6 +62,7 @@ fun DatePicker(
     selectedDate: Date = Date(),
     onDateSelected: (Date) -> Unit,
 ) {
+    val monthNames = stringArrayResource(id = R.array.months_abbreviation)
     var currentMonth by remember {
         mutableStateOf(selectedDate)
     }
@@ -106,14 +107,21 @@ private fun DatePickerImpl(
     onNextMonthPressed: () -> Unit,
     onDaySelected: (Int) -> Unit
 ) {
+    val weekDayNames = stringArrayResource(R.array.days_of_week)
     var dayCounter = 1
     Column(Modifier.fillMaxWidth()) {
         Row(verticalAlignment = Alignment.CenterVertically) {
-            IconButton(onClick = onPreviousMonthPressed) {
+            IconButton(
+                onClick = onPreviousMonthPressed,
+                modifier = Modifier.testTag(DatePickerPrevMonthButtonTestTag)
+            ) {
                 Icon(Icons.Default.ArrowBack, contentDescription = null)
             }
             Text(text = headerTitle, Modifier.weight(1f), textAlign = TextAlign.Center)
-            IconButton(onClick = onNextMonthPressed) {
+            IconButton(
+                onClick = onNextMonthPressed,
+                modifier = Modifier.testTag(DatePickerNextMonthButtonTestTag)
+            ) {
                 Icon(Icons.Default.ArrowForward, contentDescription = null)
             }
         }
@@ -153,8 +161,9 @@ private fun DatePickerImpl(
                             contentAlignment = Alignment.Center,
                             modifier = Modifier
                                 .weight(1f)
+                                .clip(CircleShape)
                                 .background(
-                                    if (selectedDay == dayCounter) Color.Blue else Color.Red,
+                                    if (selectedDay == dayCounter) Color.DarkGray else Color.Magenta,
                                     CircleShape
                                 )
                                 .clickable {
@@ -162,7 +171,7 @@ private fun DatePickerImpl(
                                 }
                                 .padding(10.dp)
                         ) {
-                            Text(text = dayCounter++.toString())
+                            Text(text = dayCounter++.toString(), color = Color.White)
                         }
                     } else {
                         Spacer(modifier = Modifier.weight(1f))
@@ -173,3 +182,6 @@ private fun DatePickerImpl(
         }
     }
 }
+
+const val DatePickerPrevMonthButtonTestTag = "pickerPrevMonth"
+const val DatePickerNextMonthButtonTestTag = "pickerNextMonth"

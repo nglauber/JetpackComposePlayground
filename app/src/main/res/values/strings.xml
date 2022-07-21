@@ -17,6 +17,31 @@
     <string name="msg_invalid_email">Email is invalid</string>
     <string name="btn_tab_2_details">Go to Tab 2 > Details</string>
 
+    <string-array name="days_of_week">
+        <item>Sun</item>
+        <item>Mon</item>
+        <item>Tue</item>
+        <item>Wed</item>
+        <item>Thu</item>
+        <item>Fri</item>
+        <item>Sat</item>
+    </string-array>
+
+    <string-array name="months_abbreviation">
+        <item>Jan</item>
+        <item>Feb</item>
+        <item>Mar</item>
+        <item>Apr</item>
+        <item>May</item>
+        <item>Jun</item>
+        <item>Jul</item>
+        <item>Aug</item>
+        <item>Sep</item>
+        <item>Oct</item>
+        <item>Nov</item>
+        <item>Dec</item>
+    </string-array>
+
     <string name="msg_fav_delete_title">Delete</string>
     <string name="msg_fav_delete_message">Do you want to remove \'%s\' from the favorites?</string>
     <string name="msg_fav_delete_confirm">Yep!</string>

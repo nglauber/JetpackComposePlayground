@@ -1,5 +1,6 @@
 package br.com.nglauber.jetpackcomposeplayground.screens
 
+import android.icu.text.SimpleDateFormat
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -24,8 +25,16 @@ import java.util.*
 
 @Composable
 fun DatePickerScreen() {
+    val formatter = remember(Unit) {
+        SimpleDateFormat(DatePickerDateFormat, Locale.getDefault())
+    }
     var currentDate by remember {
         mutableStateOf(Date())
+    }
+    val currentDateStr by remember {
+        derivedStateOf {
+            formatter.format(currentDate).toString()
+        }
     }
     Column {
         DatePicker(
@@ -34,7 +43,7 @@ fun DatePickerScreen() {
                 currentDate = it
             }
         )
-        Text(text = currentDate.toString())
+        Text(text = currentDateStr)
     }
 }
 
@@ -89,7 +98,7 @@ fun DatePicker(
         },
         onDaySelected = {
             val cal = Calendar.getInstance().apply {
-                time = selectedDate
+                time = currentMonth
                 set(Calendar.DAY_OF_MONTH, it)
             }
             onDateSelected(cal.time)
@@ -183,5 +192,6 @@ private fun DatePickerImpl(
     }
 }
 
+const val DatePickerDateFormat = "EEE MMM dd, yyyy"
 const val DatePickerPrevMonthButtonTestTag = "pickerPrevMonth"
 const val DatePickerNextMonthButtonTestTag = "pickerNextMonth"

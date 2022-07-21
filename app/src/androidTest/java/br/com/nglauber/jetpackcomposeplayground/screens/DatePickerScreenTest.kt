@@ -8,6 +8,7 @@ import androidx.compose.ui.test.performClick
 import br.com.nglauber.jetpackcomposeplayground.R
 import br.com.nglauber.jetpackcomposeplayground.utils.BaseTest
 import org.junit.Test
+import java.text.SimpleDateFormat
 import java.util.*
 
 class DatePickerScreenTest : BaseTest() {
@@ -54,14 +55,41 @@ class DatePickerScreenTest : BaseTest() {
         val calendar = Calendar.getInstance()
 
         // Checking if it's displaying the current day
-        composeTestRule.onNodeWithText(calendar.time.toString()).assertIsDisplayed()
+        selectedDateIsDisplayedCorrectly(calendar.time)
 
         // Changing the calendar day and pressing the day in the component
         calendar.set(Calendar.DAY_OF_MONTH, 1)
         composeTestRule.onNodeWithText("1").performClick()
 
         // Checking if it's displaying the selected day
-        composeTestRule.onNodeWithText(calendar.time.toString()).assertIsDisplayed()
+        selectedDateIsDisplayedCorrectly(calendar.time)
+    }
+
+    @Test
+    fun change_month_and_change_the_day() {
+        startApp {
+            DatePickerScreen()
+        }
+        val calendar = Calendar.getInstance()
+
+        // Checking if it's displaying the current day
+        selectedDateIsDisplayedCorrectly(calendar.time)
+
+        // Select previous month
+        composeTestRule.onNodeWithTag(DatePickerPrevMonthButtonTestTag).performClick()
+        calendar.add(Calendar.MONTH, -1)
+
+        // Changing the calendar day and pressing the day in the component
+        composeTestRule.onNodeWithText("1").performClick()
+        calendar.set(Calendar.DAY_OF_MONTH, 1)
+
+        // Checking if it's displaying the selected day
+        selectedDateIsDisplayedCorrectly(calendar.time)
+    }
+
+    private fun selectedDateIsDisplayedCorrectly(date: Date) {
+        val formatter = SimpleDateFormat(DatePickerDateFormat, Locale.getDefault())
+        composeTestRule.onNodeWithText(formatter.format(date)).assertIsDisplayed()
     }
 
     private fun isDisplayingTitleCorrectly(context: Context, monthIndex: Int, year: Int) {

@@ -20,6 +20,7 @@ fun EmphasisScreen() {
             .fillMaxSize()
             .verticalScroll(rememberScrollState())
     ) {
+        Text(text = "LocalContentAlpha", Modifier.padding(vertical = 8.dp), color = Color.Red)
         Text("No alpha applied - 100% opacity")
         CompositionLocalProvider(LocalContentAlpha provides ContentAlpha.high) {
             Text("High content alpha applied - 87% opacity")
@@ -30,6 +31,7 @@ fun EmphasisScreen() {
         CompositionLocalProvider(LocalContentAlpha provides ContentAlpha.disabled) {
             Text("Disabled content alpha applied - 38% opacity")
         }
+        Text(text = "Intrinsics Sample", Modifier.padding(vertical = 8.dp), color = Color.Red)
         IntrinsicsSample("A\nB", "A")
         IntrinsicsSample("A", "A\nB")
         IntrinsicsSample("A", "B")

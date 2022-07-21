@@ -12,7 +12,7 @@
     <string name="route_form">Form + Android View</string>
     <string name="route_date_picker">Date Picker</string>
     <string name="route_focus_request">Focus Request</string>
-    <string name="route_emphasis">Emphasis</string>
+    <string name="route_emphasis">Intrinsics + Emphasis</string>
     <string name="route_constraint">ConstraintLayout</string>
     <string name="route_constraint_barrier">ConstraintLayout | Barrier</string>
     <string name="route_subcomposable">Subcomposable</string>

@@ -2,13 +2,11 @@ package br.com.nglauber.jetpackcomposeplayground.screens
 
 import android.graphics.Paint
 import android.graphics.Path
+import android.graphics.Typeface
 import androidx.annotation.DrawableRes
 import androidx.compose.animation.core.*
 import androidx.compose.foundation.*
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.*
 import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -16,11 +14,8 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
-import androidx.compose.ui.graphics.Brush
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.StrokeCap
+import androidx.compose.ui.graphics.*
 import androidx.compose.ui.graphics.drawscope.*
-import androidx.compose.ui.graphics.nativeCanvas
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import androidx.compose.ui.platform.LocalDensity
@@ -42,11 +37,12 @@ fun CanvasScreen() {
         CanvasSample()
         DrawGradientCircles()
         MovingSquare()
-        Row() {
-            ButtonWithCurvedText(R.drawable.ic_share, "Share", 48.dp, {})
-            ButtonWithCurvedText(R.drawable.ic_cancel, "Cancel", 72.dp, {})
-            ButtonWithCurvedText(R.drawable.ic_check, "Check", 96.dp, {})
+        Row {
+            ButtonWithCurvedText(R.drawable.ic_share, "Share", 48.dp) {}
+            ButtonWithCurvedText(R.drawable.ic_cancel, "Cancel", 72.dp) {}
+            ButtonWithCurvedText(R.drawable.ic_check, "Check", 96.dp) {}
         }
+        ClippingSample()
     }
 }
 
@@ -59,15 +55,15 @@ fun ButtonWithCurvedText(
     onClick: () -> Unit,
 ) {
     val density = LocalDensity.current
-    val imgSize = iconSize
-    val imageSizePx = with(density) { imgSize.toPx() }
+    val imageSizePx = with(density) { iconSize.toPx() }
     val labelSize = 12.sp
     val textToIconPadding = 4.dp
     val textToIconPaddingPx = with(density) { textToIconPadding.toPx() }
-    val boxSize = imgSize + (textToIconPadding * 2) + with(density) { labelSize.roundToPx().toDp() }
+    val boxSize =
+        iconSize + (textToIconPadding * 2) + with(density) { labelSize.roundToPx().toDp() }
     val boxSizePx = with(density) { boxSize.toPx() }
 
-    val imageInset = ((boxSize - imgSize) / 2)
+    val imageInset = ((boxSize - iconSize) / 2)
     val imageInsetPx = with(density) { imageInset.toPx() }
 
     val arcTop = imageInsetPx - (textToIconPaddingPx / 2f)
@@ -181,14 +177,13 @@ fun DrawGradientCircles() {
         drawRect(Color.White)
         rotate(-90f) {
             val offset1 = circleStrokeWidth / 2
-            val size1 = outerCircleSize
             drawArc(
                 Brush.sweepGradient(listOf(Color.Magenta, Color.Red)),
                 startAngle,
                 angle1.value,
                 false,
                 topLeft = Offset(offset1, offset1),
-                size = Size(size1, size1),
+                size = Size(outerCircleSize, outerCircleSize),
                 style = Stroke(circleStrokeWidth, 0f, StrokeCap.Round)
             )
             val offset2 = circleStrokeWidth + (circleStrokeWidth / 2)
@@ -265,6 +260,48 @@ fun MovingSquare() {
             drawRect(color = Color.Red)
         }
     })
+}
+
+@Composable
+private fun ClippingSample() {
+    fun DrawScope.drawMyText(text: String, paintColor: Int) {
+        drawIntoCanvas {
+            val nativeCanvas = it.nativeCanvas
+            nativeCanvas.drawText(
+                text,
+                size.width / 2f,
+                size.height / 2f,
+                Paint().apply {
+                    typeface = Typeface.DEFAULT_BOLD
+                    textSize = 28 * density
+                    textAlign = Paint.Align.CENTER
+                    color = paintColor
+                    isAntiAlias = true
+                }
+            )
+        }
+    }
+
+    Canvas(
+        Modifier
+            .fillMaxWidth()
+            .height(200.dp)
+    ) {
+        val path = androidx.compose.ui.graphics.Path().apply {
+            moveTo(0f, size.height)
+            lineTo(size.width, 0f)
+            lineTo(size.width, size.height)
+            close()
+        }
+
+        val text = "Jetpack Compose!!"
+        drawMyText(text, Color.Black.toArgb())
+
+        clipPath(path) {
+            drawPath(path, Color.Red)
+            drawMyText(text, Color.White.toArgb())
+        }
+    }
 }
 
 @Preview(showBackground = true)

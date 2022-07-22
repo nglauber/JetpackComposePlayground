@@ -1,6 +1,5 @@
 package br.com.nglauber.jetpackcomposeplayground.screens
 
-import android.content.Context
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.onNodeWithText
@@ -14,7 +13,7 @@ import java.util.*
 class DatePickerScreenTest : BaseTest() {
     @Test
     fun navigate_to_months() {
-        val context = startApp {
+        startApp {
             DatePickerScreen()
         }
 
@@ -24,7 +23,7 @@ class DatePickerScreenTest : BaseTest() {
         var currentYear = calendar.get(Calendar.YEAR)
 
         // Checking if it's displaying the current month / year
-        composeTestRule.onNodeWithText(getDatePickerTitle(context, currentMonth, currentYear))
+        composeTestRule.onNodeWithText(getDatePickerTitle(currentMonth, currentYear))
             .assertIsDisplayed()
 
         // Select previous month
@@ -34,7 +33,7 @@ class DatePickerScreenTest : BaseTest() {
         currentYear = calendar.get(Calendar.YEAR)
 
         // Checking if it's displaying the previous month / year
-        isDisplayingTitleCorrectly(context, currentMonth, currentYear)
+        isDisplayingTitleCorrectly(currentMonth, currentYear)
 
         // Select two months ahead
         composeTestRule.onNodeWithTag(DatePickerNextMonthButtonTestTag).performClick()
@@ -44,7 +43,7 @@ class DatePickerScreenTest : BaseTest() {
         currentYear = calendar.get(Calendar.YEAR)
 
         // Checking if it's displaying the next month / year
-        isDisplayingTitleCorrectly(context, currentMonth, currentYear)
+        isDisplayingTitleCorrectly(currentMonth, currentYear)
     }
 
     @Test
@@ -92,12 +91,12 @@ class DatePickerScreenTest : BaseTest() {
         composeTestRule.onNodeWithText(formatter.format(date)).assertIsDisplayed()
     }
 
-    private fun isDisplayingTitleCorrectly(context: Context, monthIndex: Int, year: Int) {
-        composeTestRule.onNodeWithText(getDatePickerTitle(context, monthIndex, year))
+    private fun isDisplayingTitleCorrectly(monthIndex: Int, year: Int) {
+        composeTestRule.onNodeWithText(getDatePickerTitle(monthIndex, year))
             .assertIsDisplayed()
     }
 
-    private fun getDatePickerTitle(context: Context, monthIndex: Int, year: Int): String {
+    private fun getDatePickerTitle(monthIndex: Int, year: Int): String {
         val months = context.resources.getStringArray(R.array.months_abbreviation)
         return "${months[monthIndex]} - $year"
     }

@@ -40,7 +40,7 @@ class KeyboardScreenTest : BaseTest() {
 
     @Test
     fun key_pressed_is_displayed() {
-        val context = startApp {
+        startApp {
             KeyboardScreen()
         }
         val keyToTest = "G"

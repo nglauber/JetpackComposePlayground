@@ -9,7 +9,7 @@ import org.junit.Test
 class ConstraintLayoutScreenTest : BaseTest() {
     @Test
     fun copy_paste_action() {
-        val context = startApp {
+        startApp {
             ConstraintLayoutScreen()
         }
         val input = "Jetpack Compose"

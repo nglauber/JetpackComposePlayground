@@ -9,7 +9,7 @@ import org.junit.Test
 class DerivedStateScreenTest : BaseTest() {
     @Test
     fun key_press_shows_correct_value() {
-        val context = startApp {
+        startApp {
             DerivedStateScreen()
         }
         val countValues = arrayOf(0, 1, 2, 3, 4, 5, 6)

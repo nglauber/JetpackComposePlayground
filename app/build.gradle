@@ -96,10 +96,11 @@ dependencies {
     implementation "androidx.paging:paging-runtime-ktx:$paging_runtime_version"
     implementation "androidx.paging:paging-compose:$paging_compose_version"
 
+    implementation "androidx.test.espresso.idling:idling-concurrent:$expresso_idling_concurrent_version"
+
     testImplementation "junit:junit:$junit_version"
     androidTestImplementation "androidx.test.ext:junit:$ext_junit_version"
     androidTestImplementation "androidx.test.espresso:espresso-core:$expresso_core_version"
-
     // Test rules and transitive dependencies:
     androidTestImplementation("androidx.compose.ui:ui-test-junit4:$compose_version")
     // Needed for createComposeRule, but not createAndroidComposeRule:

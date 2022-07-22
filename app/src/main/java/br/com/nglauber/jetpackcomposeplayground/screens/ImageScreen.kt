@@ -28,18 +28,18 @@ import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.imageResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.semantics.testTag
 import androidx.compose.ui.unit.dp
 import androidx.core.content.ContextCompat
 import androidx.core.graphics.drawable.toBitmap
 import br.com.nglauber.jetpackcomposeplayground.R
-import br.com.nglauber.jetpackcomposeplayground.util.drawableId
-import br.com.nglauber.jetpackcomposeplayground.util.graphicsLayerScale
-import br.com.nglauber.jetpackcomposeplayground.util.graphicsRotation
+import br.com.nglauber.jetpackcomposeplayground.util.*
 import coil.annotation.ExperimentalCoilApi
 import coil.compose.rememberAsyncImagePainter
 import coil.decode.SvgDecoder
 import coil.request.ImageRequest
 import coil.size.Size
+import kotlinx.coroutines.asCoroutineDispatcher
 
 @ExperimentalCoilApi
 @Composable
@@ -70,6 +70,7 @@ fun ImageScreen() {
 fun SvgImageSample() {
     val painter = rememberAsyncImagePainter(
         model = ImageRequest.Builder(LocalContext.current)
+            .dispatcher(IdlingThreadPool.asCoroutineDispatcher())
             .decoderFactory(SvgDecoder.Factory())
             .data("https://upload.wikimedia.org/wikipedia/commons/d/d7/Android_robot.svg")
             .size(Size.ORIGINAL) // Set the target size to load the image at.
@@ -77,7 +78,12 @@ fun SvgImageSample() {
     )
     Image(
         painter = painter,
-        modifier = Modifier.size(100.dp),
+        modifier = Modifier
+            .size(100.dp)
+            .semantics {
+                testTag = ImageScreenAsyncImageTestTag
+                coilAsyncPainter = painter
+            },
         contentDescription = null
     )
 }
@@ -247,3 +253,4 @@ fun NinePatchImage() {
 
 const val ImageScreenZoomableContainerTestTag = "ZoomableImageContainer"
 const val ImageScreenZoomableImageTestTag = "ZoomableImage"
+const val ImageScreenAsyncImageTestTag = "AsyncVectorImage"

@@ -6,10 +6,7 @@ import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.performTouchInput
 import androidx.compose.ui.test.pinch
 import br.com.nglauber.jetpackcomposeplayground.R
-import br.com.nglauber.jetpackcomposeplayground.utils.BaseTest
-import br.com.nglauber.jetpackcomposeplayground.utils.graphicsLayerRotation
-import br.com.nglauber.jetpackcomposeplayground.utils.graphicsLayerScale
-import br.com.nglauber.jetpackcomposeplayground.utils.hasDrawable
+import br.com.nglauber.jetpackcomposeplayground.utils.*
 import coil.annotation.ExperimentalCoilApi
 import org.junit.Test
 
@@ -26,9 +23,15 @@ class ImageScreenTest : BaseTest() {
         composeTestRule.onNode(hasDrawable(R.drawable.img_ba)).assertIsDisplayed()
         composeTestRule.onNode(hasDrawable(R.drawable.balao)).assertIsDisplayed()
         composeTestRule.onNode(hasDrawable(R.mipmap.ic_launcher)).assertIsDisplayed()
-        composeTestRule.waitForIdle()
+    }
 
-        //TODO Test Coil image is loaded
+    @Test
+    fun async_image_was_displayed() {
+        startApp {
+            ImageScreen()
+        }
+        composeTestRule.waitForIdle()
+        composeTestRule.onNodeWithTag(ImageScreenAsyncImageTestTag).isAsyncPainterComplete()
     }
 
     @Test

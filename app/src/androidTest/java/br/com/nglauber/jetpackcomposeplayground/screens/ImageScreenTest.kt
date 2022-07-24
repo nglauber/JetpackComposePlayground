@@ -7,7 +7,13 @@ import androidx.compose.ui.test.performTouchInput
 import androidx.compose.ui.test.pinch
 import br.com.nglauber.jetpackcomposeplayground.R
 import br.com.nglauber.jetpackcomposeplayground.utils.*
+import coil.Coil
+import coil.EventListener
+import coil.ImageLoader
 import coil.annotation.ExperimentalCoilApi
+import coil.request.ErrorResult
+import coil.request.ImageRequest
+import coil.request.SuccessResult
 import org.junit.Test
 
 @ExperimentalCoilApi
@@ -23,6 +29,46 @@ class ImageScreenTest : BaseTest() {
         composeTestRule.onNode(hasDrawable(R.drawable.img_ba)).assertIsDisplayed()
         composeTestRule.onNode(hasDrawable(R.drawable.balao)).assertIsDisplayed()
         composeTestRule.onNode(hasDrawable(R.mipmap.ic_launcher)).assertIsDisplayed()
+    }
+
+    @Test
+    fun async_image_was_displayed_using_callback() {
+        // the approach used in this test replace the approach used in
+        // async_image_was_displayed test. I'm just keeping it for reference.
+        // Therefore, I could:
+        // - Remove the dependency: "androidx.test.espresso.idling:idling-concurrent:3.5.0-alpha07"
+        // - Remove the `IdlingThreadPool` object.
+        // - Remove this call from `ImageScreen` composable: .dispatcher(IdlingThreadPool.asCoroutineDispatcher())
+        // - Remove coilAsyncPainter SemanticsPropertyKey
+        // - Remove SemanticsNodeInteraction.isAsyncPainterComplete
+        // See this question on StackOverflow:
+        // https://stackoverflow.com/questions/73044642/how-to-unit-test-if-an-image-was-loaded-using-coil-compose/73084894
+        var success = 0
+        var errors = 0
+
+        startApp {
+            Coil.setImageLoader(
+                ImageLoader.Builder(context)
+                    .eventListener(object : EventListener {
+                        override fun onSuccess(request: ImageRequest, result: SuccessResult) {
+                            if ((request.data as? String)?.endsWith("svg") == true) {
+                                success++
+                            }
+                        }
+
+                        override fun onError(request: ImageRequest, result: ErrorResult) {
+                            errors++
+                        }
+                    })
+                    .build()
+            )
+            ImageScreen()
+        }
+
+        Thread.sleep(1000)
+
+        assert(errors == 0)
+        assert(success == 1)
     }
 
     @Test

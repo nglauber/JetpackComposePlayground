@@ -1,6 +1,7 @@
 package br.com.nglauber.jetpackcomposeplayground.screens
 
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
@@ -40,7 +41,7 @@ fun LifecycleSampleScreen() {
         }
     }
 
-    Column {
+    Column(Modifier.fillMaxSize()) {
         Text(text = "Example of lifecycle. Pause and resume the app to see the log.")
         LazyColumn {
             items(eventsLog) {

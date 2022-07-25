@@ -35,22 +35,28 @@ fun CurvedScrollScreen() {
         Icons.Default.Star to "Favorites",
         Icons.Default.Home to "Home"
     )
-    Box(
-        Modifier
-            .background(Color.LightGray)
-            .height(200.dp)
-            .width(200.dp)
-    ) {
-        CurvedScroll(items.size) {
-            val (icon, text) = items[it]
-            Row(
-                Modifier.clickable {
-                    Log.d("NGVL", text)
-                },
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                Icon(imageVector = icon, contentDescription = "", modifier = Modifier.padding(8.dp))
-                Text(text)
+    Box(Modifier.fillMaxSize()) {
+        Box(
+            Modifier
+                .background(Color.LightGray)
+                .height(200.dp)
+                .width(200.dp)
+        ) {
+            CurvedScroll(items.size) {
+                val (icon, text) = items[it]
+                Row(
+                    Modifier.clickable {
+                        Log.d("NGVL", text)
+                    },
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Icon(
+                        imageVector = icon,
+                        contentDescription = "",
+                        modifier = Modifier.padding(8.dp)
+                    )
+                    Text(text)
+                }
             }
         }
     }

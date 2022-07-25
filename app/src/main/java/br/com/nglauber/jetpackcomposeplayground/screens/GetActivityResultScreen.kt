@@ -6,6 +6,7 @@ import android.content.Intent
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContract
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.Button
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -13,6 +14,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Modifier
 import br.com.nglauber.jetpackcomposeplayground.ResponseActivity
 import br.com.nglauber.jetpackcomposeplayground.ResponseActivity.Companion.EXTRA_INT
 import br.com.nglauber.jetpackcomposeplayground.ResponseActivity.Companion.EXTRA_STRING
@@ -42,7 +44,7 @@ fun GetActivityResultScreen() {
         textResult = text
     }
 
-    Column {
+    Column(Modifier.fillMaxSize()) {
         Button(onClick = {
             launcher.launch(Random.nextInt(0, 100))
         }) {

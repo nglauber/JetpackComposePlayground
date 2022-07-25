@@ -36,7 +36,7 @@ fun DatePickerScreen() {
             formatter.format(currentDate).toString()
         }
     }
-    Column {
+    Column(Modifier.fillMaxSize()) {
         DatePicker(
             selectedDate = currentDate,
             onDateSelected = {

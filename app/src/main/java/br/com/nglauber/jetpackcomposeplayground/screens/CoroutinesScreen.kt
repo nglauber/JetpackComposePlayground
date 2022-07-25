@@ -1,8 +1,8 @@
 package br.com.nglauber.jetpackcomposeplayground.screens
 
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
 import androidx.compose.material.Button
 import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.Text
@@ -28,7 +28,7 @@ fun CoroutinesScreen() {
         }
         welcomeMsg = s
     }
-    Column {
+    Column(Modifier.fillMaxSize()) {
         if (welcomeMsg.isBlank()) {
             CircularProgressIndicator()
         } else {

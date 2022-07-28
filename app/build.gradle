@@ -72,6 +72,8 @@ dependencies {
 
     implementation "androidx.navigation:navigation-compose:$compose_navigation_version"
 
+    implementation "androidx.webkit:webkit:$webkitVersion"
+
     implementation "com.google.android.material:material:$material_version"
     implementation "com.google.code.gson:gson:$gson_version"
 

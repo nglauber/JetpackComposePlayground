@@ -61,6 +61,7 @@
     <string name="route_custom_route_c">Custom backstack</string>
     <string name="route_custom_nav_type_screen_1">Custom NavType</string>
     <string name="route_export_composable">Exportar Composable</string>
+    <string name="route_webview">WebView</string>
     <string name="route_change_language">Mudar idioma</string>
     <string name="route_exit">Sair</string>
 </resources>

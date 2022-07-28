@@ -16,12 +16,14 @@ import br.com.nglauber.jetpackcomposeplayground.paging.MarvelCharactersViewModel
 import br.com.nglauber.jetpackcomposeplayground.rest.BooksScreen
 import br.com.nglauber.jetpackcomposeplayground.rest2.DogsViewModel
 import br.com.nglauber.jetpackcomposeplayground.screens.*
+import coil.annotation.ExperimentalCoilApi
 import com.google.accompanist.navigation.animation.composable
 import com.google.accompanist.navigation.material.ExperimentalMaterialNavigationApi
 import com.google.accompanist.navigation.material.bottomSheet
 import com.google.accompanist.pager.ExperimentalPagerApi
 import dev.chrisbanes.snapper.ExperimentalSnapperApi
 
+@ExperimentalCoilApi
 @ExperimentalAnimationGraphicsApi
 @ExperimentalSnapperApi
 @ExperimentalMaterialNavigationApi
@@ -30,7 +32,7 @@ import dev.chrisbanes.snapper.ExperimentalSnapperApi
 @ExperimentalMaterialApi
 @ExperimentalComposeUiApi
 @ExperimentalAnimationApi
-fun NavGraphBuilder.AppNavigator(
+fun NavGraphBuilder.appNavigator(
     navController: NavHostController
 ) {
     composable(ROUTE_MAIN) { MainScreen(navController) }
@@ -117,5 +119,6 @@ fun NavGraphBuilder.AppNavigator(
         val prevScreenDevice = it.arguments?.getParcelable<Device>("device")
         CustomNavTypeScreen2(prevScreenDevice)
     }
+    composable(ROUTE_WEB_VIEW) { WebViewScreen() }
     composable(ROUTE_CHANGE_LANGUAGE) { ChangeLanguageScreen() }
 }

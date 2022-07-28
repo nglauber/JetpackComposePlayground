@@ -2,6 +2,7 @@ package br.com.nglauber.jetpackcomposeplayground.util
 
 import android.annotation.TargetApi
 import android.content.Context
+import android.content.res.Configuration
 import android.os.Build
 import br.com.nglauber.jetpackcomposeplayground.JetpackComposePlaygroundApp
 import java.util.*
@@ -13,9 +14,9 @@ object LocaleHelper {
     fun setLocale(context: Context, language: String): Context? {
         JetpackComposePlaygroundApp.appLanguage = language
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            return updateResources(context, language);
+            return updateResources(context, language)
         }
-        return updateResourcesLegacy(context, language);
+        return updateResourcesLegacy(context, language)
     }
 
     @TargetApi(Build.VERSION_CODES.N)
@@ -25,6 +26,7 @@ object LocaleHelper {
         val configuration = context.resources.configuration
         configuration.setLocale(locale)
         configuration.setLayoutDirection(locale)
+        configuration.uiMode = Configuration.UI_MODE_NIGHT_UNDEFINED
         return context.createConfigurationContext(configuration)
     }
 

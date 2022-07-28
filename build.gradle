@@ -25,6 +25,7 @@ buildscript {
         reveal_swipe_version = '1.0.0'
         room_version = '2.5.0-alpha02'
         snapper_version = '0.2.2'
+        webkitVersion = '1.4.0'
 
         // test libs
         expresso_core_version = '3.5.0-alpha07'

@@ -18,6 +18,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.ExperimentalComposeUiApi
 import br.com.nglauber.jetpackcomposeplayground.ui.theme.JetpackComposePlaygroundTheme
 import br.com.nglauber.jetpackcomposeplayground.util.LocaleHelper
+import coil.annotation.ExperimentalCoilApi
 import com.google.accompanist.navigation.animation.AnimatedNavHost
 import com.google.accompanist.navigation.animation.rememberAnimatedNavController
 import com.google.accompanist.navigation.material.ExperimentalMaterialNavigationApi
@@ -27,6 +28,7 @@ import com.google.accompanist.pager.ExperimentalPagerApi
 import dev.chrisbanes.snapper.ExperimentalSnapperApi
 import kotlinx.coroutines.flow.collectLatest
 
+@ExperimentalCoilApi
 @ExperimentalAnimationGraphicsApi
 @ExperimentalSnapperApi
 @ExperimentalFoundationApi
@@ -79,7 +81,7 @@ class MainActivity : AppCompatActivity() {
                                 )
                             },
                         ) {
-                            AppNavigator(navController = navController)
+                            appNavigator(navController = navController)
                         }
                     }
                 }

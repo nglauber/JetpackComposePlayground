@@ -89,6 +89,7 @@ fun MainScreen(navController: NavHostController) {
             R.string.route_custom_nav_type_screen_1 to ROUTE_CUSTOM_NAV_TYPE_SCREEN_1,
             R.string.route_export_composable to ROUTE_EXPORT_COMPOSABLE,
             R.string.route_webview to ROUTE_WEB_VIEW,
+            R.string.route_youtube to ROUTE_YOUTUBE,
             R.string.route_change_language to ROUTE_CHANGE_LANGUAGE,
             R.string.route_exit to ROUTE_EXIT
         )

@@ -46,6 +46,9 @@ android {
 }
 
 dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation "androidx.fragment:fragment-ktx:$fragment_ktx_version"
+
     implementation project(path: ':repository')
 
     implementation "androidx.activity:activity-compose:$compose_activity_version"

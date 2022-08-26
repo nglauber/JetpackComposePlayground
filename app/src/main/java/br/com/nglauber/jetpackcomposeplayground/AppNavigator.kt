@@ -5,10 +5,10 @@ import androidx.compose.animation.graphics.ExperimentalAnimationGraphicsApi
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.ui.ExperimentalComposeUiApi
+import androidx.core.os.bundleOf
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
-import androidx.navigation.navArgument
 import br.com.nglauber.jetpackcomposeplayground.bottomnav.BottomNavScreen
 import br.com.nglauber.jetpackcomposeplayground.crud.SocialNetworkScreen
 import br.com.nglauber.jetpackcomposeplayground.paging.MarvelCharactersScreen
@@ -16,6 +16,7 @@ import br.com.nglauber.jetpackcomposeplayground.paging.MarvelCharactersViewModel
 import br.com.nglauber.jetpackcomposeplayground.rest.BooksScreen
 import br.com.nglauber.jetpackcomposeplayground.rest2.DogsViewModel
 import br.com.nglauber.jetpackcomposeplayground.screens.*
+import br.com.nglauber.jetpackcomposeplayground.util.navigate
 import coil.annotation.ExperimentalCoilApi
 import com.google.accompanist.navigation.animation.composable
 import com.google.accompanist.navigation.material.ExperimentalMaterialNavigationApi
@@ -105,20 +106,16 @@ fun NavGraphBuilder.appNavigator(
     composable(ROUTE_CUSTOM_ROUTE_C) { CustomBackStackScreenC(navController) }
     composable(ROUTE_CUSTOM_NAV_TYPE_SCREEN_1) {
         CustomNavTypeScreen1(onDeviceSelected = {
-            navController.navigate("$ROUTE_CUSTOM_NAV_TYPE_SCREEN_2/$it")
+            navController.navigate(
+                ROUTE_CUSTOM_NAV_TYPE_SCREEN_2, bundleOf("device" to it)
+            )
         })
     }
-    composable(
-        "$ROUTE_CUSTOM_NAV_TYPE_SCREEN_2/{device}",
-        arguments = listOf(
-            navArgument("device") {
-                type = AssetParamType()
-            }
-        )
-    ) {
+    composable(ROUTE_CUSTOM_NAV_TYPE_SCREEN_2) {
         val prevScreenDevice = it.arguments?.getParcelable<Device>("device")
         CustomNavTypeScreen2(prevScreenDevice)
     }
     composable(ROUTE_WEB_VIEW) { WebViewScreen() }
+    composable(ROUTE_YOUTUBE) { YouTubeScreen() }
     composable(ROUTE_CHANGE_LANGUAGE) { ChangeLanguageScreen() }
 }

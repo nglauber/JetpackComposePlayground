@@ -1,8 +1,8 @@
 package br.com.nglauber.jetpackcomposeplayground.paging.model.api
 
-import br.com.nglauber.jetpackcomposeplayground.paging.model.API_KEY
-import br.com.nglauber.jetpackcomposeplayground.paging.model.PRIVATE_KEY
 import br.com.nglauber.jetpackcomposeplayground.paging.model.Response
+import br.com.nglauber.jetpackcomposeplayground.util.MARVEL_API_KEY
+import br.com.nglauber.jetpackcomposeplayground.util.MARVEL_PRIVATE_KEY
 import com.google.gson.GsonBuilder
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -32,9 +32,9 @@ interface MarvelApi {
                 val ts =
                     (Calendar.getInstance(TimeZone.getTimeZone("UTC")).timeInMillis / 1000L).toString()
                 val url = originalHttpUrl.newBuilder()
-                    .addQueryParameter("apikey", API_KEY)
+                    .addQueryParameter("apikey", MARVEL_API_KEY)
                     .addQueryParameter("ts", ts)
-                    .addQueryParameter("hash", md5("$ts$PRIVATE_KEY$API_KEY"))
+                    .addQueryParameter("hash", md5("$ts$MARVEL_PRIVATE_KEY$MARVEL_API_KEY"))
                     .build()
 
                 chain.proceed(original.newBuilder().url(url).build())

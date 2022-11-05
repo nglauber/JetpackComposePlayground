@@ -7,7 +7,11 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.size
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
@@ -21,6 +25,7 @@ import androidx.compose.ui.unit.dp
 import br.com.nglauber.jetpackcomposeplayground.R
 import br.com.nglauber.jetpackcomposeplayground.util.drawableId
 import br.com.nglauber.jetpackcomposeplayground.util.graphicsRotation
+import coil.compose.AsyncImagePainter.State.Empty.painter
 import kotlin.math.atan2
 
 // https://stackoverflow.com/questions/72603132/rotate-image-with-single-finger-using-compose/72653282#72653282
@@ -50,11 +55,13 @@ fun OneFingerImageRotationScreen() {
                             fingerRotation =
                                 Math.toDegrees(atan2((x - xc).toDouble(), (yc - y).toDouble()))
                         }
+
                         MotionEvent.ACTION_MOVE -> {
                             val newFingerRotation =
                                 Math.toDegrees(atan2((x - xc).toDouble(), (yc - y).toDouble()))
                             rotation = (viewRotation + newFingerRotation - fingerRotation)
                         }
+
                         MotionEvent.ACTION_UP -> {
                             fingerRotation = 0.0
                         }
@@ -71,9 +78,9 @@ fun OneFingerImageRotationScreen() {
                     }
                     .align(Alignment.Center)
                     .size(200.dp)
-                    .graphicsLayer(
+                    .graphicsLayer {
                         rotationZ = rotation.toFloat()
-                    ),
+                    },
                 contentDescription = null,
                 painter = painterResource(imageRes)
             )

@@ -43,6 +43,7 @@ android {
     composeOptions {
         kotlinCompilerExtensionVersion compose_version
     }
+    namespace 'br.com.nglauber.jetpackcomposeplayground'
 }
 
 dependencies {

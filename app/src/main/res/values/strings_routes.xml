@@ -31,6 +31,7 @@
     <string name="route_instagram_progress">Instagram Progress</string>
     <string name="route_flip_card">Flip card</string>
     <string name="route_canvas">Canvas</string>
+    <string name="route_haxagon">Hexagon Shape</string>
     <string name="route_speedometer">Speedometer</string>
     <string name="route_bottom_sheet">BottomSheet</string>
     <string name="route_broadcast">Broadcast</string>

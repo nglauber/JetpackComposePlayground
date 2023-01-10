@@ -20,7 +20,74 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.navigation.NavOptionsBuilder
-import br.com.nglauber.jetpackcomposeplayground.*
+import br.com.nglauber.jetpackcomposeplayground.MyJavaActivity
+import br.com.nglauber.jetpackcomposeplayground.R
+import br.com.nglauber.jetpackcomposeplayground.ROUTE_ACTIVITY_RESULT
+import br.com.nglauber.jetpackcomposeplayground.ROUTE_ANIMATING_LIST
+import br.com.nglauber.jetpackcomposeplayground.ROUTE_ANIMATION
+import br.com.nglauber.jetpackcomposeplayground.ROUTE_AVATAR_STACK
+import br.com.nglauber.jetpackcomposeplayground.ROUTE_BACKDROP_SCAFFOLD
+import br.com.nglauber.jetpackcomposeplayground.ROUTE_BOOKS
+import br.com.nglauber.jetpackcomposeplayground.ROUTE_BOTTOM_NAV
+import br.com.nglauber.jetpackcomposeplayground.ROUTE_BOTTOM_SHEET
+import br.com.nglauber.jetpackcomposeplayground.ROUTE_BOTTOM_SHEET_NAV
+import br.com.nglauber.jetpackcomposeplayground.ROUTE_BOX
+import br.com.nglauber.jetpackcomposeplayground.ROUTE_BROADCAST
+import br.com.nglauber.jetpackcomposeplayground.ROUTE_CANVAS
+import br.com.nglauber.jetpackcomposeplayground.ROUTE_CHANGE_LANGUAGE
+import br.com.nglauber.jetpackcomposeplayground.ROUTE_COLLAPSING_EFFECT
+import br.com.nglauber.jetpackcomposeplayground.ROUTE_COMPOSABLE_VIEW
+import br.com.nglauber.jetpackcomposeplayground.ROUTE_CONSTRAINT
+import br.com.nglauber.jetpackcomposeplayground.ROUTE_CONSTRAINT_BARRIER
+import br.com.nglauber.jetpackcomposeplayground.ROUTE_COROUTINES
+import br.com.nglauber.jetpackcomposeplayground.ROUTE_CUSTOM_NAV_TYPE_SCREEN_1
+import br.com.nglauber.jetpackcomposeplayground.ROUTE_CUSTOM_ROUTE_C
+import br.com.nglauber.jetpackcomposeplayground.ROUTE_DATE_PICKER
+import br.com.nglauber.jetpackcomposeplayground.ROUTE_DERIVED_STATE
+import br.com.nglauber.jetpackcomposeplayground.ROUTE_DROPDOWN
+import br.com.nglauber.jetpackcomposeplayground.ROUTE_EMPHASIS
+import br.com.nglauber.jetpackcomposeplayground.ROUTE_EXIT
+import br.com.nglauber.jetpackcomposeplayground.ROUTE_EXPORT_COMPOSABLE
+import br.com.nglauber.jetpackcomposeplayground.ROUTE_FLIP_CARD
+import br.com.nglauber.jetpackcomposeplayground.ROUTE_FOCUS_REQUEST
+import br.com.nglauber.jetpackcomposeplayground.ROUTE_FORM
+import br.com.nglauber.jetpackcomposeplayground.ROUTE_FORM2
+import br.com.nglauber.jetpackcomposeplayground.ROUTE_GRID
+import br.com.nglauber.jetpackcomposeplayground.ROUTE_HEXAGON
+import br.com.nglauber.jetpackcomposeplayground.ROUTE_HORIZONTAL_SCROLL
+import br.com.nglauber.jetpackcomposeplayground.ROUTE_IMAGE
+import br.com.nglauber.jetpackcomposeplayground.ROUTE_IMAGE_ROTATION
+import br.com.nglauber.jetpackcomposeplayground.ROUTE_INSTAGRAM_PROGRESS
+import br.com.nglauber.jetpackcomposeplayground.ROUTE_KEYBOARD
+import br.com.nglauber.jetpackcomposeplayground.ROUTE_LIFECYCLE
+import br.com.nglauber.jetpackcomposeplayground.ROUTE_LIST_GRADIENT_BG
+import br.com.nglauber.jetpackcomposeplayground.ROUTE_LIST_PARALLAX_IMG
+import br.com.nglauber.jetpackcomposeplayground.ROUTE_LIST_STICK_HEADER
+import br.com.nglauber.jetpackcomposeplayground.ROUTE_LIST_STICK_HEADER_CUSTOM
+import br.com.nglauber.jetpackcomposeplayground.ROUTE_MULTI_SCROLL
+import br.com.nglauber.jetpackcomposeplayground.ROUTE_NESTED_SCROLL
+import br.com.nglauber.jetpackcomposeplayground.ROUTE_NUMBER_PAD
+import br.com.nglauber.jetpackcomposeplayground.ROUTE_PAGING_MARVEL
+import br.com.nglauber.jetpackcomposeplayground.ROUTE_REACTIONS_TOUCH
+import br.com.nglauber.jetpackcomposeplayground.ROUTE_REVEAL_SWIPE
+import br.com.nglauber.jetpackcomposeplayground.ROUTE_SCAFFOLD
+import br.com.nglauber.jetpackcomposeplayground.ROUTE_SCORE
+import br.com.nglauber.jetpackcomposeplayground.ROUTE_SCROLL_ANIMATION
+import br.com.nglauber.jetpackcomposeplayground.ROUTE_SCROLL_CURVED
+import br.com.nglauber.jetpackcomposeplayground.ROUTE_SLIDE_ANIMATION
+import br.com.nglauber.jetpackcomposeplayground.ROUTE_SNAPPER
+import br.com.nglauber.jetpackcomposeplayground.ROUTE_SOCIAL_NETWORKS
+import br.com.nglauber.jetpackcomposeplayground.ROUTE_SPEEDOMETER
+import br.com.nglauber.jetpackcomposeplayground.ROUTE_SUBCOMPOSABLE
+import br.com.nglauber.jetpackcomposeplayground.ROUTE_SWIPEABLE
+import br.com.nglauber.jetpackcomposeplayground.ROUTE_TABLE
+import br.com.nglauber.jetpackcomposeplayground.ROUTE_TAKE_PICTURE
+import br.com.nglauber.jetpackcomposeplayground.ROUTE_TOUCHABLE_FEEDBACK
+import br.com.nglauber.jetpackcomposeplayground.ROUTE_VIEW_PAGER
+import br.com.nglauber.jetpackcomposeplayground.ROUTE_VIEW_PAGER_BOTTOM_NAV
+import br.com.nglauber.jetpackcomposeplayground.ROUTE_VIEW_PAGER_TABS
+import br.com.nglauber.jetpackcomposeplayground.ROUTE_WEB_VIEW
+import br.com.nglauber.jetpackcomposeplayground.ROUTE_YOUTUBE
 
 @Composable
 fun MainScreen(navController: NavHostController) {
@@ -58,6 +125,7 @@ fun MainScreen(navController: NavHostController) {
             R.string.route_instagram_progress to ROUTE_INSTAGRAM_PROGRESS,
             R.string.route_flip_card to ROUTE_FLIP_CARD,
             R.string.route_canvas to ROUTE_CANVAS,
+            R.string.route_haxagon to ROUTE_HEXAGON,
             R.string.route_speedometer to ROUTE_SPEEDOMETER,
             R.string.route_bottom_sheet to ROUTE_BOTTOM_SHEET,
             R.string.route_broadcast to ROUTE_BROADCAST,
@@ -107,10 +175,12 @@ fun MainScreen(navController: NavHostController) {
                         when (route) {
                             ROUTE_EXIT ->
                                 activity?.finish()
+
                             ROUTE_COMPOSABLE_VIEW ->
                                 activity?.startActivity(
                                     Intent(activity, MyJavaActivity::class.java)
                                 )
+
                             else -> {
                                 NavOptionsBuilder()
                                     .anim { }

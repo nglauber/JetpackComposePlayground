@@ -15,7 +15,71 @@ import br.com.nglauber.jetpackcomposeplayground.paging.MarvelCharactersScreen
 import br.com.nglauber.jetpackcomposeplayground.paging.MarvelCharactersViewModel
 import br.com.nglauber.jetpackcomposeplayground.rest.BooksScreen
 import br.com.nglauber.jetpackcomposeplayground.rest2.DogsViewModel
-import br.com.nglauber.jetpackcomposeplayground.screens.*
+import br.com.nglauber.jetpackcomposeplayground.screens.AnimatingListScreen
+import br.com.nglauber.jetpackcomposeplayground.screens.AnimationScreen
+import br.com.nglauber.jetpackcomposeplayground.screens.AvatarStackScreen
+import br.com.nglauber.jetpackcomposeplayground.screens.BackdropScaffoldScreen
+import br.com.nglauber.jetpackcomposeplayground.screens.BottomNavSwipeScreen
+import br.com.nglauber.jetpackcomposeplayground.screens.BottomSheetScreen
+import br.com.nglauber.jetpackcomposeplayground.screens.BottomSheetViaRoute
+import br.com.nglauber.jetpackcomposeplayground.screens.BoxScreen
+import br.com.nglauber.jetpackcomposeplayground.screens.BroadcastScreen
+import br.com.nglauber.jetpackcomposeplayground.screens.CanvasScreen
+import br.com.nglauber.jetpackcomposeplayground.screens.ChangeLanguageScreen
+import br.com.nglauber.jetpackcomposeplayground.screens.CollapsingEffectScreen
+import br.com.nglauber.jetpackcomposeplayground.screens.ConstraintLayoutBarrierScreen
+import br.com.nglauber.jetpackcomposeplayground.screens.ConstraintLayoutScreen
+import br.com.nglauber.jetpackcomposeplayground.screens.CoroutinesScreen
+import br.com.nglauber.jetpackcomposeplayground.screens.CurvedScrollScreen
+import br.com.nglauber.jetpackcomposeplayground.screens.CustomBackStackScreenA
+import br.com.nglauber.jetpackcomposeplayground.screens.CustomBackStackScreenB
+import br.com.nglauber.jetpackcomposeplayground.screens.CustomBackStackScreenC
+import br.com.nglauber.jetpackcomposeplayground.screens.CustomNavTypeScreen1
+import br.com.nglauber.jetpackcomposeplayground.screens.CustomNavTypeScreen2
+import br.com.nglauber.jetpackcomposeplayground.screens.DatePickerScreen
+import br.com.nglauber.jetpackcomposeplayground.screens.DerivedStateScreen
+import br.com.nglauber.jetpackcomposeplayground.screens.Device
+import br.com.nglauber.jetpackcomposeplayground.screens.DropDownScreen
+import br.com.nglauber.jetpackcomposeplayground.screens.EmphasisScreen
+import br.com.nglauber.jetpackcomposeplayground.screens.ExportComposableScreen
+import br.com.nglauber.jetpackcomposeplayground.screens.FlipCardScreen
+import br.com.nglauber.jetpackcomposeplayground.screens.FocusRequestScreen
+import br.com.nglauber.jetpackcomposeplayground.screens.Form2Screen
+import br.com.nglauber.jetpackcomposeplayground.screens.FormScreen
+import br.com.nglauber.jetpackcomposeplayground.screens.GetActivityResultScreen
+import br.com.nglauber.jetpackcomposeplayground.screens.GridScreen
+import br.com.nglauber.jetpackcomposeplayground.screens.HexagonShapeScreen
+import br.com.nglauber.jetpackcomposeplayground.screens.HorizontalScrollScreen
+import br.com.nglauber.jetpackcomposeplayground.screens.ImageScreen
+import br.com.nglauber.jetpackcomposeplayground.screens.KeyboardScreen
+import br.com.nglauber.jetpackcomposeplayground.screens.LifecycleSampleScreen
+import br.com.nglauber.jetpackcomposeplayground.screens.ListWithCustomStickHeaderScreen
+import br.com.nglauber.jetpackcomposeplayground.screens.ListWithGradientBgScreen
+import br.com.nglauber.jetpackcomposeplayground.screens.ListWithParallaxImageScreen
+import br.com.nglauber.jetpackcomposeplayground.screens.ListWithStickHeaderScreen
+import br.com.nglauber.jetpackcomposeplayground.screens.MainScreen
+import br.com.nglauber.jetpackcomposeplayground.screens.MultiScrollScreen
+import br.com.nglauber.jetpackcomposeplayground.screens.MyInstagramScreen
+import br.com.nglauber.jetpackcomposeplayground.screens.NestedScrollScreen
+import br.com.nglauber.jetpackcomposeplayground.screens.NumberPadScreen
+import br.com.nglauber.jetpackcomposeplayground.screens.OneFingerImageRotationScreen
+import br.com.nglauber.jetpackcomposeplayground.screens.ReactionsTouchScreen
+import br.com.nglauber.jetpackcomposeplayground.screens.RevealSwipeScreen
+import br.com.nglauber.jetpackcomposeplayground.screens.RowSnapperScreen
+import br.com.nglauber.jetpackcomposeplayground.screens.ScaffoldScreen
+import br.com.nglauber.jetpackcomposeplayground.screens.ScoreScreen
+import br.com.nglauber.jetpackcomposeplayground.screens.ScrollAnimationScreen
+import br.com.nglauber.jetpackcomposeplayground.screens.SlideInAnimationScreen
+import br.com.nglauber.jetpackcomposeplayground.screens.SpeedometerScreen
+import br.com.nglauber.jetpackcomposeplayground.screens.SubcomposableSampleScreen
+import br.com.nglauber.jetpackcomposeplayground.screens.SwipeableSampleScreen5
+import br.com.nglauber.jetpackcomposeplayground.screens.TableScreen
+import br.com.nglauber.jetpackcomposeplayground.screens.TakePictureScreen
+import br.com.nglauber.jetpackcomposeplayground.screens.TouchableFeedback
+import br.com.nglauber.jetpackcomposeplayground.screens.ViewPagerScreen
+import br.com.nglauber.jetpackcomposeplayground.screens.ViewPagerTabsScreen
+import br.com.nglauber.jetpackcomposeplayground.screens.WebViewScreen
+import br.com.nglauber.jetpackcomposeplayground.screens.YouTubeScreen
 import br.com.nglauber.jetpackcomposeplayground.util.navigate
 import coil.annotation.ExperimentalCoilApi
 import com.google.accompanist.navigation.animation.composable
@@ -71,6 +135,7 @@ fun NavGraphBuilder.appNavigator(
     composable(ROUTE_SLIDE_ANIMATION) { SlideInAnimationScreen() }
     composable(ROUTE_FLIP_CARD) { FlipCardScreen() }
     composable(ROUTE_CANVAS) { CanvasScreen() }
+    composable(ROUTE_HEXAGON) { HexagonShapeScreen() }
     composable(ROUTE_SPEEDOMETER) { SpeedometerScreen() }
     composable(ROUTE_BOTTOM_SHEET) { BottomSheetScreen(it) }
     composable(ROUTE_BROADCAST) { BroadcastScreen() }

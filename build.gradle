@@ -9,7 +9,7 @@ buildscript {
         compose_version = '1.2.0-rc02'
         core_ktx_version = '1.8.0'
         fragment_ktx_version = '1.5.2'
-        gradle_plugin_version = '8.0.0-alpha02'
+        gradle_plugin_version = '8.0.0-alpha11'
         gson_version = '2.9.0'
         gson_converter_version = '2.9.0'
         kotlin_version = '1.6.21'

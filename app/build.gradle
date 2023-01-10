@@ -5,13 +5,13 @@ plugins {
 }
 
 android {
-    compileSdkVersion 32
+    compileSdkVersion 33
     buildToolsVersion "30.0.3"
 
     defaultConfig {
         applicationId "br.com.nglauber.jetpackcomposeplayground"
         minSdkVersion 24
-        targetSdkVersion 32
+        targetSdkVersion 33
         versionCode 1
         versionName "1.0"
 
@@ -77,7 +77,7 @@ dependencies {
 
     implementation "androidx.navigation:navigation-compose:$compose_navigation_version"
 
-    implementation "androidx.webkit:webkit:$webkitVersion"
+    implementation "androidx.webkit:webkit:$webkit_version"
 
     implementation "com.google.android.material:material:$material_version"
     implementation "com.google.code.gson:gson:$gson_version"
@@ -88,8 +88,8 @@ dependencies {
     implementation "com.google.accompanist:accompanist-navigation-material:$accompanist_version"
     implementation "com.google.accompanist:accompanist-swiperefresh:$accompanist_version"
 
-    implementation "io.coil-kt:coil-compose:$coilVersion"
-    implementation "io.coil-kt:coil-svg:$coilVersion"
+    implementation "io.coil-kt:coil-compose:$coil_version"
+    implementation "io.coil-kt:coil-svg:$coil_version"
     implementation "com.squareup.okhttp3:okhttp:$okhttp_version"
     implementation "com.github.jeziellago:compose-markdown:$markdown_version"
     implementation "de.charlex.compose:revealswipe:$reveal_swipe_version"

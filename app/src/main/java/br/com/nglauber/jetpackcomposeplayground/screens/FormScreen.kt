@@ -52,9 +52,10 @@ fun FormScreen() {
 
     var date by remember { mutableStateOf<Date?>(null) }
 
-    Column(Modifier
-        .fillMaxSize()
-        .verticalScroll(rememberScrollState())
+    Column(
+        Modifier
+            .fillMaxSize()
+            .verticalScroll(rememberScrollState())
     ) {
         TextField(
             value = nameState,
@@ -131,7 +132,7 @@ fun MyCalendar(current: Date?, onDateUpdate: (Date) -> Unit) {
             val textView = view.findViewById<TextView>(R.id.txtDate)
             val calendarView = view.findViewById<CalendarView>(R.id.calendarView)
             val button = view.findViewById<Button>(R.id.button)
-            calendarView?.setOnDateChangeListener { cv, year, month, day ->
+            calendarView?.setOnDateChangeListener { _, year, month, day ->
                 val date = Calendar.getInstance().apply {
                     set(year, month, day)
                 }.time
@@ -146,7 +147,7 @@ fun MyCalendar(current: Date?, onDateUpdate: (Date) -> Unit) {
             }
             view
         },
-        update = { view ->
+        update = {
             // Update view
         }
     )

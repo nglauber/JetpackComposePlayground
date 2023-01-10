@@ -198,7 +198,7 @@ fun ZoomableImage(modifier: Modifier) {
             .clip(RectangleShape) // Clip the box content
             .background(Color.Gray)
             .pointerInput(Unit) {
-                detectTransformGestures { centroid, pan, zoom, rotation ->
+                detectTransformGestures { _, _, zoom, rotation ->
                     scaleState *= zoom
                     rotationState += rotation
                 }
@@ -231,7 +231,7 @@ fun ZoomAndTranslateImage() {
 
     Box(
         modifier = Modifier
-            .transformable(state = TransformableState { zoomChange, panChange, rotationChange ->
+            .transformable(state = TransformableState { zoomChange, panChange, _ ->
                 scale *= zoomChange
                 translate += panChange
             })

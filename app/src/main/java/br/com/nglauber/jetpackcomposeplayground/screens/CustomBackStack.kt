@@ -72,7 +72,7 @@ fun navigatingBack(
     navController: NavHostController,
     destinationRoute: String
 ) {
-    val hasBackstackTheDestinationRoute = navController.backQueue.find {
+    val hasBackstackTheDestinationRoute = navController.currentBackStack.value.find {
         it.destination.route == destinationRoute
     } != null
     // if the destination is already in the backstack, simply go back

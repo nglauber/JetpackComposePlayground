@@ -1,6 +1,10 @@
 package br.com.nglauber.jetpackcomposeplayground.bottomnav
 
-import androidx.compose.material.*
+import androidx.compose.material.BottomNavigation
+import androidx.compose.material.BottomNavigationItem
+import androidx.compose.material.Icon
+import androidx.compose.material.Scaffold
+import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
@@ -9,7 +13,11 @@ import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavHostController
-import androidx.navigation.compose.*
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.currentBackStackEntryAsState
+import androidx.navigation.compose.navigation
+import androidx.navigation.compose.rememberNavController
 
 // Main Tabs
 private val tabItems = listOf(
@@ -90,7 +98,7 @@ private fun navigate(
 ) {
     navController.navigate(route) {
         val navigationRoutes = tabItems.map { it.route }
-        val firstBottomBarDestination = navController.backQueue.firstOrNull {
+        val firstBottomBarDestination = navController.currentBackStack.value.firstOrNull {
             navigationRoutes.contains(it.destination.route)
         }?.destination
         // remove all navigation items from the stack

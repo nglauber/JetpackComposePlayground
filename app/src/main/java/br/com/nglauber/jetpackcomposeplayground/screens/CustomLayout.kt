@@ -3,7 +3,12 @@ package br.com.nglauber.jetpackcomposeplayground.screens
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.horizontalScroll
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
@@ -56,7 +61,7 @@ fun StaggeredGrid(
 
             // Grid's height is the sum of the tallest element of each row
             // coerced to the height constraints
-            val height = rowMaxHeights.sumBy { it }
+            val height = rowMaxHeights.sumOf { it }
                 .coerceIn(constraints.minHeight.rangeTo(constraints.maxHeight))
 
             // Y of each row, based on the height accumulation of previous rows

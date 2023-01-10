@@ -19,7 +19,7 @@ object DoggyHttp {
             .url(DOGGY_JSON_URL)
             .build()
         val response = client.newCall(request).execute()
-        val json = response.body?.string()
+        val json = response.body.string()
         val gson = Gson()
         val itemType = object : TypeToken<List<Doggy>>() {}.type
         return gson.fromJson(json, itemType)

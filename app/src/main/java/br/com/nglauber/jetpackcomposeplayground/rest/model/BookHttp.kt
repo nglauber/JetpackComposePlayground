@@ -18,7 +18,7 @@ object BookHttp {
             .url(BOOK_JSON_URL)
             .build()
         val response = client.newCall(request).execute()
-        val json = response.body?.string()
+        val json = response.body.string()
         val gson = Gson()
         val publisher = gson.fromJson(json, Publisher::class.java)
         return publisher.categories

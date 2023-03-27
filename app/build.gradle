@@ -2,10 +2,12 @@ plugins {
     id 'com.android.application'
     id 'kotlin-android'
     id 'kotlin-parcelize'
+    id 'org.jetbrains.kotlin.android'
 }
 
 android {
     compileSdkVersion 33
+    compileSdkPreview "UpsideDownCake"
     buildToolsVersion "30.0.3"
 
     defaultConfig {
@@ -37,11 +39,11 @@ android {
     buildFeatures {
         compose true
     }
+    composeOptions {
+        kotlinCompilerExtensionVersion = "1.4.4"
+    }
     viewBinding {
         enabled true
-    }
-    composeOptions {
-        kotlinCompilerExtensionVersion compose_version
     }
     namespace 'br.com.nglauber.jetpackcomposeplayground'
 }
@@ -83,7 +85,6 @@ dependencies {
     implementation "com.google.code.gson:gson:$gson_version"
 
     implementation "com.google.accompanist:accompanist-navigation-animation:$accompanist_version"
-    implementation "com.google.accompanist:accompanist-pager:$accompanist_version"
     implementation "com.google.accompanist:accompanist-pager-indicators:$accompanist_version"
     implementation "com.google.accompanist:accompanist-navigation-material:$accompanist_version"
     implementation "com.google.accompanist:accompanist-swiperefresh:$accompanist_version"
@@ -104,6 +105,7 @@ dependencies {
     implementation "androidx.paging:paging-compose:$paging_compose_version"
 
     implementation "androidx.test.espresso.idling:idling-concurrent:$expresso_idling_concurrent_version"
+    implementation "androidx.core:core-ktx:$core_ktx_version"
 
     testImplementation "junit:junit:$junit_version"
     androidTestImplementation "androidx.test.ext:junit:$ext_junit_version"

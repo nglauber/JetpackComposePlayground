@@ -1,11 +1,25 @@
 package br.com.nglauber.jetpackcomposeplayground.screens
 
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.*
+import androidx.compose.foundation.pager.HorizontalPager
+import androidx.compose.foundation.pager.rememberPagerState
+import androidx.compose.material.BottomAppBar
+import androidx.compose.material.BottomNavigationItem
+import androidx.compose.material.ExperimentalMaterialApi
+import androidx.compose.material.Icon
+import androidx.compose.material.IconButton
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.ModalBottomSheetLayout
+import androidx.compose.material.ModalBottomSheetValue
+import androidx.compose.material.Scaffold
+import androidx.compose.material.Text
+import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Home
+import androidx.compose.material.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
@@ -13,16 +27,10 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import br.com.nglauber.jetpackcomposeplayground.R
-import com.google.accompanist.pager.ExperimentalPagerApi
-import com.google.accompanist.pager.HorizontalPager
-import com.google.accompanist.pager.rememberPagerState
-import kotlinx.coroutines.CancellationException
-import kotlinx.coroutines.currentCoroutineContext
-import kotlinx.coroutines.ensureActive
 import kotlinx.coroutines.launch
 
 @ExperimentalMaterialApi
-@ExperimentalPagerApi
+@ExperimentalFoundationApi
 @Composable
 fun BottomNavSwipeScreen() {
     val scope = rememberCoroutineScope()
@@ -35,12 +43,13 @@ fun BottomNavSwipeScreen() {
     val pageState = rememberPagerState(initialPage = 0)
 
     val coroutineScope = rememberCoroutineScope()
-    val modalBottomSheetState = rememberModalBottomSheetState(
-        initialValue = ModalBottomSheetValue.Hidden,
-        confirmStateChange = {
-            it != ModalBottomSheetValue.HalfExpanded
-        }
-    )
+    val modalBottomSheetState =
+        rememberModalBottomSheetState(
+            initialValue = ModalBottomSheetValue.Hidden,
+            confirmValueChange = {
+                it != ModalBottomSheetValue.HalfExpanded
+            }
+        )
     ModalBottomSheetLayout(
         sheetState = modalBottomSheetState,
         sheetContent = {
@@ -59,7 +68,7 @@ fun BottomNavSwipeScreen() {
                                 if (modalBottomSheetState.isVisible) {
                                     modalBottomSheetState.hide()
                                 } else {
-                                    modalBottomSheetState.forceExpand()
+                                    modalBottomSheetState.show()
                                 }
                             }
                         }) {
@@ -92,7 +101,7 @@ fun BottomNavSwipeScreen() {
         ) {
             HorizontalPager(
                 state = pageState,
-                count = images.size,
+                pageCount = images.size,
                 modifier = Modifier.padding(it),
             ) { page ->
                 Image(
@@ -104,16 +113,5 @@ fun BottomNavSwipeScreen() {
                 )
             }
         }
-    }
-}
-
-// https://issuetracker.google.com/issues/181593642#comment6
-@ExperimentalMaterialApi
-suspend fun ModalBottomSheetState.forceExpand() {
-    try {
-        animateTo(ModalBottomSheetValue.Expanded)
-    } catch (e: CancellationException) {
-        currentCoroutineContext().ensureActive()
-        forceExpand()
     }
 }

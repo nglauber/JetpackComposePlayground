@@ -10,7 +10,8 @@ import kotlinx.coroutines.launch
 @Composable
 fun BottomSheetScreen(navBackStackEntry: NavBackStackEntry) {
     val scope = rememberCoroutineScope()
-    val bottomSheetState = rememberModalBottomSheetState(ModalBottomSheetValue.Hidden)
+    val bottomSheetState =
+        rememberModalBottomSheetState(ModalBottomSheetValue.Hidden, skipHalfExpanded = true)
     ModalBottomSheetLayout(
         sheetState = bottomSheetState,
         sheetContent = {

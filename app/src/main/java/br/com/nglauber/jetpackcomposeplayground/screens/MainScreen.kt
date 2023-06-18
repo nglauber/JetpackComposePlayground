@@ -61,6 +61,7 @@ import br.com.nglauber.jetpackcomposeplayground.ROUTE_INSTAGRAM_PROGRESS
 import br.com.nglauber.jetpackcomposeplayground.ROUTE_KEYBOARD
 import br.com.nglauber.jetpackcomposeplayground.ROUTE_LIFECYCLE
 import br.com.nglauber.jetpackcomposeplayground.ROUTE_LIST_GRADIENT_BG
+import br.com.nglauber.jetpackcomposeplayground.ROUTE_LIST_HEXAGON_SHAPE
 import br.com.nglauber.jetpackcomposeplayground.ROUTE_LIST_PARALLAX_IMG
 import br.com.nglauber.jetpackcomposeplayground.ROUTE_LIST_STICK_HEADER
 import br.com.nglauber.jetpackcomposeplayground.ROUTE_LIST_STICK_HEADER_CUSTOM
@@ -136,6 +137,7 @@ fun MainScreen(navController: NavHostController) {
             R.string.route_list_sticky_header_custom to ROUTE_LIST_STICK_HEADER_CUSTOM,
             R.string.route_list_gradient_bg to ROUTE_LIST_GRADIENT_BG,
             R.string.route_list_prallax_img to ROUTE_LIST_PARALLAX_IMG,
+            R.string.route_list_hexagon_shape to ROUTE_LIST_HEXAGON_SHAPE,
             R.string.route_reveal_swipe to ROUTE_REVEAL_SWIPE,
             R.string.route_swipeable to ROUTE_SWIPEABLE,
             R.string.route_nested_scroll to ROUTE_NESTED_SCROLL,

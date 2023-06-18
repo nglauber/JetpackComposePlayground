@@ -42,6 +42,7 @@
     <string name="route_list_sticky_header_custom">List com Sticky Header (Customizado)</string>
     <string name="route_list_gradient_bg">List com Background Gradiente</string>
     <string name="route_list_prallax_img">List com Imagem Parallax</string>
+    <string name="route_list_hexagon_shape">List com itens hexagonais</string>
     <string name="route_reveal_swipe">Reveal Swipe</string>
     <string name="route_swipeable">Swipeable</string>
     <string name="route_nested_scroll">Nested Scroll</string>

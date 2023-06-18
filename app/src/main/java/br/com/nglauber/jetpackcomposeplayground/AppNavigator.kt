@@ -34,6 +34,7 @@ import br.com.nglauber.jetpackcomposeplayground.screens.CurvedScrollScreen
 import br.com.nglauber.jetpackcomposeplayground.screens.CustomBackStackScreenA
 import br.com.nglauber.jetpackcomposeplayground.screens.CustomBackStackScreenB
 import br.com.nglauber.jetpackcomposeplayground.screens.CustomBackStackScreenC
+import br.com.nglauber.jetpackcomposeplayground.screens.ListWithHexagonShapeScreen
 import br.com.nglauber.jetpackcomposeplayground.screens.CustomNavTypeScreen1
 import br.com.nglauber.jetpackcomposeplayground.screens.CustomNavTypeScreen2
 import br.com.nglauber.jetpackcomposeplayground.screens.DatePickerScreen
@@ -146,6 +147,7 @@ fun NavGraphBuilder.appNavigator(
     composable(ROUTE_LIST_STICK_HEADER_CUSTOM) { ListWithCustomStickHeaderScreen() }
     composable(ROUTE_LIST_GRADIENT_BG) { ListWithGradientBgScreen() }
     composable(ROUTE_LIST_PARALLAX_IMG) { ListWithParallaxImageScreen() }
+    composable(ROUTE_LIST_HEXAGON_SHAPE) { ListWithHexagonShapeScreen() }
     composable(ROUTE_NESTED_SCROLL) {
         val viewModel = viewModel<DogsViewModel>()
         NestedScrollScreen(viewModel)
